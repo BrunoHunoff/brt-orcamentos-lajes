@@ -1,6 +1,6 @@
-import AddCircle from "../../assets/add_circle.svg";
-import Clipboard from "../../assets/Clipboard.svg";
-import People from "../../assets/gmail_groups.svg";
+import AddCircle from "../../components/Icons/Add";
+import Clipboard from "../../components/Icons/Clipboard";
+import People from "../../components/Icons/Clients";
 import "./sidebar.css";
 
 function Sidebar() {
@@ -18,20 +18,20 @@ function Sidebar() {
       <nav className="sidebar-nav">
         <ul>
           <li>
-            <button>
-              <img src={AddCircle} />
+            <button className="sidebar-btn">
+              <AddCircle className='sidebar-icon'/>
               <span>Novo orçamento</span>
             </button>
           </li>
           <li>
-            <button type="">
-              <img src={Clipboard} />
+            <button className="sidebar-btn">
+              <Clipboard className='sidebar-icon'/>
               <span>Orçamentos</span>
             </button>
           </li>
           <li>
-            <button>
-              <img src={People} />
+            <button className="sidebar-btn">
+              <People className='sidebar-icon'/>
               <span>Clientes</span>
             </button>
           </li>
