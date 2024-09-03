@@ -1,0 +1,38 @@
+.sidebar{
+    height: 100vh;
+    background: linear-gradient(#717A84, #40505F, #2C3E50);
+    width: 200px;
+    padding-left: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.logo-container{
+    background: none;
+    width: fit-content;
+    height: fit-content;
+    padding-block: 48px;
+    color: #E7E2E2;
+}
+
+button{
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    height: 48px;
+    width: 190px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #E7E2E2;
+    width:fit-content;
+}
+
+button:hover, a:hover{
+    cursor: pointer;
+    color: #A4A7AB;
+}
+
+img{
+    padding-right: 8px;
+}
