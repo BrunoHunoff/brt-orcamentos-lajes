@@ -1,0 +1,25 @@
+.header{
+    color: #2D3F51;
+    width: 100vw;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.user-button {
+    position: absolute;
+    right: 48px;
+    color: #2D3F51;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.user-button:hover {
+    color: #717A84;
+}
+
+.header-icon:hover {
+    fill: #717A84;
+}
