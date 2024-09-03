@@ -1,12 +1,12 @@
 .sidebar{
     height: 100vh;
     background: linear-gradient(#717A84, #40505F, #2C3E50);
-    width: 200px;
-    padding-left: 20px;
+    width: fit-content;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: 1;
+    padding-inline: 24px;
 }
 
 .logo-container{
@@ -20,12 +20,11 @@
 .sidebar-btn{
     justify-content: baseline;
     height: 48px;
-    width: 190px;
+    width:max-content;
     background: none;
     border: none;
     font-size: 16px;
     color: #E7E2E2;
-    width:fit-content;
     gap: 8px;
 }
 

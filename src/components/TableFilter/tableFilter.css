@@ -1,0 +1,43 @@
+.table-filter{
+    margin-top: 88px;
+    display: flex;
+    width: 100vw;
+    height: 48px;
+    padding-inline: 100px;
+    justify-content: space-between;
+}
+
+.filter-button{
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    font-weight: 600;
+    height: 40px;
+    gap: 4px;
+}
+
+.filter-button.add{
+    color: #E7E2E2;
+    background: #2D3F51;
+    width: 180px;
+}
+
+.filter-button.filter{
+    color: #2D3F51;
+    border: #2D3F51 solid 1px;
+    fill: #2D3F51;
+    width: 124px;
+}
+
+.add-icon{
+    fill: #E7E2E2;
+}
+
+.filter-container {
+    display: flex;
+    gap: 24px;
+}
+
+
+
