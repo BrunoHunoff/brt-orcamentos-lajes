@@ -18,8 +18,13 @@
 
 .user-button:hover {
     color: #717A84;
+    cursor: pointer;
 }
 
 .header-icon:hover {
     fill: #717A84;
+}
+
+.header-icon.user{
+    padding-right: 6px;
 }

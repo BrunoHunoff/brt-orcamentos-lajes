@@ -9,7 +9,7 @@ function Header(props) {
             <h1 className='header-title'>{props.pageTitle}</h1>
 
             <button className='user-button'>
-                <User className='header-icon'/>
+                <User className='header-icon user'/>
                 <span>{props.userName}</span>
                 <ArrowDropDown className='header-icon'/>
             </button>
