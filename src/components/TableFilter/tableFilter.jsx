@@ -1,4 +1,6 @@
 import AddButton from "../Icons/AddButton";
+import FilterIcon from "../Icons/FilterIcon";
+import ListIcon from "../Icons/ListIcon";
 import "./tableFilter.css";
 
 function TableFilter(props) {
@@ -11,11 +13,11 @@ function TableFilter(props) {
 
       <div className="filter-container">
         <button className="filter-button filter">
-          <AddButton className="filter-icon" />
+          <ListIcon className="filter-icon" />
           <span className="filter-button-txt">Ordenar</span>
         </button>
         <button className="filter-button filter">
-          <AddButton className="filter-icon" />
+          <FilterIcon className="filter-icon" />
           <span className="filter-button-txt">Filtros</span>
         </button>
       </div>

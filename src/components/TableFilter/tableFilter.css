@@ -17,6 +17,17 @@
     gap: 4px;
 }
 
+.filter-button.add:hover {
+    cursor: pointer;
+    background: #717A84;
+}
+
+.filter-button.filter:hover {
+    cursor: pointer;
+    color: #717A84;
+    border-color: #717A84;
+}
+
 .filter-button.add{
     color: #E7E2E2;
     background: #2D3F51;
