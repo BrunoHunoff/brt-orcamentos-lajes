@@ -1,4 +1,5 @@
 import TableFilter from "../TableFilter/tableFilter";
+import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
 function TableLajes() {
@@ -24,6 +25,14 @@ function TableLajes() {
               <th></th>
             </tr>
           </thead>
+          <tbody className="table-body">
+            <TableRow/>
+            <TableRow/>
+            <TableRow/>
+            <TableRow/>
+            <TableRow/>
+            <TableRow/>
+          </tbody>
         </table>
       </div>
     </div>

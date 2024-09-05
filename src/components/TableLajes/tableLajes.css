@@ -22,10 +22,19 @@
     overflow: hidden;
     display: table;
     border-collapse: collapse;
+    border-spacing: 0;
 }
 
 .row{
-    height: 52px;
+    height: 68px;
+}
+
+.row th:first-child{
+    padding-left: 24px;
+}
+
+.row th:last-child{
+    padding-right: 24px;
 }
 
 .table-header{

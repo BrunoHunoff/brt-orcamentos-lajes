@@ -1,0 +1,40 @@
+.table-row {
+    height: 80px;
+    border-bottom: 1px solid #E7E2E2;
+}
+
+.table-row td:first-child{
+    padding-left: 24px;
+}
+
+.table-row td:last-child{
+    padding-right: 24px;
+}
+
+.table-data {
+    text-align: center;
+    vertical-align: middle; /* Centraliza verticalmente o conteúdo das células */
+}
+
+.actions-container {
+    display: flex;              /* Torna a célula flexível */
+    justify-content: center;     /* Centraliza horizontalmente os botões */
+    align-items: center;         /* Centraliza verticalmente os botões */
+    height: 80px;
+    gap: 4px;              /* Garante que a célula tenha a mesma altura da linha */
+}
+
+.action {
+    display: flex;
+    color: #E7E2E2;
+    align-items: center;         /* Centraliza o ícone verticalmente dentro do botão */
+    justify-content: center;     /* Centraliza o ícone horizontalmente */
+    height: 100%;                /* Ocupa toda a altura da célula */
+    background: none;
+    border: none;
+}
+
+.action:hover {
+    cursor: pointer;
+    color: #2D3F51;
+}
