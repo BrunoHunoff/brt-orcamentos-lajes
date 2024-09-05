@@ -1,0 +1,27 @@
+.date-selector{
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#date-selector-btn{
+    font-size: 16px;
+    font-weight: bold;
+    color: #E7E2E2;
+    border: 1px solid #E7E2E2;
+    border-radius: 20px;
+    padding-inline: 12px;
+    padding-block: 6px;
+    margin-inline: 12px;
+}
+
+.arrow{
+    color: #E7E2E2;
+}
+
+.arrow:hover, #date-selector-btn:hover{
+    color: #2D3F51;
+    cursor: pointer;
+    border-color: #2D3F51;
+}

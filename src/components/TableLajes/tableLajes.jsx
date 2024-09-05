@@ -1,3 +1,4 @@
+import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
@@ -5,9 +6,11 @@ import "./tableLajes.css";
 function TableLajes() {
   return (
     <div className="table-container">
-      <TableFilter filterName="Orçamento" />
 
+      <TableFilter filterName="Orçamento" />
+      
       <div className="table-lajes-container">
+        <TableDateSelector/>
         <table className="table-lajes">
           <colgroup>
             <col style={{ width: "15%" }} />

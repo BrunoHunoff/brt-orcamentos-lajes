@@ -10,31 +10,22 @@
     align-items: center;
     flex-direction: column;
     overflow: hidden;
-    padding-inline: 100px;
+    margin-inline: 100px;
+    background: #717A84;
+    border-radius: 20px;
 }
 
 .table-lajes{
-    width: 100%;
-    border-radius: 20px;
-    margin-top: 48px;
-    background: #717A84;
     color: #E7E2E2;
     overflow: hidden;
     display: table;
     border-collapse: collapse;
     border-spacing: 0;
+    border: none;
 }
 
 .row{
     height: 68px;
-}
-
-.row th:first-child{
-    padding-left: 24px;
-}
-
-.row th:last-child{
-    padding-right: 24px;
 }
 
 .table-header{
