@@ -1,7 +1,6 @@
 .table-filter{
-    margin-top: 88px;
     display: flex;
-    width: 100vw;
+    width:auto;
     height: 48px;
     padding-inline: 100px;
     justify-content: space-between;
@@ -49,6 +48,3 @@
     display: flex;
     gap: 24px;
 }
-
-
-
