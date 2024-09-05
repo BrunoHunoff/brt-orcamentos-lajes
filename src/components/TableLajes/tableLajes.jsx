@@ -12,6 +12,7 @@ function TableLajes() {
 
       <div className="table-lajes-container">
         <TableDateSelector/>
+        
         <table className="table-lajes">
           <colgroup>
             <col style={{ width: "15%" }} />
@@ -30,7 +31,6 @@ function TableLajes() {
             </tr>
           </thead>
           <tbody className="table-body">
-            <TableRow/>
             <TableRow/>
             <TableRow/>
             <TableRow/>

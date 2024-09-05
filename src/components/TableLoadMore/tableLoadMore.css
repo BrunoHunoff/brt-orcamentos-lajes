@@ -1,7 +1,7 @@
 .table-load-more{
     display: flex;
     align-items: center;
-    height: 64px;
+    height: 80px;
 }
 
 .load-btn{
