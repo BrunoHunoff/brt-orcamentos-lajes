@@ -1,5 +1,6 @@
 import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
+import TableLoadMore from "../TableLoadMore/tableLoadMore";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
@@ -8,7 +9,7 @@ function TableLajes() {
     <div className="table-container">
 
       <TableFilter filterName="Orçamento" />
-      
+
       <div className="table-lajes-container">
         <TableDateSelector/>
         <table className="table-lajes">
@@ -37,7 +38,9 @@ function TableLajes() {
             <TableRow/>
           </tbody>
         </table>
+      <TableLoadMore/>
       </div>
+      
     </div>
   );
 }

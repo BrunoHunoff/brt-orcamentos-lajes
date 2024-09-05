@@ -1,0 +1,22 @@
+.table-load-more{
+    display: flex;
+    align-items: center;
+    height: 64px;
+}
+
+.load-btn{
+    color: #E7E2E2;
+    border: 1px solid #E7E2E2;
+    border-radius: 20px;
+    font-size: 16px;
+    background-color: #A4A7AB;
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+.load-btn:hover{
+    cursor: pointer;
+    color: #2D3F51;
+    background-color: none;
+    border-color: #2D3F51;
+}

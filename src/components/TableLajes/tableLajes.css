@@ -3,19 +3,21 @@
     margin-top: 88px;
     width: 100%;
     flex-direction: column;
+    margin-inline: 100px;
 }
 
 .table-lajes-container{
+    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     overflow: hidden;
-    margin-inline: 100px;
     background: #717A84;
     border-radius: 20px;
 }
 
 .table-lajes{
+    width: 100%;
     color: #E7E2E2;
     overflow: hidden;
     display: table;

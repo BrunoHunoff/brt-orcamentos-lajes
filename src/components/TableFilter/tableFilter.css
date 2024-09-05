@@ -2,7 +2,6 @@
     display: flex;
     width:auto;
     height: 48px;
-    padding-inline: 100px;
     justify-content: space-between;
 }
 
