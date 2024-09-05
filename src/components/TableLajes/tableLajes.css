@@ -10,10 +10,11 @@
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+    padding-inline: 100px;
 }
 
 .table-lajes{
-    width: 1000px;
+    width: 100%;
     border-radius: 20px;
     margin-top: 48px;
     background: #717A84;

@@ -1,5 +1,5 @@
 import TableFilter from "../TableFilter/tableFilter";
-import "./table.css";
+import "./tableLajes.css";
 
 function TableLajes() {
   return (
@@ -9,10 +9,11 @@ function TableLajes() {
       <div className="table-lajes-container">
         <table className="table-lajes">
           <colgroup>
-            <col style={{ width: "20%" }} />
+            <col style={{ width: "15%" }} />
             <col style={{ width: "35%" }} />
-            <col style={{ width: "20%" }} />
+            <col style={{ width: "15%" }} />
             <col style={{ width: "25%" }} />
+            <col style={{ width: "10%" }} />
           </colgroup>
           <thead className="table-header">
             <tr className="row">
@@ -20,6 +21,7 @@ function TableLajes() {
               <th>Cliente</th>
               <th>m²</th>
               <th>Atualizado em</th>
+              <th></th>
             </tr>
           </thead>
         </table>

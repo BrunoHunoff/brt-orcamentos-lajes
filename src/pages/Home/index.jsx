@@ -1,7 +1,7 @@
 import './index.css'
 import Sidebar from '../../components/Sidebar/sidebar'
 import Header from '../../components/Header/header'
-import TableLajes from '../../components/Table/TableLajes'
+import TableLajes from '../../components/TableLajes/tableLajes'
 
 function Home() {
 
