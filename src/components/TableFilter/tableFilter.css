@@ -15,9 +15,25 @@
     gap: 4px;
 }
 
-.filter-button.add:hover {
+.filter-link{
+    font-size: 16px;
+    display: flex;
+    color: #E7E2E2;
+    background: #2D3F51;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-weight: 600;
+    height: 40px;
+    width: 180px;
+    text-decoration: none;
+}
+
+.filter-link.add:hover {
     cursor: pointer;
     background: #717A84;
+    color: #E7E2E2;
 }
 
 .filter-button.filter:hover {
@@ -26,11 +42,6 @@
     border-color: #717A84;
 }
 
-.filter-button.add{
-    color: #E7E2E2;
-    background: #2D3F51;
-    width: 180px;
-}
 
 .filter-button.filter{
     color: #2D3F51;
