@@ -1,0 +1,20 @@
+.orcamentoDataHeader{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+}
+
+.number-row{
+    display: flex;
+    padding-inline: 20px;
+}
+
+.data-row{
+    gap: 8px;
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}

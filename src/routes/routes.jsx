@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import Orcamento from '../pages/Orcamento/orcamento';
-import Orcamentos from '../pages/Orcamentos/orcamentos';
 import Clientes from '../pages/Clientes/clientes';
 
 const AppRoutes = () => {
@@ -16,7 +15,7 @@ const AppRoutes = () => {
         {/* Outra rota para a página About */}
         <Route path="/orcamento" element={<Orcamento />} />
 
-        <Route path="/orcamentos" element={<Orcamentos />} />
+        <Route path="/orcamentos" element={<Home />} />
 
         <Route path="/clientes" element={<Clientes />} />
         
