@@ -1,0 +1,8 @@
+.orcamentoDataTable{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    background: #A4A7AB;
+    border-radius: 20px;
+    color: #FFF;
+}
