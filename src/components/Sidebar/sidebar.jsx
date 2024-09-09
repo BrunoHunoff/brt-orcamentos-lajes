@@ -25,7 +25,7 @@ function Sidebar() {
             </Link>
           </li>
           <li>
-            <Link to='/orcamentos' className="sidebar-btn">
+            <Link to='/' className="sidebar-btn">
               <Clipboard className='sidebar-icon'/>
               <span>Orçamentos</span>
             </Link>

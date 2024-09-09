@@ -19,7 +19,7 @@ function OrcamentoDataHeader() {
       <div className="data-row">
         <div className="select-container">
           <label htmlFor="clientes">Cliente</label>
-          <select id="clientes" className="clientes-select">
+          <select id="clientes" className="clientes-select"> {/* Melhorar essa solução para um dropdown mais elaborado */}
             <option value="opcao1">Cliente 1</option>
             <option value="opcao2">Cliente 2</option>
             <option value="opcao3">Cliente 3</option>
