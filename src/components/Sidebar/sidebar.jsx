@@ -2,6 +2,7 @@ import AddCircle from "../../components/Icons/Add";
 import Clipboard from "../../components/Icons/Clipboard";
 import People from "../../components/Icons/Clients";
 import "./sidebar.css";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
     const companyName = "BRT"
@@ -18,22 +19,22 @@ function Sidebar() {
       <nav className="sidebar-nav">
         <ul>
           <li>
-            <button className="sidebar-btn">
+            <Link to='/orcamento' className="sidebar-btn">
               <AddCircle className='sidebar-icon'/>
               <span>Novo orçamento</span>
-            </button>
+            </Link>
           </li>
           <li>
-            <button className="sidebar-btn">
+            <Link to='/orcamentos' className="sidebar-btn">
               <Clipboard className='sidebar-icon'/>
               <span>Orçamentos</span>
-            </button>
+            </Link>
           </li>
           <li>
-            <button className="sidebar-btn">
+            <Link to='/clientes' className="sidebar-btn">
               <People className='sidebar-icon'/>
               <span>Clientes</span>
-            </button>
+            </Link>
           </li>
         </ul>
       </nav>

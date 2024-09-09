@@ -17,7 +17,16 @@
     color: #E7E2E2;
 }
 
+.sidebar-nav ul{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
 .sidebar-btn{
+    display: flex;
+    align-items: center;
     justify-content: baseline;
     height: 48px;
     width:max-content;
@@ -26,6 +35,7 @@
     font-size: 16px;
     color: #E7E2E2;
     gap: 8px;
+    text-decoration: none;
 }
 
 .sidebar-btn:hover, a:hover{
