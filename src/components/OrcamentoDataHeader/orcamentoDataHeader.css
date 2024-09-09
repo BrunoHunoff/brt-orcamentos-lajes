@@ -1,20 +1,53 @@
 .orcamentoDataHeader{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     gap: 16px;
 }
 
 .number-row{
     display: flex;
-    padding-inline: 20px;
+    width: 90%;
 }
 
 .data-row{
-    gap: 8px;
     display: flex;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.select-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.select-container select{
+    height: 40px;
+    border-radius: 20px;
+    appearance: none;
+    font-size: 14px;
+    padding-inline: 20px;
+    border: none;
+    
+}
+
+.frete-select{
+    width: 100px;
+}
+
+.clientes-select{
+    width: 200px
+}
+
+.select-container::after{
+    position: absolute;
+    content: '▼'; 
+    right: 20px;                 /* Posiciona a seta à direita */
+    top: 55%;
 }
