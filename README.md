@@ -1,9 +1,33 @@
-# React + Vite
+<h1>Sistema para orçamento de lajes alveolares BRT</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h2>Visão Geral</h2>
 
-Currently, two official plugins are available:
+O sistema tem como objetivo a realização de orçamentos de Lajes Laveolares Protendidas, de forma simples e intuitiva.
+A Ideia é utilizar de uma interface minimalista, a fim de diminuir a curva de aprenziado.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# brt-orcamentos-lajes
+<h2>Funcionalidades</h2>
+
+- Criar, editar e excluir orçamentos
+- Adicionar novos clientes
+- Exportar orçamentos para PDF
+- Adicionar papel timbrado personalizado
+- Verificar orçamentos antigos
+
+<h2>Páginas e componentes</h2>
+
+<h3>Header</h3>
+- Nome da página
+- Usuário
+
+<h3>Sidebar</h3>
+- Menu de navegação
+  
+<h3>Home</h3>
+- Listagem dos orçamentos
+
+<h3>Orçamento</h3>
+- Criação e edição de orçamentos
+
+<h3>Clientes</h2>
+- Listagem de clientes
+- Modal para cadastro de novo cliente
