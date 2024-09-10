@@ -1,0 +1,26 @@
+.title-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 48px;
+    padding-block: 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.btn{
+    color: #fff;
+}
+
+.arrow{
+    transform: rotate(180deg); /*Girando o componente por preguiça de criar outro*/
+}
+
+.btn:hover{
+    cursor: pointer;
+    color: #E7E2E2;
+}
+
+.closed{
+    transform: rotate(0deg);
+}
