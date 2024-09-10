@@ -12,7 +12,15 @@
     color: #fff;
 }
 
+.arrow{
+    transform: rotate(180deg); /*Girando o componente por preguiça de criar outro*/
+}
+
 .btn:hover{
     cursor: pointer;
     color: #E7E2E2;
+}
+
+.closed{
+    transform: rotate(0deg);
 }
