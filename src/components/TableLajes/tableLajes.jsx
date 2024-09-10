@@ -1,6 +1,6 @@
+import TableBtn from "../TableBtn/tableBtn";
 import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
-import TableLoadMore from "../TableLoadMore/tableLoadMore";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
@@ -38,7 +38,7 @@ function TableLajes() {
             <TableRow/>
           </tbody>
         </table>
-      <TableLoadMore/>
+        <TableBtn btnName='Carregar Mais'/>
       </div>
       
     </div>

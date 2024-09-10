@@ -52,7 +52,7 @@ function OrcamentoDataHeader() {
           inputType="text"
           placeHolder="R$"
           inputId="freightPrice"
-          width="200px"
+          width="180px"
         />
       </div>
     </div>
