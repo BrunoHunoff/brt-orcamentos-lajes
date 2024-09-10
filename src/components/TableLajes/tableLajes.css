@@ -26,11 +26,11 @@
     border: none;
 }
 
-.row{
+.lajes-header-row{
     height: 68px;
 }
 
-.table-header{
+.lajes-table-header{
     background: #A4A7AB;
     color: #2D3F51;
     font-size: 18px;
