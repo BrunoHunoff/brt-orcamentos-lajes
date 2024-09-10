@@ -1,0 +1,30 @@
+.btn-container{
+    display: flex;
+    align-items:end;
+}
+
+.icon-btn{
+    border: 1px solid #2D3F51;
+    border-radius: 20px;
+    padding-inline: 12px;
+    padding-block: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2D3F51;
+}
+
+.icon-btn:hover{
+    cursor: pointer;
+    border-color: #fff;
+    color: #fff;
+}
+
+.light{
+    color: #fff;
+    border-color: #fff;
+}
+
+.light:hover{
+    color: #2D3F51;
+    border-color: #2D3F51;
+}

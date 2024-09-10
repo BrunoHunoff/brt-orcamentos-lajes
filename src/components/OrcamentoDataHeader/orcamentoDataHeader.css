@@ -10,6 +10,7 @@
 .number-row{
     display: flex;
     width: 90%;
+    justify-content: space-between;
 }
 
 .data-row{

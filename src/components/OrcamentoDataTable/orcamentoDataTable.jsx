@@ -1,6 +1,8 @@
 import OrcamentoDataRow from "../HeaderRow/orcamentoDataRow"
+import TableBtn from "../TableBtn/tableBtn"
 import TitleRow from "../TitleRow/titleRow"
 import './orcamentoDataTable.css'
+import '../IconBtn/iconBtn'
 
 function OrcamentoDataTable() {
     const headerItems = ['Item',
@@ -31,8 +33,9 @@ function OrcamentoDataTable() {
                 <OrcamentoDataRow key={index} items={item} showDelete={true}/>
             )
             })}
-
+            <TableBtn btnName='Novo Item'/>
         </div>
+        
     )
 }
 
