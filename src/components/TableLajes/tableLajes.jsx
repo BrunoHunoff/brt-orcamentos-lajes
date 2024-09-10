@@ -21,8 +21,8 @@ function TableLajes() {
             <col style={{ width: "25%" }} />
             <col style={{ width: "10%" }} />
           </colgroup>
-          <thead className="table-header">
-            <tr className="row">
+          <thead className="lajes-table-header">
+            <tr className="lajes-header-row">
               <th>ID</th>
               <th>Cliente</th>
               <th>m²</th>

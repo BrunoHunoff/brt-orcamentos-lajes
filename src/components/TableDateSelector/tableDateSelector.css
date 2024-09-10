@@ -16,11 +16,11 @@
     margin-inline: 12px;
 }
 
-.arrow{
+.date-arrow{
     color: #E7E2E2;
 }
 
-.arrow:hover, #date-selector-btn:hover{
+.date-arrow:hover, #date-selector-btn:hover{
     color: #2D3F51;
     cursor: pointer;
     border-color: #2D3F51;
