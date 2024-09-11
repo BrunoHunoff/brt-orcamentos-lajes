@@ -1,3 +1,4 @@
+
 import DeleteIcon from "../Icons/DeleteIcon";
 import EditIcon from "../Icons/Edit";
 import FileIcon from "../Icons/FileIcon";
@@ -12,13 +13,13 @@ function TableRow() {
       <td className="table-data">01/09/2024</td>
       <td className="table-data actions-container">
         <button className='action'>
-            <EditIcon />
+            <EditIcon/>
         </button>
         <button className='action'>
-            <DeleteIcon className='action'/>
+          <DeleteIcon width='20px' height='20px'/>
         </button>
         <button className="action">
-            <FileIcon className='action'/>
+            <FileIcon/>
         </button>
       </td>
     </tr>
