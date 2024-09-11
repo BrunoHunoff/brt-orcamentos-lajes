@@ -24,6 +24,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     border: none;
+    margin-bottom: 8px;
 }
 
 .lajes-header-row{
