@@ -1,3 +1,4 @@
+import { useState } from "react";
 import TableBtn from "../TableBtn/tableBtn";
 import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
@@ -5,6 +6,13 @@ import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
 function TableLajes() {
+
+  const [itens, setItens] = useState(['', '', '', '', '',])
+
+  const carregarMais = () => {
+    setItens = setItens(prevItens => [...prevItens, '', '', '', '', ''])
+  }
+
   return (
     <div className="table-container">
 
@@ -31,14 +39,12 @@ function TableLajes() {
             </tr>
           </thead>
           <tbody className="table-body">
-            <TableRow/>
-            <TableRow/>
-            <TableRow/>
-            <TableRow/>
-            <TableRow/>
+            {itens.map((iten, index) => {
+              return <TableRow key={index}/>
+            })}
           </tbody>
         </table>
-        <TableBtn btnName='Carregar Mais'/>
+        <TableBtn onClick={carregarMais} btnName='Carregar Mais'/>
       </div>
       
     </div>
