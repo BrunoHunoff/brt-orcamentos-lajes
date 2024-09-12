@@ -1,9 +1,9 @@
 import './iconBtn.css'
 
-function IconBtn( {btnName, btnIcon,btnClass } ) {
+function IconBtn( {btnName, btnIcon,btnClass, onClick } ) {
     return(
         <div className='btn-container'>
-            <button className={ `icon-btn ${btnClass}`}>
+            <button onClick={onClick} className={ `icon-btn ${btnClass}`}>
                 {btnIcon}
                 <span>{btnName}</span>
             </button>

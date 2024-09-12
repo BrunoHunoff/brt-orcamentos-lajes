@@ -4,7 +4,7 @@ import './orcamentoDataRow.css';
 import DeleteIcon from '../Icons/DeleteIcon';
 
 
-function OrcamentoDataRow({ items, showDelete, classname }) {
+function OrcamentoDataRow({ items, showDelete, classname, onDelete }) {
   return (
     <div className= {`row ${classname}`}>
         
@@ -26,7 +26,7 @@ function OrcamentoDataRow({ items, showDelete, classname }) {
       })}
 
       {showDelete && <button className='delete-btn'>
-        <DeleteIcon width='24px' height='24px'/>
+        <DeleteIcon onClick={onDelete} width='24px' height='24px'/>
       </button>}
 
     </div>
