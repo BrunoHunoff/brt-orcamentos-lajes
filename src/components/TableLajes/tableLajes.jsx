@@ -13,6 +13,10 @@ function TableLajes() {
     setItens = setItens(prevItens => [...prevItens, '', '', '', '', ''])
   }
 
+  const deleteIten = (index) => {
+    setItens(prevItens => prevItens.filter((_, i) => i !== index))
+}
+
   return (
     <div className="table-container">
 
@@ -40,7 +44,7 @@ function TableLajes() {
           </thead>
           <tbody className="table-body">
             {itens.map((iten, index) => {
-              return <TableRow key={index}/>
+              return <TableRow key={index} onDelete ={() => deleteIten(index)}/>
             })}
           </tbody>
         </table>
