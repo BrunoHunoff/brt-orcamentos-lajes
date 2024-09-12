@@ -4,7 +4,7 @@ import EditIcon from "../Icons/Edit";
 import FileIcon from "../Icons/FileIcon";
 import "./tableRow.css";
 
-function TableRow() {
+function TableRow( { onDelete }) {
   return (
     <tr className="table-row">
       <td className="table-data">00-000-0000</td>
@@ -16,7 +16,7 @@ function TableRow() {
             <EditIcon/>
         </button>
         <button className='action'>
-          <DeleteIcon width='20px' height='20px'/>
+          <DeleteIcon onClick={onDelete} width='20px' height='20px'/>
         </button>
         <button className="action">
             <FileIcon/>
