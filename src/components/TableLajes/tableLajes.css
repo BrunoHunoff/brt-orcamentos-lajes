@@ -1,9 +1,9 @@
 .table-container{
     display: flex;
-    margin-top: 88px;
-    width: 100%;
+    width: auto;
+    height: auto;
     flex-direction: column;
-    margin-inline: 100px;
+    margin-inline: 20px;
 }
 
 .table-lajes-container{
