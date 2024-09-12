@@ -8,8 +8,10 @@ function Home() {
   return (
     <div className='home'>
       <Sidebar/>
-      <Header pageTitle= 'Home' userName= 'Bruno Hunoff' />
-      <TableLajes/>
+      <div className='content'>
+        <Header pageTitle= 'Home' userName= 'Bruno Hunoff' />
+        <TableLajes/>
+      </div>
     </div>
 
   )

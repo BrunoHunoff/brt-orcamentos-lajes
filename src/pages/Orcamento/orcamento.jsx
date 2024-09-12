@@ -9,8 +9,11 @@ function Orcamento() {
     return (
         <div className="orcamento">
             <Sidebar/>
-            <Header pageTitle = 'Orçamento' userName = 'Bruno Hunoff'/>
-            <OrcamentoData/>
+
+            <div className='content'>
+                <Header pageTitle = 'Orçamento' userName = 'Bruno Hunoff'/>
+                <OrcamentoData/>
+            </div>
         </div>
     )
 }
