@@ -26,6 +26,9 @@ function OrcamentoDataTable( { onDelete }) {
 
     // Função para remover linha
     const removerItem = (index) => {
+
+        //não exlui se for a unica linha
+        if(itens.length == 1) return
         setItens(prevItens => prevItens.filter((_, i) => i !== index)); // Remove o item do estado
     };
 

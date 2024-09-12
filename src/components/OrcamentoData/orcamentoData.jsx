@@ -7,7 +7,7 @@ import OrcamentoDataTable from '../OrcamentoDataTable/orcamentoDataTable';
 import './orcamentoData.css';
 
 function OrcamentoData( ) {
-    const [tables, setTables] = useState([]);
+    const [tables, setTables] = useState(['']);
 
     // Função para adicionar uma nova tabela
     const addTable = () => {
@@ -15,13 +15,13 @@ function OrcamentoData( ) {
     };
 
     const deleteTable = (index) => {
+        if(tables.length == 1) return // Não permite excluir todas as tabelas
         setTables(prevTables => prevTables.filter((_, i) => i !== index))
     }
 
     return (
         <div className='orcamentoData'>
             <OrcamentoDataHeader />
-            <OrcamentoDataTable /> 
             {tables.map((table, index) => (
                 <OrcamentoDataTable key={index} onDelete={() => deleteTable(index)}/> // Certifique-se de fornecer uma key única
             ))}
