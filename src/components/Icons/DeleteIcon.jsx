@@ -1,6 +1,6 @@
 import React from "react";
 
-function DeleteIcon({width, height}) {
+function DeleteIcon({width, height, onClick}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +8,7 @@ function DeleteIcon({width, height}) {
       height={height}
       fill="none"
       viewBox="0 0 20 20"
+      onClick={onClick}
     >
       <path
         fill="currentColor"

@@ -1,10 +1,10 @@
 import './tableBtn.css'
 
-function TableBtn({ btnName }) {
+function TableBtn({ btnName, id, onClick }) {
 
     return(
         <div className='table-load-more'>
-            <button className='load-btn'>{btnName}</button>
+            <button id={id} onClick={onClick} className='load-btn'>{btnName}</button>
         </div>
     )
 }
