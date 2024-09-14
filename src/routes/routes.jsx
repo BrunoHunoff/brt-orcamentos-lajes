@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from '../pages/Home';
 import Orcamento from '../pages/Orcamento/orcamento';
 import Clientes from '../pages/Clientes/clientes';
+import Calculo from '../pages/Calculo/calculo';
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,8 @@ const AppRoutes = () => {
         <Route path="/orcamentos" element={<Home />} />
 
         <Route path="/clientes" element={<Clientes />} />
+
+        <Route path="/calculo" element={<Calculo />} />
         
         {/* Redireciona qualquer rota não existente para a Home */}
         <Route path="*" element={<Navigate to="/" />} />

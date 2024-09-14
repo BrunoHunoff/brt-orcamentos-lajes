@@ -4,7 +4,6 @@
     justify-content: center;
     height: 48px;
     margin-bottom: 8px;
-    width: 100%;
 }
 
 .load-btn{
@@ -12,14 +11,11 @@
     border: 1px solid #E7E2E2;
     border-radius: 20px;
     font-size: 16px;
-    background-color: #A4A7AB;
     font-weight: 500;
     padding: 6px 12px;
 }
 
 .load-btn:hover{
     cursor: pointer;
-    color: #2D3F51;
-    background-color: none;
-    border-color: #2D3F51;
+    filter: brightness(1.5);
 }
