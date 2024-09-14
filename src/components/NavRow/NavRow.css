@@ -1,5 +1,7 @@
-.nav-row{
-    background: black;
-    width: 100%;
+.nav-row-container {
     display: flex;
+    justify-content: flex-end; /* Alinha os itens à direita */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    margin-inline: 64px;
+    gap: 16px;
 }

@@ -26,7 +26,6 @@ function OrcamentoData( ) {
                 <OrcamentoDataTable key={index} onDelete={() => deleteTable(index)}/> // Certifique-se de fornecer uma key única
             ))}
             <IconBtn onClick={addTable} btnName='Nova Seção' btnIcon={<Add />} />
-            <NavRow />
         </div>
     );
 }
