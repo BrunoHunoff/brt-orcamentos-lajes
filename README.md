@@ -7,16 +7,16 @@ A Ideia é utilizar de uma interface minimalista, a fim de diminuir a curva de a
 
 <h2>Funcionalidades</h2>
 
-- Criar, editar e excluir orçamentos
-- Adicionar novos clientes
-- Exportar orçamentos para PDF
-- Adicionar papel timbrado personalizado
-- Verificar orçamentos antigos
+- Criar, editar e excluir orçamentos <br>
+- Adicionar novos clientes <br>
+- Exportar orçamentos para PDF <br>
+- Adicionar papel timbrado personalizado <br>
+- Verificar orçamentos antigos <br>
 
 <h2>Páginas e componentes</h2>
 
 <h3>Header</h3>
-- Nome da página
+- Nome da página <br>
 - Usuário
 
 <h3>Sidebar</h3>
