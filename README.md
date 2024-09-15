@@ -29,5 +29,5 @@ A Ideia é utilizar de uma interface minimalista, a fim de diminuir a curva de a
 - Criação e edição de orçamentos
 
 <h3>Clientes</h2>
-- Listagem de clientes
+- Listagem de clientes <br>
 - Modal para cadastro de novo cliente
