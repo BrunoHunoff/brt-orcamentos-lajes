@@ -5,7 +5,7 @@ import TableFilter from "../TableFilter/tableFilter";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
-function TableLajes() {
+function TableLajes({ headerItens, filterName  }) {
 
   const [itens, setItens] = useState(['', '', '', '', '',])
 
@@ -20,7 +20,7 @@ function TableLajes() {
   return (
     <div className="table-container">
 
-      <TableFilter filterName="Orçamento" />
+      <TableFilter filterName={filterName} />
 
       <div className="table-lajes-container">
         <TableDateSelector/>
@@ -35,10 +35,10 @@ function TableLajes() {
           </colgroup>
           <thead className="lajes-table-header">
             <tr className="lajes-header-row">
-              <th>ID</th>
-              <th>Cliente</th>
-              <th>m²</th>
-              <th>Atualizado em</th>
+              <th>{headerItens[0]}</th>
+              <th>{headerItens[1]}</th>
+              <th>{headerItens[2]}</th>
+              <th>{headerItens[3]}</th>
               <th></th>
             </tr>
           </thead>

@@ -1,0 +1,10 @@
+.home{
+    background-color: #E7E2E2;
+    display: flex;
+}
+
+.content{
+    margin-left: 220px;
+    height: 100vh;
+    width: 100%;
+}
