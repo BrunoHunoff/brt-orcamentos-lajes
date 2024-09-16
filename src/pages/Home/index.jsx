@@ -10,7 +10,7 @@ function Home() {
       <Sidebar/>
       <div className='content'>
         <Header pageTitle= 'Home' userName= 'Bruno Hunoff' />
-        <TableLajes/>
+        <TableLajes filterName='Orçamento' headerItens={['ID', 'Cliente', 'm²','Atualizado em']}/>
       </div>
     </div>
 
