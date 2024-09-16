@@ -5,7 +5,7 @@ import TableFilter from "../TableFilter/tableFilter";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
-function TableLajes({ headerItens, filterName  }) {
+function TableLajes({ headerItens, filterName, onButtonClick  }) {
 
   const [itens, setItens] = useState(['', '', '', '', '',])
 
@@ -20,7 +20,7 @@ function TableLajes({ headerItens, filterName  }) {
   return (
     <div className="table-container">
 
-      <TableFilter filterName={filterName} />
+      <TableFilter onButtonClick={onButtonClick} filterName={filterName} />
 
       <div className="table-lajes-container">
         <TableDateSelector/>
