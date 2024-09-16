@@ -1,0 +1,69 @@
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Adiciona alinhamento central vertical */
+    background: rgba(75, 75, 75, 0.5); /* Adiciona um fundo escuro semitransparente */
+    z-index: 1000; /* Garante que o modal esteja acima de outros elementos */
+}
+
+
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #E7E2E2;
+    color: #2D3F51;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;;
+    width: 60%;
+}
+
+.modal-content h2{
+    margin-bottom: 12px;
+}
+
+.modal-form{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-row{
+    display: flex;
+    gap: 24px;
+}
+
+.modal-select{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+.modal-select select{
+    height: 40px;
+    border-radius: 20px;
+    appearance: none;
+    font-size: 14px;
+    padding-inline: 20px;
+    border: none;
+}
+
+.modal-select::after{
+    position: absolute;
+    content: '▼'; 
+    right: 10px;                 /* Posiciona a seta à direita */
+    top: 59%;
+}
+
+.btn-row{
+    justify-content: center;
+}

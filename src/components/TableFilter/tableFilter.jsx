@@ -4,13 +4,13 @@ import ListIcon from "../Icons/ListIcon";
 import { Link } from 'react-router-dom';
 import "./tableFilter.css";
 
-function TableFilter(props) {
+function TableFilter({ onButtonClick, filterName }) {  // Corrigir para usar destructuring nas props
   return (
     <div className="table-filter">
-      <Link to='/orcamento' className="filter-link add" >
+      <button onClick={onButtonClick} className="filter-link add">
         <AddButton className="add-icon" />
-        <span className="add-button-txt">Novo {props.filterName}</span>
-      </Link>
+        <span className="add-button-txt">Novo {filterName}</span> {/* Usando filterName da prop */}
+      </button>
 
       <div className="filter-container">
         <button className="filter-button filter">
