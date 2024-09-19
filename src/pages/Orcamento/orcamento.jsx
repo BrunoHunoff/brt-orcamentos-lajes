@@ -14,7 +14,7 @@ function Orcamento() {
             <div className='content'>
                 <Header pageTitle = 'Orçamento' userName = 'Bruno Hunoff'/>
                 <OrcamentoData/>
-                <NavRow showVoltar={true}/>
+                <NavRow nextPage='calculo' showVoltar={true}/>
             </div>
         </div>
     )
