@@ -4,13 +4,13 @@ import EditIcon from "../Icons/Edit";
 import FileIcon from "../Icons/FileIcon";
 import "./tableRow.css";
 
-function TableRow( { onDelete }) {
+function TableRow( { onDelete, data }) {
   return (
     <tr className="table-row">
-      <td className="table-data">00-000-0000</td>
-      <td className="table-data">Cliente Teste</td>
-      <td className="table-data">500</td>
-      <td className="table-data">01/09/2024</td>
+      <td className="table-data">{data.id}</td>
+      <td className="table-data">{data.costumerName}</td>
+      <td className="table-data">{data.footage}</td>
+      <td className="table-data">{data.city + "/" + data.state}</td>
       <td className="table-data actions-container">
         <button className='action'>
             <EditIcon/>
