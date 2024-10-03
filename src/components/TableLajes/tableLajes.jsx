@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TableBtn from "../TableBtn/tableBtn";
 import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
+import apiLajes from "../../../services/api";
 
 function TableLajes({ headerItens, filterName, onButtonClick  }) {
 
-  const [itens, setItens] = useState(['', '', '', '', '',])
+  const[budgets, setBudgets] = useState([])
+
+  async function getBudgets() {
+    const request = await apiLajes.get('/budgets')
+    setBudgets(request.data)
+  }
+
+  useEffect(() => {
+    getBudgets();
+  }, [])
 
   const carregarMais = () => {
     setItens = setItens(prevItens => [...prevItens, '', '', '', '', ''])
@@ -43,8 +53,8 @@ function TableLajes({ headerItens, filterName, onButtonClick  }) {
             </tr>
           </thead>
           <tbody className="table-body">
-            {itens.map((iten, index) => {
-              return <TableRow key={index} onDelete ={() => deleteIten(index)}/>
+            {budgets.map((budget, index) => {
+              return <TableRow key={index} data={budget} onDelete ={() => deleteIten(index)}/>
             })}
           </tbody>
         </table>
