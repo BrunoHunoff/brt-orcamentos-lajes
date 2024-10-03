@@ -19,12 +19,14 @@ function TableLajes({ headerItens, filterName, onButtonClick  }) {
     getBudgets();
   }, [])
 
-  const carregarMais = () => {
-    setItens = setItens(prevItens => [...prevItens, '', '', '', '', ''])
+  async function deleteBudget(id) {
+    apiLajes.delete(`/budgets/${id}`)
   }
 
   const deleteIten = (index) => {
-    setItens(prevItens => prevItens.filter((_, i) => i !== index))
+    const budgetId = budgets[index].id
+    setBudgets(prevItens => prevItens.filter((_, i) => i !== index))
+    deleteBudget(budgetId)
 }
 
   return (
@@ -58,7 +60,7 @@ function TableLajes({ headerItens, filterName, onButtonClick  }) {
             })}
           </tbody>
         </table>
-        <TableBtn onClick={carregarMais} btnName='Carregar Mais'/>
+        <TableBtn onClick={null} btnName='Carregar Mais'/>
       </div>
       
     </div>
