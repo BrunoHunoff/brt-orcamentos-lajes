@@ -4,7 +4,7 @@ import Header from '../../components/Header/header'
 import TableLajes from '../../components/TableLajes/tableLajes'
 import ClientModal from '../../components/ClientModal/clientModal'
 import apiLajes from '../../../services/api'
-import { useState, useEffect } from 'react'; // Certifique-se de importar o useState
+import { useState, useEffect } from 'react';
 
 function Clientes() {
 
@@ -47,7 +47,6 @@ function Clientes() {
       <div className='content'>
         <ClientModal isOpen={isModalOpen} onClose={closeModal} />
         <Header pageTitle='Clientes' userName='Bruno Hunoff' />
-        {/* Passando a função openModal como prop para TableLajes */}
         <TableLajes onButtonClick={openModal}
                     filterName='Cliente'
                     headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']}

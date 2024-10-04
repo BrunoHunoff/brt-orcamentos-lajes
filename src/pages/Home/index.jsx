@@ -11,10 +11,10 @@ function Home() {
   async function getBudgets() {
     const request = await apiLajes.get('/budgets');
     const formattedData = request.data.map(budget => [
-      budget.id,                 // Primeiro valor (ID)
-      budget.costumerName,       // Segundo valor (Nome do cliente)
-      budget.footage,            // Terceiro valor (Área)
-      `${budget.city}/${budget.state}`  // Quarto valor (Cidade/Estado)
+      budget.id,
+      budget.costumerName,
+      budget.footage,
+      `${budget.city}/${budget.state}`
     ]);
     setBudgets(formattedData);
   }
@@ -42,7 +42,7 @@ function Home() {
           filterName='Orçamento'
           headerItens={['ID', 'Cliente', 'm²', 'Cidade/UF']}
           data={budgets}
-          onDelete={deleteIten} // Passar os dados como props
+          onDelete={deleteIten}
         />
       </div>
     </div>

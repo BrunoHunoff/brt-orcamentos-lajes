@@ -8,10 +8,6 @@ import apiLajes from "../../../services/api";
 
 function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete }) {
   
-  // Remover o estado interno e requisição de dados daqui.
-  
-
-
   return (
     <div className="table-container">
       <TableFilter onButtonClick={onButtonClick} filterName={filterName} />
