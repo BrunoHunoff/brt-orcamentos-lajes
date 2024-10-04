@@ -7,10 +7,10 @@ import "./tableRow.css";
 function TableRow( { onDelete, data }) {
   return (
     <tr className="table-row">
-      <td className="table-data">{data.id}</td>
-      <td className="table-data">{data.costumerName}</td>
-      <td className="table-data">{data.footage}</td>
-      <td className="table-data">{data.city + "/" + data.state}</td>
+      {data.map ((item, index) => {
+        return <td key={index} className="table-data">{item}</td>
+      })}
+       
       <td className="table-data actions-container">
         <button className='action'>
             <EditIcon/>

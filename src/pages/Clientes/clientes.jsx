@@ -3,9 +3,28 @@ import Sidebar from '../../components/Sidebar/sidebar'
 import Header from '../../components/Header/header'
 import TableLajes from '../../components/TableLajes/tableLajes'
 import ClientModal from '../../components/ClientModal/clientModal'
-import { useState } from 'react'; // Certifique-se de importar o useState
+import apiLajes from '../../../services/api'
+import { useState, useEffect } from 'react'; // Certifique-se de importar o useState
 
 function Clientes() {
+
+  const [costumers, setCostumers] = useState([]);
+
+  async function getCostumers() {
+    const request = await apiLajes.get('/costumers');
+    const formattedData = request.data.map(costumer => [
+      costumer.id,
+      costumer.name,
+      `${costumer.city}/${costumer.state}`,
+      costumer.cnpjCpf
+  ]);
+  setCostumers(formattedData);
+  }
+
+  useEffect(() => {
+    getCostumers();
+  }, []);
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
@@ -18,7 +37,7 @@ function Clientes() {
         <ClientModal isOpen={isModalOpen} onClose={closeModal} />
         <Header pageTitle='Clientes' userName='Bruno Hunoff' />
         {/* Passando a função openModal como prop para TableLajes */}
-        <TableLajes onButtonClick={openModal} filterName='Cliente' headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']} />
+        <TableLajes onButtonClick={openModal} filterName='Cliente' headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']} data={costumers}/>
       </div>
     </div>
   );
