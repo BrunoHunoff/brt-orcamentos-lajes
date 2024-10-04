@@ -8,7 +8,28 @@ import { useState, useEffect } from 'react';
 
 function Clientes() {
 
+  const [modalData, setModalData] = useState(null);
   const [costumers, setCostumers] = useState([]);
+
+  async function editCostumer(id) {
+    const request = await apiLajes.get(`costumers/${id}`);
+    const costumerData =  [
+      request.data.id,
+      request.data.name,
+      request.data.pj,
+      request.data.cnpjCpf,
+      request.data.cep,
+      request.data.city,
+      request.data.state,
+      request.data.address,
+      request.data.addressNumber,
+      request.data.email,
+      request.data.phoneNumber,
+    ];
+    setModalData(costumerData);
+    setModalOpen(true);
+
+  }
 
   async function getCostumers() {
     const request = await apiLajes.get('/costumers');
@@ -43,7 +64,6 @@ function Clientes() {
     )
     const newCostumer = response.data;
 
-      // Atualiza o estado com o novo cliente
       setCostumers(prevCostumers => [
         ...prevCostumers,
         [newCostumer.id, newCostumer.name, `${newCostumer.city}/${newCostumer.state}`, newCostumer.cnpjCpf]
@@ -69,9 +89,10 @@ function Clientes() {
     <div className='home'>
       <Sidebar />
       <div className='content'>
-        <ClientModal isOpen={isModalOpen} onClose={closeModal} onAdd={addCostumer}/>
+        <ClientModal isOpen={isModalOpen} data={modalData} onClose={closeModal} onAdd={addCostumer}/>
         <Header pageTitle='Clientes' userName='Bruno Hunoff' />
         <TableLajes onButtonClick={openModal}
+                    onEditClick={editCostumer}
                     filterName='Cliente'
                     headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']}
                     data={costumers}

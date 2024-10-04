@@ -4,10 +4,10 @@ import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
-import apiLajes from "../../../services/api";
 
-function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete }) {
-  
+
+function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, onEditClick }) {
+
   return (
     <div className="table-container">
       <TableFilter onButtonClick={onButtonClick} filterName={filterName} />
@@ -39,6 +39,7 @@ function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete }) 
                   key={index}
                   data={budget}
                   onDelete={() => onDelete(index)}
+                  onEdit={() => onEditClick(budget[0], budget)}
                 />
               );
             })}

@@ -2,9 +2,9 @@ import React from 'react';
 import './clientModal.css'; // Arquivo CSS para estilos
 import Input from '../Input/input';
 import TableBtn from '../TableBtn/tableBtn';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
-const ClientModal = ({ isOpen, onClose, onAdd }) => {
+const ClientModal = ({ isOpen, onClose, onAdd, data }) => {
   if (!isOpen) return null;
 
   const inputName = useRef()
@@ -17,6 +17,20 @@ const ClientModal = ({ isOpen, onClose, onAdd }) => {
   const inputAddressNumber = useRef()
   const inputEmail = useRef()
   const inputPhoneNumber = useRef()
+
+  useEffect(() => {
+    if (data) {
+      inputName.current.value = data[1];
+      inputCnpj.current.value = data[3];
+      inputCep.current.value = data[4];
+      inputCity.current.value = data[5];
+      inputState.current.value = data[6];
+      inputAddress.current.value = data[7];
+      inputAddressNumber.current.value = data[8];
+      inputEmail.current.value = data[9];
+      inputPhoneNumber.current.value = data[10];
+    }
+  }, [data]);
 
   function createCostumer() {
     const costumer = [
