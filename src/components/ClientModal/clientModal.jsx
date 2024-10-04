@@ -2,9 +2,39 @@ import React from 'react';
 import './clientModal.css'; // Arquivo CSS para estilos
 import Input from '../Input/input';
 import TableBtn from '../TableBtn/tableBtn';
+import { useRef } from 'react';
 
-const ClientModal = ({ isOpen, onClose }) => {
+const ClientModal = ({ isOpen, onClose, onAdd }) => {
   if (!isOpen) return null;
+
+  const inputName = useRef()
+  const inputCnpj = useRef()
+  const inputType = useRef()
+  const inputCep = useRef()
+  const inputCity = useRef()
+  const inputState = useRef()
+  const inputAddress = useRef()
+  const inputAddressNumber = useRef()
+  const inputEmail = useRef()
+  const inputPhoneNumber = useRef()
+
+  function createCostumer() {
+    const costumer = [
+      inputName.current.value, 
+      true, 
+      inputType.current.value, 
+      inputCep.current.value, 
+      inputCity.current.value, 
+      inputState.current.value, 
+      inputAddress.current.value, 
+      parseInt(inputAddressNumber.current.value),
+      inputEmail.current.value, 
+      inputPhoneNumber.current.value
+    ]
+
+    onAdd(costumer)
+    onClose()
+  }
 
   return (
     <div className="modal-overlay">
@@ -19,6 +49,7 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Digite o nome"
             inputId="clientName"
             width="240px"
+            ref={inputName}
             />
             <Input
             labelText="CPF/CNPJ"
@@ -26,10 +57,11 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Digite o CPF/CNPJ"
             inputId="clientCpf"
             width="240px"
+            ref={inputCnpj}
             />
             <div className="modal-select">
               <label htmlFor="tipo">Tipo</label>
-              <select id="tipo" name="tipo">
+              <select id="tipo" name="tipo" ref={inputType}>
                 <option value="empresa">Empresa</option>
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>
@@ -45,6 +77,7 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Digite o CEP"
             inputId="clientCep"
             width="240px"
+            ref={inputCep}
             />
             <Input
             labelText="Cidade"
@@ -52,6 +85,7 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Digite a cidade"
             inputId="clientCity"
             width="240px"
+            ref={inputCity}
             />
             <Input
             labelText="UF"
@@ -59,6 +93,7 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="UF"
             inputId="clientState"
             width="40px"
+            ref={inputState}
             />
           </div>
 
@@ -70,6 +105,7 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Digite o Endereço"
             inputId="clientStreet"
             width="240px"
+            ref={inputAddress}
             />
             <Input
             labelText="Nº"
@@ -77,6 +113,7 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Nº"
             inputId="clientStreetNumber"
             width="40px"
+            ref={inputAddressNumber}
             />
           </div>
 
@@ -88,6 +125,7 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Digite o e-mail"
             inputId="clientEmail"
             width="240px"
+            ref={inputEmail}
             />
             <Input
             labelText="Contato"
@@ -95,12 +133,13 @@ const ClientModal = ({ isOpen, onClose }) => {
             placeHolder="Digite o número"
             inputId="clientNumber"
             width="240px"
+            ref={inputPhoneNumber}
             />
           </div>
 
             <div className='form-row btn-row'>
                 <TableBtn btnName='Cancelar' btnColor='#CB4646' onClick={onClose}/>
-                <TableBtn btnName="Cadastrar" btnColor='#2D3F51'/>
+                <TableBtn btnName="Cadastrar" onClick={createCostumer} btnColor='#2D3F51'/>
             </div>
         </form>
         

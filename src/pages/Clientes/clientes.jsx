@@ -26,6 +26,30 @@ function Clientes() {
     await apiLajes.delete(`/costumers/${id}`);
   }
 
+  async function addCostumer(data) {
+    console.log(data)
+    const response = await apiLajes.post('/costumers', {
+      name: data[0],
+      pj:data[1],
+      cnpjCpf:data[2],
+      cep:data[3],
+      city:data[4],
+      state:data[5],
+      address:data[6],
+      addressNumber: data[7],
+      email:data[8],
+      phoneNumber:data[9]
+    }
+    )
+    const newCostumer = response.data;
+
+      // Atualiza o estado com o novo cliente
+      setCostumers(prevCostumers => [
+        ...prevCostumers,
+        [newCostumer.id, newCostumer.name, `${newCostumer.city}/${newCostumer.state}`, newCostumer.cnpjCpf]
+      ]);
+  }
+
   const deleteItem = (index) => {
     const costumerId = costumers[index][0];
     deleteCostumer(costumerId);
@@ -45,7 +69,7 @@ function Clientes() {
     <div className='home'>
       <Sidebar />
       <div className='content'>
-        <ClientModal isOpen={isModalOpen} onClose={closeModal} />
+        <ClientModal isOpen={isModalOpen} onClose={closeModal} onAdd={addCostumer}/>
         <Header pageTitle='Clientes' userName='Bruno Hunoff' />
         <TableLajes onButtonClick={openModal}
                     filterName='Cliente'
