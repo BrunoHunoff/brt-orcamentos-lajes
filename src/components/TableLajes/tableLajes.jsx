@@ -6,19 +6,11 @@ import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 import apiLajes from "../../../services/api";
 
-function TableLajes({ headerItens, filterName, onButtonClick, data }) {
+function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete }) {
   
   // Remover o estado interno e requisição de dados daqui.
   
-  async function deleteBudget(id) {
-    await apiLajes.delete(`/budgets/${id}`);
-  }
 
-  const deleteIten = (index) => {
-    const budgetId = data[index].id;
-    deleteBudget(budgetId);
-    onDeleteRow(index);
-  };
 
   return (
     <div className="table-container">
@@ -50,7 +42,7 @@ function TableLajes({ headerItens, filterName, onButtonClick, data }) {
                 <TableRow
                   key={index}
                   data={budget}
-                  onDelete={() => deleteIten(index)}
+                  onDelete={() => onDelete(index)}
                 />
               );
             })}

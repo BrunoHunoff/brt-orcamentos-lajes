@@ -19,6 +19,16 @@ function Home() {
     setBudgets(formattedData);
   }
 
+  async function deleteBudget(id) {
+    await apiLajes.delete(`/budgets/${id}`);
+  }
+
+  const deleteIten = (index) => {
+    const budgetId = budgets[index][0];
+    deleteBudget(budgetId);
+    setBudgets(prevBudgets => prevBudgets.filter((_, i) => i !== index));
+  };
+
   useEffect(() => {
     getBudgets();
   }, []);
@@ -31,7 +41,8 @@ function Home() {
         <TableLajes
           filterName='Orçamento'
           headerItens={['ID', 'Cliente', 'm²', 'Cidade/UF']}
-          data={budgets} // Passar os dados como props
+          data={budgets}
+          onDelete={deleteIten} // Passar os dados como props
         />
       </div>
     </div>

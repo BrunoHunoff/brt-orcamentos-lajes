@@ -18,8 +18,19 @@ function Clientes() {
       `${costumer.city}/${costumer.state}`,
       costumer.cnpjCpf
   ]);
+
   setCostumers(formattedData);
   }
+
+  async function deleteCostumer(id) {
+    await apiLajes.delete(`/costumers/${id}`);
+  }
+
+  const deleteItem = (index) => {
+    const costumerId = costumers[index][0];
+    deleteCostumer(costumerId);
+    setCostumers(prevCostumers => prevCostumers.filter((_, i) => i !== index));
+  };
 
   useEffect(() => {
     getCostumers();
@@ -37,7 +48,11 @@ function Clientes() {
         <ClientModal isOpen={isModalOpen} onClose={closeModal} />
         <Header pageTitle='Clientes' userName='Bruno Hunoff' />
         {/* Passando a função openModal como prop para TableLajes */}
-        <TableLajes onButtonClick={openModal} filterName='Cliente' headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']} data={costumers}/>
+        <TableLajes onButtonClick={openModal}
+                    filterName='Cliente'
+                    headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']}
+                    data={costumers}
+                    onDelete={deleteItem}/>
       </div>
     </div>
   );
