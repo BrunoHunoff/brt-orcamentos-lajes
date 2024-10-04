@@ -4,7 +4,7 @@ import Input from '../Input/input';
 import TableBtn from '../TableBtn/tableBtn';
 import { useRef, useEffect } from 'react';
 
-const ClientModal = ({ isOpen, onClose, onAdd, data }) => {
+const ClientModal = ({ isOpen, onClose, onAdd, data, onEdit }) => {
   if (!isOpen) return null;
 
   const inputName = useRef()
@@ -46,7 +46,9 @@ const ClientModal = ({ isOpen, onClose, onAdd, data }) => {
       inputPhoneNumber.current.value
     ]
 
-    onAdd(costumer)
+    data ?
+    onEdit(data[0], costumer)
+    :onAdd(costumer)
     onClose()
   }
 
@@ -153,7 +155,8 @@ const ClientModal = ({ isOpen, onClose, onAdd, data }) => {
 
             <div className='form-row btn-row'>
                 <TableBtn btnName='Cancelar' btnColor='#CB4646' onClick={onClose}/>
-                <TableBtn btnName="Cadastrar" onClick={createCostumer} btnColor='#2D3F51'/>
+                <TableBtn btnName="Cadastrar" 
+                onClick={createCostumer} btnColor='#2D3F51'/>
             </div>
         </form>
         

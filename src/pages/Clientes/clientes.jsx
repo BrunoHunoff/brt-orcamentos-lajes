@@ -11,7 +11,7 @@ function Clientes() {
   const [modalData, setModalData] = useState(null);
   const [costumers, setCostumers] = useState([]);
 
-  async function editCostumer(id) {
+  async function modalEditCostumer(id) {
     const request = await apiLajes.get(`costumers/${id}`);
     const costumerData =  [
       request.data.id,
@@ -29,6 +29,21 @@ function Clientes() {
     setModalData(costumerData);
     setModalOpen(true);
 
+  }
+
+  async function editCostumer(id, data) {
+    apiLajes.put(`costumers/${id}`, {
+      name: data[0],
+      pj:data[1],
+      cnpjCpf:data[2],
+      cep:data[3],
+      city:data[4],
+      state:data[5],
+      address:data[6],
+      addressNumber: data[7],
+      email:data[8],
+      phoneNumber:data[9]
+    })
   }
 
   async function getCostumers() {
@@ -89,10 +104,10 @@ function Clientes() {
     <div className='home'>
       <Sidebar />
       <div className='content'>
-        <ClientModal isOpen={isModalOpen} data={modalData} onClose={closeModal} onAdd={addCostumer}/>
+        <ClientModal isOpen={isModalOpen} data={modalData} onClose={closeModal} onEdit={editCostumer} onAdd={addCostumer}/>
         <Header pageTitle='Clientes' userName='Bruno Hunoff' />
         <TableLajes onButtonClick={openModal}
-                    onEditClick={editCostumer}
+                    onEditClick={modalEditCostumer}
                     filterName='Cliente'
                     headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']}
                     data={costumers}
