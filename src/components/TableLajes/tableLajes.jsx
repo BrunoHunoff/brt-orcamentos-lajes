@@ -1,40 +1,20 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import TableBtn from "../TableBtn/tableBtn";
 import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
 import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
-import apiLajes from "../../../services/api";
 
-function TableLajes({ headerItens, filterName, onButtonClick  }) {
 
-  const[budgets, setBudgets] = useState([])
-
-  async function getBudgets() {
-    const request = await apiLajes.get('/budgets')
-    setBudgets(request.data)
-  }
-
-  useEffect(() => {
-    getBudgets();
-  }, [])
-
-  const carregarMais = () => {
-    setItens = setItens(prevItens => [...prevItens, '', '', '', '', ''])
-  }
-
-  const deleteIten = (index) => {
-    setItens(prevItens => prevItens.filter((_, i) => i !== index))
-}
+function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, onEditClick }) {
 
   return (
     <div className="table-container">
-
       <TableFilter onButtonClick={onButtonClick} filterName={filterName} />
 
       <div className="table-lajes-container">
-        <TableDateSelector/>
-        
+        <TableDateSelector />
+
         <table className="table-lajes">
           <colgroup>
             <col style={{ width: "15%" }} />
@@ -53,14 +33,20 @@ function TableLajes({ headerItens, filterName, onButtonClick  }) {
             </tr>
           </thead>
           <tbody className="table-body">
-            {budgets.map((budget, index) => {
-              return <TableRow key={index} data={budget} onDelete ={() => deleteIten(index)}/>
+            {data.map((budget, index) => {
+              return (
+                <TableRow
+                  key={index}
+                  data={budget}
+                  onDelete={() => onDelete(index)}
+                  onEdit={() => onEditClick(budget[0], budget)}
+                />
+              );
             })}
           </tbody>
         </table>
-        <TableBtn onClick={carregarMais} btnName='Carregar Mais'/>
+        <TableBtn onClick={null} btnName="Carregar Mais" />
       </div>
-      
     </div>
   );
 }
