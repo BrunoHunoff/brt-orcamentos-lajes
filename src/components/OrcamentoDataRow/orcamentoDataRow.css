@@ -23,6 +23,8 @@
     text-align: center;
     font-size: 16px;
     width: 100%;
+    color: #2D3F51;
+    font-weight: 600;
 }
 
 .select-lajes-container select {
@@ -33,8 +35,8 @@
     padding-inline: 0;  /* Remove o padding lateral para centralizar */
     border: none;
     background: none;
-    text-align: center;  /* Alinha o texto horizontalmente */
-    text-indent: 0;      /* Remove indentação */
+    color: #2D3F51;
+    font-weight: bold;
 }
 
 .select-lajes-container {
@@ -73,6 +75,4 @@
     color: #fff;
     cursor: pointer;
 }
-
-
 

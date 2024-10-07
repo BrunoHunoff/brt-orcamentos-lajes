@@ -39,6 +39,7 @@ function OrcamentoHeaderRow({ items, classname, onDelete }) {
           return (
             <div className="select-lajes-container" key={index}>
               <select id="clientes" className="lajes-select">
+                <option value='' hidden>-</option>
                 {lajes.map((laje, idx) => (
                   <option key={idx} value={laje.name}>
                     {laje.name}
