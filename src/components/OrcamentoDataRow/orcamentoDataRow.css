@@ -1,0 +1,53 @@
+.row{
+    height: 48px;
+    display: grid;
+    grid-template-columns: 10% 10% 20% 12.5% 12.5% 12.5% 12.5% 10%;
+    justify-items: center;
+    align-items: center;
+    background: #E7E2E2;
+    color: #2D3F51;
+    margin-inline: 10px;
+    margin-block: 8px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.item-id {
+    color: #2D3F51;
+}
+
+.row input {
+    background: none;
+    border: none;
+    height:42px;
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+}
+
+.row input:focus {
+    outline: none;
+}
+
+.row input:focus::placeholder {
+    color: transparent;
+}
+
+.header-row{
+    background: #717A84;
+    color: #fff;
+    margin-inline: 0px;
+    border-radius: 0px;
+}
+
+.delete-btn{
+    color: #2D3F51;
+}
+
+.delete-btn:hover{
+    color: #fff;
+    cursor: pointer;
+}
+
+
+
