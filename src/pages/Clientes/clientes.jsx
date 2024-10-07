@@ -32,7 +32,7 @@ function Clientes() {
   }
 
   async function editCostumer(id, data) {
-    apiLajes.put(`costumers/${id}`, {
+    const response = await apiLajes.put(`costumers/${id}`, {
       name: data[0],
       pj:data[1],
       cnpjCpf:data[2],
@@ -44,6 +44,21 @@ function Clientes() {
       email:data[8],
       phoneNumber:data[9]
     })
+
+    const editCostumer = response.data;
+
+      setCostumers((prevCostumers) => 
+        prevCostumers.map((costumer) =>
+          costumer[0] == id
+          ? [
+            editCostumer.id,
+            editCostumer.name,
+            `${editCostumer.city}/${editCostumer.state}`,
+            editCostumer.cnpjCpf
+          ]
+          : costumer
+        )
+      );
   }
 
   async function getCostumers() {
