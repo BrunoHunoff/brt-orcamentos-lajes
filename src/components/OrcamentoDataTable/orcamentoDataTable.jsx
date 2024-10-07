@@ -34,6 +34,12 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
     setDataRows((prevDataRows) => prevDataRows.filter((item) => item.id !== id));
   };
 
+  const atualizarItem = (id, newData) => {
+    setDataRows((prevDataRows) =>
+      prevDataRows.map((item) => (item.id === id ? { ...item, data: newData } : item))
+    );
+  };
+
   return (
     <div className="orcamentoDataTable">
       <TitleRow
@@ -50,12 +56,13 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
             newDataRow[0] = String(index + 1);
             return (
               <OrcamentoDataRow
+                onDelete={() => removerItem(dataRow.id)}
                 lajes={lajes}
                 setLajes={setLajes}
                 key={dataRow.id}
                 items={newDataRow}
                 showDelete={true}
-                onDelete={() => removerItem(dataRow.id)}
+                onUpdate={(newData) => atualizarItem(dataRow.id, newData)}
               />
             );
           })}

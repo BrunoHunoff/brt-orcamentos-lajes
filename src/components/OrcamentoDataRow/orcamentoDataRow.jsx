@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./orcamentoDataRow.css";
 import DeleteIcon from "../Icons/DeleteIcon";
 
-function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes }) {
+function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes, onUpdate }) {
+
+  const [data, setData] = useState(items.map(item => item === "-" ? "" : item));
+
+
+  const handleChange = (index, value) => {
+    const newData = [...data];
+    newData[index] = value;
+    setData(newData);
+    onUpdate(newData);
+    console.log(newData)
+  };
 
   return (
     <div className={`row ${classname}`}>
@@ -22,10 +33,15 @@ function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes }) {
               {item}
             </span>
           );
-        } else if (index ==2){
+        } else if (index === 2) {
           return (
             <div className="select-lajes-container" key={index}>
-              <select id="clientes" className="lajes-select">
+              <select 
+                id="clientes" 
+                className="lajes-select" 
+                value={data[index]} 
+                onChange={(e) => handleChange(index, e.target.value)}
+              >
                 <option value='' hidden>-</option>
                 {lajes.map((laje, idx) => (
                   <option key={idx} value={laje.name}>
@@ -36,7 +52,15 @@ function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes }) {
             </div>
           );
         } else {
-          return <input key={index} className={itemClass} placeholder={item} />;
+          return (
+            <input 
+              key={index} 
+              className={itemClass} 
+              value={data[index]} 
+              placeholder={item} 
+              onChange={(e) => handleChange(index, e.target.value)} 
+            />
+          );
         }
       })}
 
