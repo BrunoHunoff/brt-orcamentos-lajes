@@ -19,11 +19,36 @@
 .row input {
     background: none;
     border: none;
-    height:42px;
+    height:100%;
     text-align: center;
     font-size: 16px;
     width: 100%;
 }
+
+.select-lajes-container select {
+    height: 100%;
+    border-radius: 20px;
+    appearance: none;
+    font-size: 14px;
+    padding-inline: 0;  /* Remove o padding lateral para centralizar */
+    border: none;
+    background: none;
+    text-align: center;  /* Alinha o texto horizontalmente */
+    text-indent: 0;      /* Remove indentação */
+}
+
+.select-lajes-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.select-lajes-container select:focus {
+    outline: none; 
+}
+
 
 .row input:focus {
     outline: none;

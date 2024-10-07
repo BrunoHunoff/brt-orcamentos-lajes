@@ -19,7 +19,7 @@ function OrcamentoDataTable( { onDelete }) {
     };
 
     const adicionarNovoItem = () => {
-        const novoItem = ['-', '-', 'Tipo', '-', '-', '-', '-']; 
+        const novoItem = ['-', '-', '-', '-', '-', '-', '-']; 
         setItens(prevItens => [...prevItens, novoItem]);
     };
 
