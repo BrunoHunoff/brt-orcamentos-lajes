@@ -12,11 +12,11 @@ function TableRow( { onDelete, data, onEdit }) {
       })}
        
       <td className="table-data actions-container">
-        <button className='action' onClick={onEdit}>
+        <button className='action' onClick={() => onEdit(data[0])}>
             <EditIcon/>
         </button>
         <button className='action'>
-          <DeleteIcon onClick={() => onDelete(index)} width='20px' height='20px'/>
+          <DeleteIcon onClick={() => onDelete(data[0])} width='20px' height='20px'/>
         </button>
         <button className="action">
             <FileIcon/>
