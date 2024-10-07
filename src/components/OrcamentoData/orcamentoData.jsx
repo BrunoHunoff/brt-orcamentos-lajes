@@ -7,23 +7,24 @@ import OrcamentoDataTable from '../OrcamentoDataTable/orcamentoDataTable';
 import './orcamentoData.css';
 
 function OrcamentoData( ) {
-    const [tables, setTables] = useState(['']);
+    const [tables, setTables] = useState([{id:Date.now(), data:''}]);
 
     // Função para adicionar uma nova tabela
     const addTable = () => {
-        setTables(prevTables => [...prevTables, {}]); // Adiciona um novo item ao array
+        const newTable = {id: Date.now(), data:''}
+        setTables(prevTables => [...prevTables, newTable]); // Adiciona um novo item ao array
     };
 
-    const deleteTable = (index) => {
-        if(tables.length == 1) return // Não permite excluir todas as tabelas
-        setTables(prevTables => prevTables.filter((_, i) => i !== index))
+    const deleteTable = (id) => {
+        if(tables.length == 1) return // Não permite excluir todas as tabelasxq
+        setTables(prevTables => prevTables.filter((table) => table.id !== id))
     }
 
     return (
         <div className='orcamentoData'>
             <OrcamentoDataHeader />
             {tables.map((table, index) => (
-                <OrcamentoDataTable key={index} onDelete={() => deleteTable(index)}/> // Certifique-se de fornecer uma key única
+                <OrcamentoDataTable key={table.id} tableName={`Laje ${index+1}`} onDelete={() => deleteTable(table.id)}/> // Certifique-se de fornecer uma key única
             ))}
             <IconBtn onClick={addTable} btnName='Nova Seção' btnIcon={<Add />} />
         </div>

@@ -6,7 +6,7 @@ import TitleRow from "../TitleRow/titleRow";
 import "./orcamentoDataTable.css";
 import "../IconBtn/iconBtn";
 
-function OrcamentoDataTable({ onDelete }) {
+function OrcamentoDataTable({ onDelete, tableName }) {
   const [mostrarItens, setMostrarItens] = useState(true);
   const [itens, setItens] = useState([{id: Date.now(), data: ["-", "-", "-", "-", "-", "-", "-"]}]);
 
@@ -37,7 +37,7 @@ function OrcamentoDataTable({ onDelete }) {
   return (
     <div className="orcamentoDataTable">
       <TitleRow
-        title="Laje 01"
+        title={tableName}
         onToggle={toggleMostrarItens}
         onDelete={onDelete}
       />
