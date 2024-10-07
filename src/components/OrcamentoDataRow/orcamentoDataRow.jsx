@@ -54,7 +54,7 @@ function OrcamentoHeaderRow({ items, classname, onDelete }) {
       })}
 
       <button className="delete-btn">
-        <DeleteIcon onClick={onDelete} width="24px" height="24px" />
+        <DeleteIcon onClick={() => onDelete()} width="24px" height="24px" />
       </button>
     </div>
   );
