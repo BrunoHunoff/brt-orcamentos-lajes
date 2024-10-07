@@ -1,21 +1,8 @@
 import React, { useState } from "react";
 import "./orcamentoDataRow.css";
 import DeleteIcon from "../Icons/DeleteIcon";
-import apiLajes from "../../../services/api";
-import { useEffect } from "react";
 
-function OrcamentoHeaderRow({ items, classname, onDelete }) {
-
-  const [lajes, setLajes] = useState([])
-
-  async function getLajes() {
-    const response = (await apiLajes.get("/slabs"));
-    setLajes(response.data)
-  }
-
-  useEffect(() => {
-    getLajes();
-  }, []);
+function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes }) {
 
   return (
     <div className={`row ${classname}`}>

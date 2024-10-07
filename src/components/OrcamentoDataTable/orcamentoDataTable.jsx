@@ -6,9 +6,9 @@ import TitleRow from "../TitleRow/titleRow";
 import "./orcamentoDataTable.css";
 import "../IconBtn/iconBtn";
 
-function OrcamentoDataTable({ onDelete, tableName }) {
+function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, setDataRows }) {
   const [mostrarItens, setMostrarItens] = useState(true);
-  const [itens, setItens] = useState([{id: Date.now(), data: ["-", "-", "-", "-", "-", "-", "-"]}]);
+  
 
   const headerItems = [
     "Item",
@@ -25,13 +25,13 @@ function OrcamentoDataTable({ onDelete, tableName }) {
   };
 
   const adicionarNovoItem = () => {
-    const novoItem = {id: Date.now(), data: ["-", "-", "-", "-", "-", "-", "-"]};
-    setItens((prevItens) => [...prevItens, novoItem]);
+    const newDataRow = {id: Date.now(), data: ["-", "-", "-", "-", "-", "-", "-"]};
+    setDataRows((prevDataRows) => [...prevDataRows, newDataRow]);
   };
 
   const removerItem = (id) => {
-    if (itens.length == 1) return;
-    setItens((prevItens) => prevItens.filter((item) => item.id !== id));
+    if (dataRows.length == 1) return;
+    setDataRows((prevDataRows) => prevDataRows.filter((item) => item.id !== id));
   };
 
   return (
@@ -45,15 +45,17 @@ function OrcamentoDataTable({ onDelete, tableName }) {
       {mostrarItens && (
         <>
           <OrcamentoHeaderRow classname="header-row" items={headerItems} />
-          {itens.map((item, index) => {
-            const newItem = [...item.data];
-            newItem[0] = String(index + 1);
+          {dataRows.map((dataRow, index) => {
+            const newDataRow = [...dataRow.data];
+            newDataRow[0] = String(index + 1);
             return (
               <OrcamentoDataRow
-                key={item.id}
-                items={newItem}
+                lajes={lajes}
+                setLajes={setLajes}
+                key={dataRow.id}
+                items={newDataRow}
                 showDelete={true}
-                onDelete={() => removerItem(item.id)}
+                onDelete={() => removerItem(dataRow.id)}
               />
             );
           })}
