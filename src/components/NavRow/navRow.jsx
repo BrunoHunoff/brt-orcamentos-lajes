@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import LinkBtn from '../LinkBtn/LinkBtn';
 import './NavRow.css';
 
-function NavRow({ showVoltar, nextPage }) {
+function NavRow({ showVoltar, onNext }) {
   const navigate = useNavigate();
 
   const handleVoltar = () => {
@@ -10,7 +10,7 @@ function NavRow({ showVoltar, nextPage }) {
   };
 
   const handleAvancar = () => {
-    navigate(`/${nextPage}`); // Navega para a próxima página
+    onNext();
   };
 
   return (

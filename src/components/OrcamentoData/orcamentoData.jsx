@@ -5,7 +5,7 @@ import OrcamentoDataHeader from "../OrcamentoDataHeader/orcamentoDataHedaer";
 import OrcamentoDataTable from "../OrcamentoDataTable/orcamentoDataTable";
 import "./orcamentoData.css";
 
-function OrcamentoData({ lajes, setLajes, dataRows, setDataRows }) {
+function OrcamentoData({ lajes, setLajes, dataRows, setDataRows, updateDataRows }) {
   const [tables, setTables] = useState([{ id: Date.now(), data: "" }]);
 
   const addTable = () => {
@@ -30,6 +30,7 @@ function OrcamentoData({ lajes, setLajes, dataRows, setDataRows }) {
           onDelete={() => deleteTable(table.id)}
           dataRows={dataRows}
           setDataRows={setDataRows}
+          updateDataRows={updateDataRows}
         />
       ))}
       <IconBtn onClick={addTable} btnName="Nova Seção" btnIcon={<Add />} />

@@ -6,10 +6,9 @@ import TitleRow from "../TitleRow/titleRow";
 import "./orcamentoDataTable.css";
 import "../IconBtn/iconBtn";
 
-function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, setDataRows }) {
+function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, setDataRows, updateDataRows }) {
   const [mostrarItens, setMostrarItens] = useState(true);
   
-
   const headerItems = [
     "Item",
     "Quantidade",
@@ -34,11 +33,6 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
     setDataRows((prevDataRows) => prevDataRows.filter((item) => item.id !== id));
   };
 
-  const atualizarItem = (id, newData) => {
-    setDataRows((prevDataRows) =>
-      prevDataRows.map((item) => (item.id === id ? { ...item, data: newData } : item))
-    );
-  };
 
   return (
     <div className="orcamentoDataTable">
@@ -56,13 +50,13 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
             newDataRow[0] = String(index + 1);
             return (
               <OrcamentoDataRow
-                onDelete={() => removerItem(dataRow.id)}
                 lajes={lajes}
                 setLajes={setLajes}
                 key={dataRow.id}
                 items={newDataRow}
                 showDelete={true}
-                onUpdate={(newData) => atualizarItem(dataRow.id, newData)}
+                onDelete={() => removerItem(dataRow.id)}
+                updateDataRows = {(newData) => updateDataRows(dataRow.id, newData)}
               />
             );
           })}

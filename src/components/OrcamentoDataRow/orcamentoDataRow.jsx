@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./orcamentoDataRow.css";
 import DeleteIcon from "../Icons/DeleteIcon";
 
-function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes, onUpdate }) {
+function OrcamentoDataRow({ items, classname, onDelete, lajes, setLajes, updateDataRows }) {
 
   const [data, setData] = useState(items.map(item => item === "-" ? "" : item));
 
@@ -11,9 +11,11 @@ function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes, onUpd
     const newData = [...data];
     newData[index] = value;
     setData(newData);
-    onUpdate(newData);
     console.log(newData)
+
+    updateDataRows(newData)
   };
+
 
   return (
     <div className={`row ${classname}`}>
@@ -71,4 +73,4 @@ function OrcamentoHeaderRow({ items, classname, onDelete, lajes, setLajes, onUpd
   );
 }
 
-export default OrcamentoHeaderRow;
+export default OrcamentoDataRow;
