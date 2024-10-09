@@ -10,7 +10,9 @@ import { Navigate, useNavigate } from 'react-router-dom';
 function Orcamento() {
   const [lajes, setLajes] = useState([]);
   const [dataRows, setDataRows] = useState([
-    { id: Date.now(), data: ["-", "-", "-", "-", "-", "-", "-"] },
+    { id: Date.now(),
+      data: ["-", "-", "-", "-", "-", "-", "-"],
+      selectedLaje: null },
   ]);
 
   async function getLajes() {
@@ -22,12 +24,13 @@ function Orcamento() {
     getLajes();
   }, []);
 
- const updateDataRows = (id, newData) => {
-  setDataRows((prevDataRows) =>
-    prevDataRows.map((item) => (item.id === id ? { ...item, data: newData } : item))
-  );
-    console.log('atualizei')
-    console.log(dataRows)
+  const updateDataRows = (id, newData) => {
+    
+      setDataRows((prevDataRows) =>
+        prevDataRows.map((item) =>
+          item.id === id ? { ...item, data: newData.data, selectedLaje: newData.selectedLaje } : item
+        )
+      );
   };
   const navigate = useNavigate();
 

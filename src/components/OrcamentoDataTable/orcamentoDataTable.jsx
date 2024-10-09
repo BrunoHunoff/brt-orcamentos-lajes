@@ -24,7 +24,7 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
   };
 
   const adicionarNovoItem = () => {
-    const newDataRow = {id: Date.now(), data: ["-", "-", "-", "-", "-", "-", "-"]};
+    const newDataRow = {id: Date.now(), data: ["-", "-", "-", "-", "-", "-", "-"], selectedLaje: null};
     setDataRows((prevDataRows) => [...prevDataRows, newDataRow]);
   };
 
@@ -46,6 +46,7 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
         <>
           <OrcamentoHeaderRow classname="header-row" items={headerItems} />
           {dataRows.map((dataRow, index) => {
+            console.log(dataRow)
             const newDataRow = [...dataRow.data];
             newDataRow[0] = String(index + 1);
             return (

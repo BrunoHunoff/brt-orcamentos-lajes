@@ -6,7 +6,15 @@ import CalculoTable from '../../components/CalculoTable/calculoTable'
 import ResumoTable from '../../components/ResumoTable/resumoTable'
 import NavRow from '../../components/NavRow/navRow'
 
-function Calculo() {
+function Calculo( { dataRows, lajes } ) {
+    let footage = 0
+    let cost = 0
+
+    dataRows.forEach(row => {
+        footage += (row.data[1] * row.data[5] * row.data[6]);
+        cost += (footage)
+    });
+
     return (
         <div className="calculo">
             <Sidebar/>

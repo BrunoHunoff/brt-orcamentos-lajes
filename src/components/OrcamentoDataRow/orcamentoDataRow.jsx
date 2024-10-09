@@ -3,19 +3,22 @@ import "./orcamentoDataRow.css";
 import DeleteIcon from "../Icons/DeleteIcon";
 
 function OrcamentoDataRow({ items, classname, onDelete, lajes, setLajes, updateDataRows }) {
-
   const [data, setData] = useState(items.map(item => item === "-" ? "" : item));
-
+  const [selectedLaje, setSelectedLaje] = useState(null);
 
   const handleChange = (index, value) => {
     const newData = [...data];
     newData[index] = value;
     setData(newData);
-    console.log(newData)
 
-    updateDataRows(newData)
+    if (index === 2) {
+      const laje = lajes.find(laje => laje.name === value);
+      setSelectedLaje(laje); 
+      updateDataRows({ id: items[0], data: newData, selectedLaje: laje }); //alteração de selectedLaje
+    } else {
+      updateDataRows({ id: items[0], data: newData, selectedLaje }); //mantém selected laje atual
+    }
   };
-
 
   return (
     <div className={`row ${classname}`}>
