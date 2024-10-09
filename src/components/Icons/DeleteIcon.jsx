@@ -8,7 +8,7 @@ function DeleteIcon({width, height, onClick}) {
       height={height}
       fill="none"
       viewBox="0 0 20 20"
-      onClick={onClick}
+      onClick={() => onClick()}
     >
       <path
         fill="currentColor"

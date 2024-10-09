@@ -1,10 +1,8 @@
-// HeaderRow.js
 import React from 'react';
-import './orcamentoDataRow.css';
-import DeleteIcon from '../Icons/DeleteIcon';
+import './orcamentoHeaderRow.css';
 
 
-function OrcamentoDataRow({ items, showDelete, classname, onDelete }) {
+function OrcamentoHeaderRow({ items, classname }) {
   return (
     <div className= {`row ${classname}`}>
         
@@ -13,7 +11,7 @@ function OrcamentoDataRow({ items, showDelete, classname, onDelete }) {
         let itemClass;
 
         if (itemIndex > 3) {
-          itemClass = 'item-2'; // ou a classe CSS que você deseja aplicar
+          itemClass = 'item-2';
         } else {
           itemClass = `item-${itemIndex}`;
         }
@@ -25,12 +23,8 @@ function OrcamentoDataRow({ items, showDelete, classname, onDelete }) {
         );
       })}
 
-      {showDelete && <button className='delete-btn'>
-        <DeleteIcon onClick={onDelete} width='24px' height='24px'/>
-      </button>}
-
     </div>
   );
 }
 
-export default OrcamentoDataRow;
+export default OrcamentoHeaderRow;
