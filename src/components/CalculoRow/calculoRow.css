@@ -1,0 +1,26 @@
+.calculo-row{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #E7E2E2;
+    padding-block: 12px;
+    border-radius: 20px;
+}
+
+.calculo-row input{
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    width: 120px;
+}
+
+.calculo-row span {
+    width: 120px;
+    text-align: center;
+}
+
+.calculo-row input:focus{
+    border: none;
+    outline: none;
+}
