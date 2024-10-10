@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import Sidebar from "../../components/Sidebar/sidebar";
-import ResumoTable from "../../components/ResumoTable/resumoTable";
 import NavRow from "../../components/NavRow/navRow";
 import CalculoRow from "../../components/CalculoRow/calculoRow";
 import ResumoRow from "../../components/ResumoRow/resumoRow";
@@ -17,16 +16,21 @@ function Calculo({}) {
   let cost = 0;
 
   useEffect(() => {
-    dataRows.forEach((row) => {
-      setTotalFootage(totalFootage + (row.data[1] * row.data[5] * row.data[6]));
-      setTotalCost(totalCost + totalFootage * row.selectedLaje.price);
+    let footage = 0;
+    let cost = 0;
 
+    dataRows.forEach((row) => {
+      footage+= (row.data[1] * row.data[5] * row.data[6]);
+      cost+= (footage * row.selectedLaje.price);
     });
+
+    setTotalFootage(footage);
+    setTotalCost(cost);
   }, []);
 
   return (
     <div className="calculo">
-      <Sidebar />
+      <Sidebar/>
 
       <div className="content">
         <Header pageTitle="Calculo" userName="Bruno Hunoff" />
