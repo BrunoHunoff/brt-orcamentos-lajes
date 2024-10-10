@@ -7,10 +7,7 @@ function ResumoTable() {
             <div className='resumo-title-row'>Resumo</div>
 
             <div className='resumo-table-content'>
-                <div className='resumo-row total'>
-                    <span>Valor Total</span>
-                    <span>R$51.396,77</span>
-                </div>
+                
                 <div className='resumo-row'>
                     <span>Área Total</span>
                     <span>500m²</span>
