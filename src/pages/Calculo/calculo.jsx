@@ -43,22 +43,32 @@ function Calculo({}) {
 
   const handleRowPercentageChange = (name, value) => {
     const updatePercentage = parseFloat(value) || 0;
-
-    const updateRowPercentage = {
+  
+    const updatedRowPercentage = {
       ...rowPercentage,
-      [name] : {
+      [name]: {
         ...rowPercentage[name],
-        percentage: updatePercentage,
-        value: updatePercentage * sellPrice / 100
+        percentage: updatePercentage
       }
-    }
-
-    setRowPercentage(updateRowPercentage)
-
-    const total = Object.values(updateRowPercentage).reduce((acc, curr) => acc + curr.percentage, 0);
+    };
+  
+    const total = Object.values(updatedRowPercentage).reduce((acc, curr) => acc + curr.percentage, 0);
     setTotalPercentage(total);
-    setSellPrice(totalCost / (1 -(total/100))) //markup price
-  }
+  
+    const newSellPrice = totalCost / (1 - (total / 100));
+    setSellPrice(parseFloat(newSellPrice.toFixed(2)));
+  
+    const updatedRowValues = {
+      ...updatedRowPercentage,
+    };
+  
+    Object.keys(updatedRowValues).forEach((key) => {
+      updatedRowValues[key].value = (updatedRowValues[key].percentage * newSellPrice) / 100;
+    });
+  
+    setRowPercentage(updatedRowValues);
+  };
+  
 
 
   useEffect(() => {
@@ -88,11 +98,11 @@ function Calculo({}) {
             <h2 className="calculo-title-row">Contribuição</h2>
 
             <div className="calculo-table-content">
-              <CalculoRow rowName="Contribuição" inputName="contribuicao" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.contribuicao.value}/>
-              <CalculoRow rowName="Comissão" inputName="comissao" onInputChange={handleRowPercentageChange}rowPrice={rowPercentage.comissao.value} />
-              <CalculoRow rowName="Admin" inputName="admin" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.admin.value}/>
-              <CalculoRow rowName="Tributário" inputName="tributario" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.tributario.value}/>
-              <CalculoRow rowName="Extra" inputName="extra" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.extra.value}/>
+              <CalculoRow rowName="Contribuição" inputName="contribuicao" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.contribuicao.value.toFixed(2)}/>
+              <CalculoRow rowName="Comissão" inputName="comissao" onInputChange={handleRowPercentageChange}rowPrice={rowPercentage.comissao.value.toFixed(2)} />
+              <CalculoRow rowName="Admin" inputName="admin" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.admin.value.toFixed(2)}/>
+              <CalculoRow rowName="Tributário" inputName="tributario" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.tributario.value.toFixed(2)}/>
+              <CalculoRow rowName="Extra" inputName="extra" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.extra.value.toFixed(2)}/>
               <div className="total-row">
                 <span>Total</span>
                 <span className="total-perc">{`${totalPercentage}%`}</span>
