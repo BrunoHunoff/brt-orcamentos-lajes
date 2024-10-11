@@ -49,7 +49,7 @@ function Calculo({}) {
       [name] : {
         ...rowPercentage[name],
         percentage: updatePercentage,
-        value: updatePercentage * totalCost / 100
+        value: updatePercentage * sellPrice / 100
       }
     }
 
@@ -57,7 +57,7 @@ function Calculo({}) {
 
     const total = Object.values(updateRowPercentage).reduce((acc, curr) => acc + curr.percentage, 0);
     setTotalPercentage(total);
-    setSellPrice(totalCost * (1 + (total/100)))
+    setSellPrice(totalCost / (1 -(total/100))) //markup price
   }
 
 
