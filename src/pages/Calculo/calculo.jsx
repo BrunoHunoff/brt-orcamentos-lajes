@@ -98,7 +98,7 @@ function Calculo({}) {
       <Sidebar />
 
       <div className="content">
-        <Header pageTitle="Calculo" userName="Bruno Hunoff" />
+        <Header pageTitle="Cálculo" userName="Bruno Hunoff" />
         <div className="tables-container">
           <div className="calculo-table">
             <h2 className="calculo-title-row">Contribuição</h2>
