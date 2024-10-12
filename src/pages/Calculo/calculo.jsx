@@ -13,27 +13,28 @@ function Calculo({}) {
   const [totalFootage, setTotalFootage] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
+  const [pricePerMeter, setPricePerMeter] = useState(0);
 
   const [rowPercentage, setRowPercentage] = useState({
     contribuicao: {
       percentage: 0,
-      value: 0
+      value: 0,
     },
     comissao: {
       percentage: 0,
-      value: 0
+      value: 0,
     },
     admin: {
       percentage: 0,
-      value: 0
+      value: 0,
     },
     tributario: {
       percentage: 0,
-      value: 0
+      value: 0,
     },
     extra: {
       percentage: 0,
-      value: 0
+      value: 0,
     },
   });
 
@@ -43,33 +44,38 @@ function Calculo({}) {
 
   const handleRowPercentageChange = (name, value) => {
     const updatePercentage = parseFloat(value) || 0;
-  
+
     const updatedRowPercentage = {
       ...rowPercentage,
       [name]: {
         ...rowPercentage[name],
-        percentage: updatePercentage
-      }
+        percentage: updatePercentage,
+      },
     };
-  
-    const total = Object.values(updatedRowPercentage).reduce((acc, curr) => acc + curr.percentage, 0);
+
+    const total = Object.values(updatedRowPercentage).reduce(
+      (acc, curr) => acc + curr.percentage,
+      0
+    );
     setTotalPercentage(total);
-  
-    const newSellPrice = totalCost / (1 - (total / 100));
-    setSellPrice(parseFloat(newSellPrice.toFixed(2)));
-  
+
+    const newSellPrice = totalCost / (1 - total / 100);
+    setSellPrice(newSellPrice.toFixed(2));
+
+    const newPricePerMeter = (newSellPrice / totalFootage).toFixed(2);
+    setPricePerMeter(newPricePerMeter);
+
     const updatedRowValues = {
       ...updatedRowPercentage,
     };
-  
+
     Object.keys(updatedRowValues).forEach((key) => {
-      updatedRowValues[key].value = (updatedRowValues[key].percentage * newSellPrice) / 100;
+      updatedRowValues[key].value =
+        (updatedRowValues[key].percentage * newSellPrice) / 100;
     });
-  
+
     setRowPercentage(updatedRowValues);
   };
-  
-
 
   useEffect(() => {
     let footage = 0;
@@ -77,19 +83,19 @@ function Calculo({}) {
     let weight = 0;
 
     dataRows.forEach((row) => {
-      footage+= (row.data[1] * row.data[5] * row.data[6]);
-      cost+= (footage * row.selectedLaje.price);
-      weight = (footage * row.selectedLaje.weight);
+      footage += row.data[1] * row.data[5] * row.data[6];
+      cost += footage * row.selectedLaje.price;
+      weight = footage * row.selectedLaje.weight;
     });
 
     setTotalFootage(footage);
     setTotalCost(cost);
-    setTotalWeight(weight)
+    setTotalWeight(weight);
   }, []);
 
   return (
     <div className="calculo">
-      <Sidebar/>
+      <Sidebar />
 
       <div className="content">
         <Header pageTitle="Calculo" userName="Bruno Hunoff" />
@@ -98,11 +104,41 @@ function Calculo({}) {
             <h2 className="calculo-title-row">Contribuição</h2>
 
             <div className="calculo-table-content">
-              <CalculoRow rowName="Contribuição" inputName="contribuicao" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.contribuicao.value.toFixed(2)}/>
-              <CalculoRow rowName="Comissão" inputName="comissao" onInputChange={handleRowPercentageChange}rowPrice={rowPercentage.comissao.value.toFixed(2)} />
-              <CalculoRow rowName="Admin" inputName="admin" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.admin.value.toFixed(2)}/>
-              <CalculoRow rowName="Tributário" inputName="tributario" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.tributario.value.toFixed(2)}/>
-              <CalculoRow rowName="Extra" inputName="extra" onInputChange={handleRowPercentageChange} rowPrice={rowPercentage.extra.value.toFixed(2)}/>
+              <CalculoRow
+                rowName="Contribuição"
+                inputName="contribuicao"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.contribuicao.value.toFixed(2)}
+                rowPercentage={rowPercentage.contribuicao.percentage}
+              />
+              <CalculoRow
+                rowName="Comissão"
+                inputName="comissao"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.comissao.value.toFixed(2)}
+                rowPercentage={rowPercentage.comissao.percentage}
+              />
+              <CalculoRow
+                rowName="Admin"
+                inputName="admin"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.admin.value.toFixed(2)}
+                rowPercentage={rowPercentage.admin.percentage}
+              />
+              <CalculoRow
+                rowName="Tributário"
+                inputName="tributario"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.tributario.value.toFixed(2)}
+                rowPercentage={rowPercentage.tributario.percentage}
+              />
+              <CalculoRow
+                rowName="Extra"
+                inputName="extra"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.extra.value.toFixed(2)}
+                rowPercentage={rowPercentage.extra.percentage}
+              />
               <div className="total-row">
                 <span>Total</span>
                 <span className="total-perc">{`${totalPercentage}%`}</span>
@@ -115,12 +151,33 @@ function Calculo({}) {
             <h2 className="calculo-title-row">Resumo</h2>
 
             <div className="calculo-table-content">
-                <ResumoRow rowName="Custo Total" content={`R$${totalCost}`}/>
-                <ResumoRow rowName="Área Total" content={`${totalFootage}m²`}/>
-                <ResumoRow rowName="RS/m²"/>
-                <ResumoRow rowName="Peso Total" content={(`${totalWeight}kg`)}/>
-                <ResumoRow rowName="Quantidade Fretes"/>
-                <ResumoRow rowName="R$/Frete"/>
+              <ResumoRow
+                rowName="Custo Total"
+                content={`R$${parseFloat(totalCost).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}`}
+              />
+              <ResumoRow
+                rowName="Área Total"
+                content={`${parseFloat(totalFootage).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}m²`}
+              />
+              <ResumoRow
+                rowName="RS/m²"
+                content={`R$${parseFloat(pricePerMeter).toLocaleString(
+                  "pt-BR",
+                  { minimumFractionDigits: 2 }
+                )}`}
+              />
+              <ResumoRow
+                rowName="Peso Total"
+                content={`${parseFloat(totalWeight).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}kg`}
+              />
+              <ResumoRow rowName="Quantidade Fretes" />
+              <ResumoRow rowName="R$/Frete" />
             </div>
           </div>
         </div>

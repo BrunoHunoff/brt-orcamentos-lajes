@@ -9,8 +9,8 @@ function CalculoRow({ rowName,inputName, onInputChange, rowPrice }) {
   return (
     <div className="calculo-row">
       <span>{rowName}</span>
-      <input type="text" name="contribuicao" onBlur={handleInputChange}/>
-      <span>{`R$${rowPrice}`}</span>
+      <input type="text" name="contribuicao" placeholder="0%" onBlur={handleInputChange}/>
+      <span>{`R$${parseFloat(rowPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}</span>
     </div>
   );
 }

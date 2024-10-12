@@ -13,6 +13,9 @@
     border: none;
     text-align: center;
     width: 120px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2D3F51;
 }
 
 .calculo-row span {
