@@ -1,0 +1,15 @@
+.resumo-row{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #E7E2E2;
+    color: #2D3F51;
+    padding-block: 12px;
+    border-radius: 20px;
+}
+
+.resumo-row span {
+    width: 160px;
+    text-align: center;
+}
