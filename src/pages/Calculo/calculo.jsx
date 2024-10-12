@@ -104,6 +104,11 @@ function Calculo({}) {
             <h2 className="calculo-title-row">Contribuição</h2>
 
             <div className="calculo-table-content">
+              <div className="total-row cost">
+                <span>Custo</span>
+                <span className="space"></span>
+                <span>{`R$${parseFloat(totalCost).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</span>
+              </div>
               <CalculoRow
                 rowName="Contribuição"
                 inputName="contribuicao"
@@ -152,12 +157,6 @@ function Calculo({}) {
 
             <div className="calculo-table-content">
               <ResumoRow
-                rowName="Custo Total"
-                content={`R$${parseFloat(totalCost).toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                })}`}
-              />
-              <ResumoRow
                 rowName="Área Total"
                 content={`${parseFloat(totalFootage).toLocaleString("pt-BR", {
                   minimumFractionDigits: 2,
@@ -176,8 +175,6 @@ function Calculo({}) {
                   minimumFractionDigits: 2,
                 })}kg`}
               />
-              <ResumoRow rowName="Quantidade Fretes" />
-              <ResumoRow rowName="R$/Frete" />
             </div>
           </div>
         </div>
