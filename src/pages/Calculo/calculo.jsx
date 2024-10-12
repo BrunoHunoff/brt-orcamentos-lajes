@@ -142,7 +142,7 @@ function Calculo({}) {
               <div className="total-row">
                 <span>Total</span>
                 <span className="total-perc">{`${totalPercentage}%`}</span>
-                <span>{`R$${sellPrice}`}</span>
+                <span>{`R$${parseFloat(sellPrice).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</span>
               </div>
             </div>
           </div>

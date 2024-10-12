@@ -58,3 +58,8 @@
     padding-block: 12px;
     border-radius: 20px;
 }
+
+.total-row span{
+    width: 120px;
+    text-align: center;
+}
