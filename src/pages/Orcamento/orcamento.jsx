@@ -45,9 +45,17 @@ function Orcamento() {
   const navigate = useNavigate();
 
   const handleAvancar = () => {
-    console.log("Dados salvos:", dataRows);
+    const requiredHeaderFields = ["clientName", "clientId", "city", "state", "freightType"]
+    const headerIsValid = requiredHeaderFields.every(field => budgetHeader[field] != null && budgetHeader[field] != "")
 
-    navigate("/calculo", { state: { dataRows, budgetHeader } });
+    const rowsAreValid = dataRows.every(row => {
+      return row.selectedLaje != null && row.data.every(value => value !== "-");
+    });
+  
+
+    if(headerIsValid && rowsAreValid) navigate("/calculo", { state: { dataRows, budgetHeader } });
+
+    console.log("Campos inválidos");
   };
 
   return (
