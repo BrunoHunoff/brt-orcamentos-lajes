@@ -51,13 +51,10 @@ function Orcamento() {
     const headerIsValid = requiredHeaderFields.every(field => budgetHeader[field] != null && budgetHeader[field] != "")
 
     const rowsAreValid = dataRows.every(row => {
-      return row.selectedLaje != null && row.data.every(value => value !== "-");
+      return row.selectedLaje != null && row.data.every(value => value !== "-" && value != "");
     });
-  
 
-    if(headerIsValid && rowsAreValid) navigate("/calculo", { state: { dataRows, budgetHeader } });
-
-    return(
+    if(!headerIsValid || !rowsAreValid) return(
       Swal.fire({
         title: "Campos Inválidos",
         text: "Por favor, preencha os campos para continuar!",
@@ -65,6 +62,8 @@ function Orcamento() {
         customClass: "error-modal"
       })
     )
+
+    navigate("/calculo", { state: { dataRows, budgetHeader } });
   };
 
   return (
