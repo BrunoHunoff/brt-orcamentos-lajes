@@ -15,6 +15,16 @@ function Orcamento() {
       selectedLaje: null },
   ]);
 
+  const [budgetHeader, setBudgetHeader] = useState({
+    budgetId: null,
+    clientName: null,
+    clientId: null,
+    city: null,
+    state: null,
+    freightType: null,
+    freightPrice: null
+  })
+
   async function getLajes() {
     const response = await apiLajes.get("/slabs");
     setLajes(response.data);
@@ -37,7 +47,7 @@ function Orcamento() {
   const handleAvancar = () => {
     console.log("Dados salvos:", dataRows);
 
-    navigate("/calculo", { state: { dataRows } });
+    navigate("/calculo", { state: { dataRows, budgetHeader } });
   };
 
   return (
@@ -47,6 +57,7 @@ function Orcamento() {
       <div className="content">
         <Header pageTitle="Orçamento" userName="Bruno Hunoff" />
         <OrcamentoData
+          updateBudgetHeader = {setBudgetHeader}
           updateDataRows={updateDataRows}
           lajes={lajes}
           setLajes={setLajes}

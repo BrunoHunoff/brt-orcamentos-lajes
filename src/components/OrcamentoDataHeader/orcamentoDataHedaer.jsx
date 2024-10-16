@@ -3,19 +3,37 @@ import Input from "../Input/input";
 import "./orcamentoDataHeader.css";
 import apiLajes from "../../../services/api";
 
-function OrcamentoDataHeader() {
+function OrcamentoDataHeader( {updateBudgetHeader} ) {
 
   const [clientes, setClientes] = useState([])
+
 
   async function getClientes() {
     const request = await apiLajes.get("/costumers")
     setClientes(request.data)
-    console.log(clientes)
   }
 
   useEffect(() => {
     getClientes();
   }, [])
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    updateBudgetHeader(prevHeader => ({
+      ...prevHeader,
+      [id]: value
+    }));
+  }
+
+  const handleChangeClient = (e) => {
+    const { value } = e.target;
+    const [clientId, clientName] = value.split(",");
+    updateBudgetHeader (prevHeader => ({
+      ...prevHeader,
+      clientId: clientId,
+      clientName: clientName
+    }))
+  }
 
   return (
     <div className="orcamentoDataHeader">
@@ -25,18 +43,19 @@ function OrcamentoDataHeader() {
           labelText="Nº Orçamento"
           inputType="text"
           placeHolder="00-000-0000"
-          inputId="orcamentoNumber"
+          inputId="budgetId"
           width="140px"
           textAlign="center"
+          onChange={handleChange}
         />
       </div>
 
       <div className="data-row">
         <div className="select-container">
           <label htmlFor="clientes">Cliente</label>
-          <select id="clientes" className="clientes-select"> {/* Melhorar essa solução para um dropdown mais elaborado */}
+          <select id="clientName" className="clientes-select" onChange={handleChangeClient}>
             {clientes.map((cliente, index) => {
-              return <option key={index} value="opcao1">{cliente.name}</option>
+              return <option key={index} value={[cliente.id, cliente.name]}>{cliente.name}</option>
             })}
             
           </select>
@@ -45,22 +64,23 @@ function OrcamentoDataHeader() {
           labelText="Cidade"
           inputType="text"
           placeHolder="Selecione"
-          inputId="orcamentoCity"
+          inputId="city"
           width="220px"
+          onChange={handleChange}
         />
         <Input
           labelText="UF"
           inputType="text"
           placeHolder="UF"
-          inputId="orcamentoUf"
-          width="60"
-          px
+          inputId="state"
+          width="60px"
+          onChange={handleChange}
         />
         <div className="select-container">
           <label htmlFor="frete">Frete</label>
-          <select id="frete" className="frete-select">
-            <option value="opcao1">FOB</option>
-            <option value="opcao2">CIF</option>
+          <select id="freightType" className="frete-select" onChange={handleChange}>
+            <option value="FOB">FOB</option>
+            <option value="CIF">CIF</option>
           </select>
         </div>
         <Input
@@ -69,6 +89,7 @@ function OrcamentoDataHeader() {
           placeHolder="R$"
           inputId="freightPrice"
           width="180px"
+          onChange={handleChange}
         />
       </div>
     </div>

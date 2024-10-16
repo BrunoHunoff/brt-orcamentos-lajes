@@ -10,6 +10,7 @@ import ResumoRow from "../../components/ResumoRow/resumoRow";
 function Calculo({}) {
   const location = useLocation();
   const { dataRows } = location.state || { dataRows: [] };
+  const { budgetHeader } = location.state || { budgetHeader: {} }
   const [totalFootage, setTotalFootage] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
@@ -91,6 +92,8 @@ function Calculo({}) {
     setTotalFootage(footage);
     setTotalCost(cost);
     setTotalWeight(weight);
+
+    console.log(budgetHeader)
   }, []);
 
   return (

@@ -12,6 +12,7 @@ const Input = React.forwardRef((props, ref) => {
         placeholder={props.placeHolder}
         ref={ref} // Passa a ref corretamente para o input
         style={{ width: props.width, textAlign: props.textAlign }}
+        onBlur={props.onChange}
       />
     </div>
   );
