@@ -2,3 +2,7 @@
     background-color: #E7E2E2;
     display: flex;
 }
+
+.error-modal button{
+    background-color: #717A84;
+}

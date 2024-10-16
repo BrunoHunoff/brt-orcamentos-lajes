@@ -6,6 +6,8 @@ import NavRow from "../../components/NavRow/navRow";
 import apiLajes from "../../../services/api";
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+
 
 function Orcamento() {
   const [lajes, setLajes] = useState([]);
@@ -55,7 +57,14 @@ function Orcamento() {
 
     if(headerIsValid && rowsAreValid) navigate("/calculo", { state: { dataRows, budgetHeader } });
 
-    console.log("Campos inválidos");
+    return(
+      Swal.fire({
+        title: "Campos Inválidos",
+        text: "Por favor, preencha os campos para continuar!",
+        icon: "error",
+        customClass: "error-modal"
+      })
+    )
   };
 
   return (
