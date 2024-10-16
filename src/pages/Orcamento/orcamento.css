@@ -3,6 +3,10 @@
     display: flex;
 }
 
+.error-modal{
+    border-radius: 20px;
+}
+
 .error-modal button{
     background-color: #717A84;
 }
