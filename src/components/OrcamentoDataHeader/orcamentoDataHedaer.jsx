@@ -54,7 +54,7 @@ function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
       <div className="data-row">
         <div className="select-container">
           <label htmlFor="clientes">Cliente</label>
-          <select id="clientName" className="clientes-select" onChange={handleChangeClient} value={budgetHeader.clientName || ""}>
+          <select id="clientName" className="clientes-select" onChange={handleChangeClient} defaultValue={budgetHeader.clientName || ""}>
             {clientes.map((cliente, index) => {
               return <option key={index} value={[cliente.id, cliente.name]}>{cliente.name}</option>
             })}
@@ -81,7 +81,7 @@ function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
         />
         <div className="select-container">
           <label htmlFor="frete">Frete</label>
-          <select id="freightType" className="frete-select" onChange={handleChange} value={budgetHeader.freightType || ""}>
+          <select id="freightType" className="frete-select" onChange={handleChange} defaultValue={budgetHeader.freightType || ""}>
             <option value="FOB">FOB</option>
             <option value="CIF">CIF</option>
           </select>
