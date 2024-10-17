@@ -9,17 +9,22 @@ import ResumoRow from "../../components/ResumoRow/resumoRow";
 import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 
-
 function Calculo({}) {
-  const {budgetHeader, dataRows, rowPercentage, setRowPercentage} = useContext(OrcamentoContext)
+  const {
+    budgetHeader,
+    setBudgetHeader,
+    dataRows,
+    rowPercentage,
+    setRowPercentage,
+    totalPercentage,
+    setTotalPercentage,
+    sellPrice,
+    setSellPrice
+  } = useContext(OrcamentoContext);
   const [totalFootage, setTotalFootage] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
-  const [pricePerMeter, setPricePerMeter] = useState(0);  
-
-  const [totalPercentage, setTotalPercentage] = useState(0);
-
-  const [sellPrice, setSellPrice] = useState(0);
+  const [pricePerMeter, setPricePerMeter] = useState(0);
 
   function updateValues(rowPercentage) {
     const total = Object.values(rowPercentage).reduce(
@@ -47,7 +52,6 @@ function Calculo({}) {
   }
 
   const handleRowPercentageChange = (name, value) => {
-
     const updatePercentage = parseFloat(value) || 0;
 
     const updatedRowPercentage = {
@@ -58,7 +62,14 @@ function Calculo({}) {
       },
     };
 
-    updateValues(updatedRowPercentage); 
+    updateValues(updatedRowPercentage);
+  };
+
+  const updateFreightWeight = (value) => {
+    setBudgetHeader((prevBudgetHeader) => ({
+      ...prevBudgetHeader,
+      freightWeight: value,
+    }));
   };
 
   useEffect(() => {
@@ -76,95 +87,116 @@ function Calculo({}) {
     setTotalCost(cost);
     setTotalWeight(weight);
 
-    updateValues(rowPercentage)
-
-    console.log(budgetHeader)
+    console.log(budgetHeader);
   }, [dataRows, rowPercentage]);
 
   return (
-      <div className="calculo">
-        <Sidebar />
-        <div className="content">
-          <Header pageTitle="Cálculo" userName="Bruno Hunoff" />
-          <div className="tables-container">
-            <div className="calculo-table">
-              <h2 className="calculo-title-row">Contribuição</h2>
-              <div className="calculo-table-content">
-                <div className="total-row cost">
-                  <span>Custo</span>
-                  <span className="space"></span>
-                  <span>{`R$${parseFloat(totalCost).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</span>
-                </div>
-                <CalculoRow
-                  rowName="Contribuição"
-                  inputName="contribuicao"
-                  onInputChange={handleRowPercentageChange}
-                  rowPrice={rowPercentage.contribuicao.value.toFixed(2)}
-                  rowPercentage={rowPercentage.contribuicao.percentage}
-                />
-                <CalculoRow
-                  rowName="Comissão"
-                  inputName="comissao"
-                  onInputChange={handleRowPercentageChange}
-                  rowPrice={rowPercentage.comissao.value.toFixed(2)}
-                  rowPercentage={rowPercentage.comissao.percentage}
-                />
-                <CalculoRow
-                  rowName="Admin"
-                  inputName="admin"
-                  onInputChange={handleRowPercentageChange}
-                  rowPrice={rowPercentage.admin.value.toFixed(2)}
-                  rowPercentage={rowPercentage.admin.percentage}
-                />
-                <CalculoRow
-                  rowName="Tributário"
-                  inputName="tributario"
-                  onInputChange={handleRowPercentageChange}
-                  rowPrice={rowPercentage.tributario.value.toFixed(2)}
-                  rowPercentage={rowPercentage.tributario.percentage}
-                />
-                <CalculoRow
-                  rowName="Extra"
-                  inputName="extra"
-                  onInputChange={handleRowPercentageChange}
-                  rowPrice={rowPercentage.extra.value.toFixed(2)}
-                  rowPercentage={rowPercentage.extra.percentage}
-                />
-                <div className="total-row">
-                  <span>Total</span>
-                  <span className="total-perc">{`${totalPercentage}%`}</span>
-                  <span>{`R$${parseFloat(sellPrice).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</span>
-                </div>
+    <div className="calculo">
+      <Sidebar />
+      <div className="content">
+        <Header pageTitle="Cálculo" userName="Bruno Hunoff" />
+        <div className="tables-container">
+          <div className="calculo-table">
+            <h2 className="calculo-title-row">Percentuais</h2>
+            <div className="calculo-table-content">
+              <div className="total-row cost">
+                <span>Custo</span>
+                <span className="space"></span>
+                <span>{`R$${parseFloat(totalCost).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}`}</span>
               </div>
-            </div>
-            <div className="calculo-table">
-              <h2 className="calculo-title-row">Resumo</h2>
-              <div className="calculo-table-content">
-                <ResumoRow
-                  rowName="Área Total"
-                  content={`${parseFloat(totalFootage).toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}m²`}
-                />
-                <ResumoRow
-                  rowName="RS/m²"
-                  content={`R$${parseFloat(pricePerMeter).toLocaleString(
-                    "pt-BR",
-                    { minimumFractionDigits: 2 }
-                  )}`}
-                />
-                <ResumoRow
-                  rowName="Peso Total"
-                  content={`${parseFloat(totalWeight).toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}kg`}
-                />
+              <CalculoRow
+                rowName="Contribuição"
+                inputName="contribuicao"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.contribuicao.value.toFixed(2)}
+                rowPercentage={rowPercentage.contribuicao.percentage}
+              />
+              <CalculoRow
+                rowName="Comissão"
+                inputName="comissao"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.comissao.value.toFixed(2)}
+                rowPercentage={rowPercentage.comissao.percentage}
+              />
+              <CalculoRow
+                rowName="Admin"
+                inputName="admin"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.admin.value.toFixed(2)}
+                rowPercentage={rowPercentage.admin.percentage}
+              />
+              <CalculoRow
+                rowName="Tributário"
+                inputName="tributario"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.tributario.value.toFixed(2)}
+                rowPercentage={rowPercentage.tributario.percentage}
+              />
+              <CalculoRow
+                rowName="Extra"
+                inputName="extra"
+                onInputChange={handleRowPercentageChange}
+                rowPrice={rowPercentage.extra.value.toFixed(2)}
+                rowPercentage={rowPercentage.extra.percentage}
+              />
+              <div className="total-row">
+                <span>Total</span>
+                <span className="total-perc">{`${totalPercentage}%`}</span>
+                <span>{`R$${parseFloat(sellPrice).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}`}</span>
               </div>
             </div>
           </div>
-          <NavRow showVoltar={true} />
+          <div className="calculo-table">
+            <h2 className="calculo-title-row">Resumo</h2>
+            <div className="calculo-table-content">
+              <ResumoRow
+                rowName="Área Total"
+                content={`${parseFloat(totalFootage).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}m²`}
+              />
+              <ResumoRow
+                rowName="RS/m²"
+                content={`R$${parseFloat(pricePerMeter).toLocaleString(
+                  "pt-BR",
+                  { minimumFractionDigits: 2 }
+                )}`}
+              />
+              <ResumoRow
+                rowName="Peso Total"
+                content={`${parseFloat(totalWeight).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}kg`}
+              />
+              <ResumoRow
+                rowName="Nº Fretes"
+                content={`${parseFloat(totalWeight).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}kg`}
+              />
+              <div className="resumo-row">
+                <span>Kg/Frete</span>
+                <input
+                  defaultValue={budgetHeader.freightWeight}
+                  onBlur={updateFreightWeight}
+                />
+              </div>
+              <ResumoRow
+                rowName="Total Fretes"
+                content={`${parseFloat(totalWeight).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}kg`}
+              />
+            </div>
+          </div>
         </div>
+        <NavRow showVoltar={true} />
       </div>
+    </div>
   );
 }
 

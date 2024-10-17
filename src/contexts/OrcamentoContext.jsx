@@ -19,7 +19,12 @@ export const OrcamentoProvider = ({ children }) => {
     state: null,
     freightType: null,
     freightPrice: null,
+    freightWeight: null
   });
+
+  const [totalPercentage, setTotalPercentage] = useState(0);
+
+  const [sellPrice, setSellPrice] = useState(0);
 
   const [rowPercentage, setRowPercentage] = useState({
     contribuicao: {
@@ -53,6 +58,10 @@ export const OrcamentoProvider = ({ children }) => {
         setBudgetHeader,
         rowPercentage,
         setRowPercentage,
+        totalPercentage,
+        setTotalPercentage,
+        sellPrice,
+        setSellPrice
       }}
     >
       {children}
