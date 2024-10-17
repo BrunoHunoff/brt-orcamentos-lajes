@@ -13,6 +13,7 @@ const Input = React.forwardRef((props, ref) => {
         ref={ref} // Passa a ref corretamente para o input
         style={{ width: props.width, textAlign: props.textAlign }}
         onBlur={props.onChange}
+        defaultValue={props.value}
       />
     </div>
   );

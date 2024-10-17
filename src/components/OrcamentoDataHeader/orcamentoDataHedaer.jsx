@@ -3,7 +3,7 @@ import Input from "../Input/input";
 import "./orcamentoDataHeader.css";
 import apiLajes from "../../../services/api";
 
-function OrcamentoDataHeader( {updateBudgetHeader} ) {
+function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
 
   const [clientes, setClientes] = useState([])
 
@@ -47,13 +47,14 @@ function OrcamentoDataHeader( {updateBudgetHeader} ) {
           width="140px"
           textAlign="center"
           onChange={handleChange}
+          value={budgetHeader.budgetId || ""}
         />
       </div>
 
       <div className="data-row">
         <div className="select-container">
           <label htmlFor="clientes">Cliente</label>
-          <select id="clientName" className="clientes-select" onChange={handleChangeClient}>
+          <select id="clientName" className="clientes-select" onChange={handleChangeClient} value={budgetHeader.clientName || ""}>
             {clientes.map((cliente, index) => {
               return <option key={index} value={[cliente.id, cliente.name]}>{cliente.name}</option>
             })}
@@ -67,6 +68,7 @@ function OrcamentoDataHeader( {updateBudgetHeader} ) {
           inputId="city"
           width="220px"
           onChange={handleChange}
+          value = {budgetHeader.city || ""}
         />
         <Input
           labelText="UF"
@@ -75,10 +77,11 @@ function OrcamentoDataHeader( {updateBudgetHeader} ) {
           inputId="state"
           width="60px"
           onChange={handleChange}
+          value = {budgetHeader.state || ""}
         />
         <div className="select-container">
           <label htmlFor="frete">Frete</label>
-          <select id="freightType" className="frete-select" onChange={handleChange}>
+          <select id="freightType" className="frete-select" onChange={handleChange} value={budgetHeader.freightType || ""}>
             <option value="FOB">FOB</option>
             <option value="CIF">CIF</option>
           </select>
@@ -90,6 +93,7 @@ function OrcamentoDataHeader( {updateBudgetHeader} ) {
           inputId="freightPrice"
           width="180px"
           onChange={handleChange}
+          value = {budgetHeader.freightPrice || ""}
         />
       </div>
     </div>

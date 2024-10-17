@@ -7,25 +7,14 @@ import apiLajes from "../../../services/api";
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 
 
 function Orcamento() {
   const [lajes, setLajes] = useState([]);
-  const [dataRows, setDataRows] = useState([
-    { id: Date.now(),
-      data: ["-", "-", "-", "-", "-", "-", "-"],
-      selectedLaje: null },
-  ]);
-
-  const [budgetHeader, setBudgetHeader] = useState({
-    budgetId: null,
-    clientName: null,
-    clientId: null,
-    city: null,
-    state: null,
-    freightType: null,
-    freightPrice: null
-  })
+  
+  const {budgetHeader, setBudgetHeader, dataRows, setDataRows} = useContext(OrcamentoContext)
 
   async function getLajes() {
     const response = await apiLajes.get("/slabs");
@@ -34,6 +23,8 @@ function Orcamento() {
 
   useEffect(() => {
     getLajes();
+    console.log(dataRows)
+    console.log(budgetHeader)
   }, []);
 
   const updateDataRows = (id, newData) => {
@@ -44,6 +35,7 @@ function Orcamento() {
         )
       );
   };
+
   const navigate = useNavigate();
 
   const handleAvancar = () => {
@@ -63,26 +55,26 @@ function Orcamento() {
       })
     )
 
-    navigate("/calculo", { state: { dataRows, budgetHeader } });
+    navigate("/calculo");
   };
 
   return (
-    <div className="orcamento">
-      <Sidebar />
-
-      <div className="content">
-        <Header pageTitle="Orçamento" userName="Bruno Hunoff" />
-        <OrcamentoData
-          updateBudgetHeader = {setBudgetHeader}
-          updateDataRows={updateDataRows}
-          lajes={lajes}
-          setLajes={setLajes}
-          dataRows={dataRows}
-          setDataRows={setDataRows}
-        />
-        <NavRow showVoltar={true} onNext={handleAvancar}/>
+      <div className="orcamento">
+        <Sidebar />
+        <div className="content">
+          <Header pageTitle="Orçamento" userName="Bruno Hunoff" />
+          <OrcamentoData
+            updateBudgetHeader={setBudgetHeader}
+            budgetHeader={budgetHeader}
+            updateDataRows={updateDataRows}
+            lajes={lajes}
+            setLajes={setLajes}
+            dataRows={dataRows}
+            setDataRows={setDataRows}
+          />
+          <NavRow showVoltar={true} onNext={handleAvancar}/>
+        </div>
       </div>
-    </div>
   );
 }
 

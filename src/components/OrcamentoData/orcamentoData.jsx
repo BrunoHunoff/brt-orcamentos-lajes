@@ -5,7 +5,7 @@ import OrcamentoDataHeader from "../OrcamentoDataHeader/orcamentoDataHedaer";
 import OrcamentoDataTable from "../OrcamentoDataTable/orcamentoDataTable";
 import "./orcamentoData.css";
 
-function OrcamentoData({ lajes, setLajes, dataRows, setDataRows, updateDataRows, updateBudgetHeader }) {
+function OrcamentoData({ lajes, setLajes, dataRows, setDataRows, updateDataRows, updateBudgetHeader, budgetHeader }) {
   const [tables, setTables] = useState([{ id: Date.now(), data: "" }]);
 
   const addTable = () => {
@@ -20,7 +20,7 @@ function OrcamentoData({ lajes, setLajes, dataRows, setDataRows, updateDataRows,
 
   return (
     <div className="orcamentoData">
-      <OrcamentoDataHeader updateBudgetHeader={updateBudgetHeader}/>
+      <OrcamentoDataHeader updateBudgetHeader={updateBudgetHeader} budgetHeader={budgetHeader}/>
       {tables.map((table, index) => (
         <OrcamentoDataTable
           lajes={lajes}
