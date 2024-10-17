@@ -11,7 +11,7 @@ import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 
 
 function Calculo({}) {
-  const {budgetHeader, setBudgetHeader, dataRows, setDataRows, rowPercentage, setRowPercentage} = useContext(OrcamentoContext)
+  const {budgetHeader, dataRows, rowPercentage, setRowPercentage} = useContext(OrcamentoContext)
   const [totalFootage, setTotalFootage] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
@@ -21,18 +21,8 @@ function Calculo({}) {
 
   const [sellPrice, setSellPrice] = useState(0);
 
-  const handleRowPercentageChange = (name, value) => {
-    const updatePercentage = parseFloat(value) || 0;
-
-    const updatedRowPercentage = {
-      ...rowPercentage,
-      [name]: {
-        ...rowPercentage[name],
-        percentage: updatePercentage,
-      },
-    };
-
-    const total = Object.values(updatedRowPercentage).reduce(
+  function updateValues(rowPercentage) {
+    const total = Object.values(rowPercentage).reduce(
       (acc, curr) => acc + curr.percentage,
       0
     );
@@ -45,7 +35,7 @@ function Calculo({}) {
     setPricePerMeter(newPricePerMeter);
 
     const updatedRowValues = {
-      ...updatedRowPercentage,
+      ...rowPercentage,
     };
 
     Object.keys(updatedRowValues).forEach((key) => {
@@ -54,6 +44,21 @@ function Calculo({}) {
     });
 
     setRowPercentage(updatedRowValues);
+  }
+
+  const handleRowPercentageChange = (name, value) => {
+
+    const updatePercentage = parseFloat(value) || 0;
+
+    const updatedRowPercentage = {
+      ...rowPercentage,
+      [name]: {
+        ...rowPercentage[name],
+        percentage: updatePercentage,
+      },
+    };
+
+    updateValues(updatedRowPercentage); 
   };
 
   useEffect(() => {
@@ -71,8 +76,10 @@ function Calculo({}) {
     setTotalCost(cost);
     setTotalWeight(weight);
 
+    updateValues(rowPercentage)
+
     console.log(budgetHeader)
-  }, []);
+  }, [dataRows, rowPercentage]);
 
   return (
       <div className="calculo">
