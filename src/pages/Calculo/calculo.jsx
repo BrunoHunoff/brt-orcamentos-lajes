@@ -11,35 +11,11 @@ import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 
 
 function Calculo({}) {
-  const location = useLocation();
-  const {budgetHeader, setBudgetHeader, dataRows, setDataRows} = useContext(OrcamentoContext)
+  const {budgetHeader, setBudgetHeader, dataRows, setDataRows, rowPercentage, setRowPercentage} = useContext(OrcamentoContext)
   const [totalFootage, setTotalFootage] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
-  const [pricePerMeter, setPricePerMeter] = useState(0);
-
-  const [rowPercentage, setRowPercentage] = useState({
-    contribuicao: {
-      percentage: 0,
-      value: 0,
-    },
-    comissao: {
-      percentage: 0,
-      value: 0,
-    },
-    admin: {
-      percentage: 0,
-      value: 0,
-    },
-    tributario: {
-      percentage: 0,
-      value: 0,
-    },
-    extra: {
-      percentage: 0,
-      value: 0,
-    },
-  });
+  const [pricePerMeter, setPricePerMeter] = useState(0);  
 
   const [totalPercentage, setTotalPercentage] = useState(0);
 
