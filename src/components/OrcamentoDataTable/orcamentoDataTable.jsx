@@ -48,6 +48,7 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
           {dataRows.map((dataRow, index) => {
             console.log(dataRow)
             const newDataRow = [...dataRow.data];
+            const newSelectedLaje = [dataRow.selectedLaje]
             newDataRow[0] = String(index + 1);
             return (
               <OrcamentoDataRow
@@ -55,6 +56,7 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
                 setLajes={setLajes}
                 key={dataRow.id}
                 items={newDataRow}
+                newSelectedLaje = {newSelectedLaje}
                 showDelete={true}
                 onDelete={() => removerItem(dataRow.id)}
                 updateDataRows = {(newData) => updateDataRows(dataRow.id, newData)}

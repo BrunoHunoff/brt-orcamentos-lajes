@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./orcamentoDataRow.css";
 import DeleteIcon from "../Icons/DeleteIcon";
 
-function OrcamentoDataRow({ items, classname, onDelete, lajes, updateDataRows }) {
+function OrcamentoDataRow({ items, classname, onDelete, lajes, updateDataRows, newSelectedLaje }) {
   const [data, setData] = useState(items.map(item => item === "-" ? "" : item));
-  const [selectedLaje, setSelectedLaje] = useState(null);
+  const [selectedLaje, setSelectedLaje] = useState(newSelectedLaje[0] || null);
 
   const handleChange = (index, value) => {
     const newData = [...data];

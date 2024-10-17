@@ -39,6 +39,9 @@ function Orcamento() {
   const navigate = useNavigate();
 
   const handleAvancar = () => {
+    console.log(budgetHeader)
+    console.log(dataRows)
+
     const requiredHeaderFields = ["clientName", "clientId", "city", "state", "freightType"]
     const headerIsValid = requiredHeaderFields.every(field => budgetHeader[field] != null && budgetHeader[field] != "")
 
