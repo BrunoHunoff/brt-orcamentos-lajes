@@ -5,7 +5,7 @@ import OrcamentoData from "../../components/OrcamentoData/orcamentoData";
 import NavRow from "../../components/NavRow/navRow";
 import apiLajes from "../../../services/api";
 import { useState, useEffect } from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";

@@ -8,6 +8,8 @@ import CalculoRow from "../../components/CalculoRow/calculoRow";
 import ResumoRow from "../../components/ResumoRow/resumoRow";
 import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
+import axios from "axios";
+import apiLajes from "../../../services/api";
 
 function Calculo({}) {
   const {
@@ -65,7 +67,8 @@ function Calculo({}) {
     updateValues(updatedRowPercentage);
   };
 
-  const updateFreightWeight = (value) => {
+  const updateFreightWeight = (e) => {
+    const value = e.target.value
     setBudgetHeader((prevBudgetHeader) => ({
       ...prevBudgetHeader,
       freightWeight: value,
@@ -89,6 +92,38 @@ function Calculo({}) {
 
     console.log(budgetHeader);
   }, [dataRows, rowPercentage]);
+
+  const postOrcamentoData = {
+    costumerId: parseInt(budgetHeader.clientId),
+    costumerName: budgetHeader.clientName,
+    footage: parseFloat(totalFootage),
+    value: parseFloat(sellPrice),
+    city: budgetHeader.city,
+    state: budgetHeader.state,
+    freightId: null,
+    freightPrice: () => {
+      if (budgetHeader.freightPrice == undefined || budgetHeader.freightPrice == null) return 0
+      parseFloat(budgetHeader.freightPrice)
+    },
+    administration: parseFloat(rowPercentage.admin.percentage),
+    profit: parseFloat(rowPercentage.contribuicao.percentage),
+    taxes: parseFloat(rowPercentage.tributario.percentage),
+    extra: parseFloat(rowPercentage.extra.percentage),
+    slabs: dataRows.map((row) => ({
+        slabId: parseInt(row.selectedLaje.id), 
+        budgetId: parseInt(0),
+        slabsNumber: parseInt(row.data[0]), 
+        overload: parseFloat(row.data[3]),
+        length: parseFloat(row.data[4]),
+        width: parseFloat(row.data[5]), 
+    }))
+  };
+  
+
+  async function postOrcamento(data) {
+    console.log(data)
+    await apiLajes.post("/budgets", data)
+  }
 
   return (
     <div className="calculo">
@@ -194,7 +229,7 @@ function Calculo({}) {
             </div>
           </div>
         </div>
-        <NavRow showVoltar={true} />
+        <NavRow showVoltar={true} onNext={() => postOrcamento(postOrcamentoData)}/>
       </div>
     </div>
   );
