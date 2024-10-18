@@ -6,54 +6,30 @@ import Sidebar from "../../components/Sidebar/sidebar";
 import NavRow from "../../components/NavRow/navRow";
 import CalculoRow from "../../components/CalculoRow/calculoRow";
 import ResumoRow from "../../components/ResumoRow/resumoRow";
+import { useContext } from "react";
+import { OrcamentoContext } from "../../contexts/OrcamentoContext";
+import axios from "axios";
+import apiLajes from "../../../services/api";
 
 function Calculo({}) {
-  const location = useLocation();
-  const { dataRows } = location.state || { dataRows: [] };
+  const {
+    budgetHeader,
+    setBudgetHeader,
+    dataRows,
+    rowPercentage,
+    setRowPercentage,
+    totalPercentage,
+    setTotalPercentage,
+    sellPrice,
+    setSellPrice
+  } = useContext(OrcamentoContext);
   const [totalFootage, setTotalFootage] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
   const [pricePerMeter, setPricePerMeter] = useState(0);
 
-  const [rowPercentage, setRowPercentage] = useState({
-    contribuicao: {
-      percentage: 0,
-      value: 0,
-    },
-    comissao: {
-      percentage: 0,
-      value: 0,
-    },
-    admin: {
-      percentage: 0,
-      value: 0,
-    },
-    tributario: {
-      percentage: 0,
-      value: 0,
-    },
-    extra: {
-      percentage: 0,
-      value: 0,
-    },
-  });
-
-  const [totalPercentage, setTotalPercentage] = useState(0);
-
-  const [sellPrice, setSellPrice] = useState(0);
-
-  const handleRowPercentageChange = (name, value) => {
-    const updatePercentage = parseFloat(value) || 0;
-
-    const updatedRowPercentage = {
-      ...rowPercentage,
-      [name]: {
-        ...rowPercentage[name],
-        percentage: updatePercentage,
-      },
-    };
-
-    const total = Object.values(updatedRowPercentage).reduce(
+  function updateValues(rowPercentage) {
+    const total = Object.values(rowPercentage).reduce(
       (acc, curr) => acc + curr.percentage,
       0
     );
@@ -66,7 +42,7 @@ function Calculo({}) {
     setPricePerMeter(newPricePerMeter);
 
     const updatedRowValues = {
-      ...updatedRowPercentage,
+      ...rowPercentage,
     };
 
     Object.keys(updatedRowValues).forEach((key) => {
@@ -75,6 +51,28 @@ function Calculo({}) {
     });
 
     setRowPercentage(updatedRowValues);
+  }
+
+  const handleRowPercentageChange = (name, value) => {
+    const updatePercentage = parseFloat(value) || 0;
+
+    const updatedRowPercentage = {
+      ...rowPercentage,
+      [name]: {
+        ...rowPercentage[name],
+        percentage: updatePercentage,
+      },
+    };
+
+    updateValues(updatedRowPercentage);
+  };
+
+  const updateFreightWeight = (e) => {
+    const value = e.target.value
+    setBudgetHeader((prevBudgetHeader) => ({
+      ...prevBudgetHeader,
+      freightWeight: value,
+    }));
   };
 
   useEffect(() => {
@@ -91,23 +89,57 @@ function Calculo({}) {
     setTotalFootage(footage);
     setTotalCost(cost);
     setTotalWeight(weight);
-  }, []);
+
+    console.log(budgetHeader);
+  }, [dataRows, rowPercentage]);
+
+  const postOrcamentoData = {
+    costumerId: parseInt(budgetHeader.clientId),
+    costumerName: budgetHeader.clientName,
+    footage: parseFloat(totalFootage),
+    value: parseFloat(sellPrice),
+    city: budgetHeader.city,
+    state: budgetHeader.state,
+    freightId: null,
+    freightPrice: () => {
+      if (budgetHeader.freightPrice == undefined || budgetHeader.freightPrice == null) return 0
+      parseFloat(budgetHeader.freightPrice)
+    },
+    administration: parseFloat(rowPercentage.admin.percentage),
+    profit: parseFloat(rowPercentage.contribuicao.percentage),
+    taxes: parseFloat(rowPercentage.tributario.percentage),
+    extra: parseFloat(rowPercentage.extra.percentage),
+    slabs: dataRows.map((row) => ({
+        slabId: parseInt(row.selectedLaje.id), 
+        budgetId: parseInt(0),
+        slabsNumber: parseInt(row.data[0]), 
+        overload: parseFloat(row.data[3]),
+        length: parseFloat(row.data[4]),
+        width: parseFloat(row.data[5]), 
+    }))
+  };
+  
+
+  async function postOrcamento(data) {
+    console.log(data)
+    await apiLajes.post("/budgets", data)
+  }
 
   return (
     <div className="calculo">
       <Sidebar />
-
       <div className="content">
         <Header pageTitle="Cálculo" userName="Bruno Hunoff" />
         <div className="tables-container">
           <div className="calculo-table">
-            <h2 className="calculo-title-row">Contribuição</h2>
-
+            <h2 className="calculo-title-row">Percentuais</h2>
             <div className="calculo-table-content">
               <div className="total-row cost">
                 <span>Custo</span>
                 <span className="space"></span>
-                <span>{`R$${parseFloat(totalCost).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</span>
+                <span>{`R$${parseFloat(totalCost).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}`}</span>
               </div>
               <CalculoRow
                 rowName="Contribuição"
@@ -147,14 +179,14 @@ function Calculo({}) {
               <div className="total-row">
                 <span>Total</span>
                 <span className="total-perc">{`${totalPercentage}%`}</span>
-                <span>{`R$${parseFloat(sellPrice).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</span>
+                <span>{`R$${parseFloat(sellPrice).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}`}</span>
               </div>
             </div>
           </div>
-
           <div className="calculo-table">
             <h2 className="calculo-title-row">Resumo</h2>
-
             <div className="calculo-table-content">
               <ResumoRow
                 rowName="Área Total"
@@ -175,10 +207,29 @@ function Calculo({}) {
                   minimumFractionDigits: 2,
                 })}kg`}
               />
+              <ResumoRow
+                rowName="Nº Fretes"
+                content={`${parseFloat(totalWeight).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}kg`}
+              />
+              <div className="resumo-row">
+                <span>Kg/Frete</span>
+                <input
+                  defaultValue={budgetHeader.freightWeight}
+                  onBlur={updateFreightWeight}
+                />
+              </div>
+              <ResumoRow
+                rowName="Total Fretes"
+                content={`${parseFloat(totalWeight).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}kg`}
+              />
             </div>
           </div>
         </div>
-        <NavRow showVoltar={true} />
+        <NavRow showVoltar={true} onNext={() => postOrcamento(postOrcamentoData)}/>
       </div>
     </div>
   );

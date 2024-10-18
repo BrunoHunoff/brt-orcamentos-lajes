@@ -68,3 +68,17 @@
     color: #CB4646;
     background: #E7E2E2;
 }
+
+.resumo-row input{
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    width: 120px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2D3F51;
+}
+.resumo-row input:focus{
+    border: none;
+    outline: none;
+}

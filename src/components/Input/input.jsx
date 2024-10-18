@@ -1,7 +1,6 @@
 import React from 'react';
 import './input.css';
 
-// Usar React.forwardRef para que o componente aceite referências
 const Input = React.forwardRef((props, ref) => {
   return (
     <div className="input-container">
@@ -10,8 +9,10 @@ const Input = React.forwardRef((props, ref) => {
         type={props.inputType}
         id={props.inputId}
         placeholder={props.placeHolder}
-        ref={ref} // Passa a ref corretamente para o input
+        ref={ref} 
         style={{ width: props.width, textAlign: props.textAlign }}
+        onBlur={props.onChange}
+        defaultValue={props.value}
       />
     </div>
   );

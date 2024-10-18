@@ -5,15 +5,16 @@ import OrcamentoData from "../../components/OrcamentoData/orcamentoData";
 import NavRow from "../../components/NavRow/navRow";
 import apiLajes from "../../../services/api";
 import { useState, useEffect } from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+import { useContext } from "react";
+import { OrcamentoContext } from "../../contexts/OrcamentoContext";
+
 
 function Orcamento() {
   const [lajes, setLajes] = useState([]);
-  const [dataRows, setDataRows] = useState([
-    { id: Date.now(),
-      data: ["-", "-", "-", "-", "-", "-", "-"],
-      selectedLaje: null },
-  ]);
+  
+  const {budgetHeader, setBudgetHeader, dataRows, setDataRows} = useContext(OrcamentoContext)
 
   async function getLajes() {
     const response = await apiLajes.get("/slabs");
@@ -22,6 +23,8 @@ function Orcamento() {
 
   useEffect(() => {
     getLajes();
+    console.log(dataRows)
+    console.log(budgetHeader)
   }, []);
 
   const updateDataRows = (id, newData) => {
@@ -32,30 +35,49 @@ function Orcamento() {
         )
       );
   };
+
   const navigate = useNavigate();
 
   const handleAvancar = () => {
-    console.log("Dados salvos:", dataRows);
+    console.log(budgetHeader)
+    console.log(dataRows)
 
-    navigate("/calculo", { state: { dataRows } });
+    const requiredHeaderFields = ["clientName", "clientId", "city", "state", "freightType"]
+    const headerIsValid = requiredHeaderFields.every(field => budgetHeader[field] != null && budgetHeader[field] != "")
+
+    const rowsAreValid = dataRows.every(row => {
+      return row.selectedLaje != null && row.data.every(value => value !== "-" && value != "");
+    });
+
+    if(!headerIsValid || !rowsAreValid) return(
+      Swal.fire({
+        title: "Campos Inválidos",
+        text: "Por favor, preencha os campos para continuar!",
+        icon: "error",
+        customClass: "error-modal"
+      })
+    )
+
+    navigate("/calculo");
   };
 
   return (
-    <div className="orcamento">
-      <Sidebar />
-
-      <div className="content">
-        <Header pageTitle="Orçamento" userName="Bruno Hunoff" />
-        <OrcamentoData
-          updateDataRows={updateDataRows}
-          lajes={lajes}
-          setLajes={setLajes}
-          dataRows={dataRows}
-          setDataRows={setDataRows}
-        />
-        <NavRow showVoltar={true} onNext={handleAvancar}/>
+      <div className="orcamento">
+        <Sidebar />
+        <div className="content">
+          <Header pageTitle="Orçamento" userName="Bruno Hunoff" />
+          <OrcamentoData
+            updateBudgetHeader={setBudgetHeader}
+            budgetHeader={budgetHeader}
+            updateDataRows={updateDataRows}
+            lajes={lajes}
+            setLajes={setLajes}
+            dataRows={dataRows}
+            setDataRows={setDataRows}
+          />
+          <NavRow showVoltar={false} onNext={handleAvancar}/>
+        </div>
       </div>
-    </div>
   );
 }
 
