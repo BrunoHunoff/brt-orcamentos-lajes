@@ -1,6 +1,5 @@
 import "./calculo.css";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import Sidebar from "../../components/Sidebar/sidebar";
 import NavRow from "../../components/NavRow/navRow";
@@ -8,7 +7,6 @@ import CalculoRow from "../../components/CalculoRow/calculoRow";
 import ResumoRow from "../../components/ResumoRow/resumoRow";
 import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
-import axios from "axios";
 import apiLajes from "../../../services/api";
 
 function Calculo({}) {
@@ -97,10 +95,13 @@ function Calculo({}) {
     costumerId: parseInt(budgetHeader.clientId),
     costumerName: budgetHeader.clientName,
     footage: parseFloat(totalFootage),
-    value: parseFloat(sellPrice),
+    totalWeight: parseFloat(totalWeight),
+    cost: parseFloat(totalCost),
+    sellPrice: parseFloat(sellPrice),
     city: budgetHeader.city,
     state: budgetHeader.state,
-    freightId: null,
+    freightWeight: parseFloat(budgetHeader.freightWeight),
+    freightType: budgetHeader.freightType,
     freightPrice: () => {
       if (budgetHeader.freightPrice == undefined || budgetHeader.freightPrice == null) return 0
       parseFloat(budgetHeader.freightPrice)
