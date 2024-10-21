@@ -8,6 +8,7 @@ import ResumoRow from "../../components/ResumoRow/resumoRow";
 import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 import apiLajes from "../../../services/api";
+import Swal from "sweetalert2";
 
 function Calculo({}) {
   const {
@@ -119,15 +120,41 @@ function Calculo({}) {
         width: parseFloat(row.data[5]), 
     }))
   };
-  
-  async function updateOrcamento(data) {
-    await apiLajes.put(`/budgets/${budgetHeader.budgetId}`, data)
-  }
 
-  async function postOrcamento(data) {
-    console.log(data)
-    await apiLajes.post("/budgets", data)
+  async function salvarOrcamento(data) {
+    try {
+      let response;
+  
+      if (budgetHeader.budgetId != null && budgetHeader.budgetId != 0) {
+        response = await apiLajes.put(`/budgets/${budgetHeader.budgetId}`, data);
+        console.log(response);
+      } else {
+        response = await apiLajes.post("/budgets", data);
+        budgetHeader.budgetId = response.data.id
+        console.log("POST")
+      }
+  
+      if (response.status === 200) {
+        Swal.fire({
+          title: "Sucesso!",
+          text: response.config.method=="put" ? "Orçamento atualizado" : "Orçamento salvo",
+          icon: "success",
+          customClass: "error-modal"
+        });
+      } else {
+        throw new Error("Erro ao salvar orçamento. Status: " + response.status);
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      Swal.fire({
+        title: "Erro ao salvar orçamento",
+        text: "Entre em contato com o suporte",
+        icon: "error",
+        customClass: "error-modal"
+      });
+    }
   }
+  
 
   return (
     <div className="calculo">
@@ -233,11 +260,7 @@ function Calculo({}) {
             </div>
           </div>
         </div>
-        <NavRow showVoltar={true} onNext={() => 
-        {
-          if (budgetHeader.clientId != null && budgetHeader.budgetId != 0) updateOrcamento(orcamentoData)
-          else postOrcamento(orcamentoData)
-        }}/>
+        <NavRow showVoltar={true} onNext={() => salvarOrcamento(orcamentoData)}/>
       </div>
     </div>
   );
