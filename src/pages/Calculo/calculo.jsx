@@ -1,6 +1,5 @@
 import "./calculo.css";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import Sidebar from "../../components/Sidebar/sidebar";
 import NavRow from "../../components/NavRow/navRow";
@@ -8,8 +7,8 @@ import CalculoRow from "../../components/CalculoRow/calculoRow";
 import ResumoRow from "../../components/ResumoRow/resumoRow";
 import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
-import axios from "axios";
 import apiLajes from "../../../services/api";
+import Swal from "sweetalert2";
 
 function Calculo({}) {
   const {
@@ -93,14 +92,17 @@ function Calculo({}) {
     console.log(budgetHeader);
   }, [dataRows, rowPercentage]);
 
-  const postOrcamentoData = {
+  const orcamentoData = {
     costumerId: parseInt(budgetHeader.clientId),
     costumerName: budgetHeader.clientName,
     footage: parseFloat(totalFootage),
-    value: parseFloat(sellPrice),
+    totalWeight: parseFloat(totalWeight),
+    cost: parseFloat(totalCost),
+    sellPrice: parseFloat(sellPrice),
     city: budgetHeader.city,
     state: budgetHeader.state,
-    freightId: null,
+    freightWeight: parseFloat(budgetHeader.freightWeight),
+    freightType: budgetHeader.freightType,
     freightPrice: () => {
       if (budgetHeader.freightPrice == undefined || budgetHeader.freightPrice == null) return 0
       parseFloat(budgetHeader.freightPrice)
@@ -118,12 +120,41 @@ function Calculo({}) {
         width: parseFloat(row.data[5]), 
     }))
   };
-  
 
-  async function postOrcamento(data) {
-    console.log(data)
-    await apiLajes.post("/budgets", data)
+  async function salvarOrcamento(data) {
+    try {
+      let response;
+  
+      if (budgetHeader.budgetId != null && budgetHeader.budgetId != 0) {
+        response = await apiLajes.put(`/budgets/${budgetHeader.budgetId}`, data);
+        console.log(response);
+      } else {
+        response = await apiLajes.post("/budgets", data);
+        budgetHeader.budgetId = response.data.id
+        console.log("POST")
+      }
+  
+      if (response.status === 200) {
+        Swal.fire({
+          title: "Sucesso!",
+          text: response.config.method=="put" ? "Orçamento atualizado" : "Orçamento salvo",
+          icon: "success",
+          customClass: "error-modal"
+        });
+      } else {
+        throw new Error("Erro ao salvar orçamento. Status: " + response.status);
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      Swal.fire({
+        title: "Erro ao salvar orçamento",
+        text: "Entre em contato com o suporte",
+        icon: "error",
+        customClass: "error-modal"
+      });
+    }
   }
+  
 
   return (
     <div className="calculo">
@@ -229,7 +260,7 @@ function Calculo({}) {
             </div>
           </div>
         </div>
-        <NavRow showVoltar={true} onNext={() => postOrcamento(postOrcamentoData)}/>
+        <NavRow showVoltar={true} onNext={() => salvarOrcamento(orcamentoData)}/>
       </div>
     </div>
   );

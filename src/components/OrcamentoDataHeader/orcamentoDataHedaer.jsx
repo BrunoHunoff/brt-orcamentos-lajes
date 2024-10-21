@@ -3,37 +3,35 @@ import Input from "../Input/input";
 import "./orcamentoDataHeader.css";
 import apiLajes from "../../../services/api";
 
-function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
-
-  const [clientes, setClientes] = useState([])
-
+function OrcamentoDataHeader({ updateBudgetHeader, budgetHeader }) {
+  const [clientes, setClientes] = useState([]);
 
   async function getClientes() {
-    const request = await apiLajes.get("/costumers")
-    setClientes(request.data)
+    const request = await apiLajes.get("/costumers");
+    setClientes(request.data);
   }
 
   useEffect(() => {
     getClientes();
-  }, [])
+  }, []);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    updateBudgetHeader(prevHeader => ({
+    updateBudgetHeader((prevHeader) => ({
       ...prevHeader,
-      [id]: value
+      [id]: value,
     }));
-  }
+  };
 
   const handleChangeClient = (e) => {
     const { value } = e.target;
     const [clientId, clientName] = value.split(",");
-    updateBudgetHeader (prevHeader => ({
+    updateBudgetHeader((prevHeader) => ({
       ...prevHeader,
       clientId: clientId,
-      clientName: clientName
-    }))
-  }
+      clientName: clientName,
+    }));
+  };
 
   return (
     <div className="orcamentoDataHeader">
@@ -54,12 +52,26 @@ function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
       <div className="data-row">
         <div className="select-container">
           <label htmlFor="clientes">Cliente</label>
-          <select id="clientName" className="clientes-select" onChange={handleChangeClient} defaultValue={budgetHeader.clientName || ""}>
-            <option value='' hidden>-</option>
+          <select
+            id="clientName"
+            className="clientes-select"
+            onChange={handleChangeClient}
+            value={
+              budgetHeader.clientId
+                ? `${budgetHeader.clientId},${budgetHeader.clientName}`
+                : ""
+            }
+          >
+            <option value="" hidden>
+              -
+            </option>
             {clientes.map((cliente, index) => {
-              return <option key={index} value={[cliente.id, cliente.name]}>{cliente.name}</option>
+              return (
+                <option key={index} value={[cliente.id, cliente.name]}>
+                  {cliente.name}
+                </option>
+              );
             })}
-            
           </select>
         </div>
         <Input
@@ -69,7 +81,7 @@ function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
           inputId="city"
           width="220px"
           onChange={handleChange}
-          value = {budgetHeader.city || ""}
+          value={budgetHeader.city || ""}
         />
         <Input
           labelText="UF"
@@ -78,12 +90,19 @@ function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
           inputId="state"
           width="60px"
           onChange={handleChange}
-          value = {budgetHeader.state || ""}
+          value={budgetHeader.state || ""}
         />
         <div className="select-container">
           <label htmlFor="frete">Frete</label>
-          <select id="freightType" className="frete-select" onChange={handleChange} defaultValue={budgetHeader.freightType || ""}>
-            <option value='' hidden>-</option>
+          <select
+            id="freightType"
+            className="frete-select"
+            onChange={handleChange}
+            defaultValue={budgetHeader.freightType || ""}
+          >
+            <option value="" hidden>
+              -
+            </option>
             <option value="FOB">FOB</option>
             <option value="CIF">CIF</option>
           </select>
@@ -95,7 +114,7 @@ function OrcamentoDataHeader( {updateBudgetHeader, budgetHeader} ) {
           inputId="freightPrice"
           width="180px"
           onChange={handleChange}
-          value = {budgetHeader.freightPrice || ""}
+          value={budgetHeader.freightPrice || ""}
         />
       </div>
     </div>
