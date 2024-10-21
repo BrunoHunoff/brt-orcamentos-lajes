@@ -91,7 +91,7 @@ function Calculo({}) {
     console.log(budgetHeader);
   }, [dataRows, rowPercentage]);
 
-  const postOrcamentoData = {
+  const orcamentoData = {
     costumerId: parseInt(budgetHeader.clientId),
     costumerName: budgetHeader.clientName,
     footage: parseFloat(totalFootage),
@@ -120,6 +120,9 @@ function Calculo({}) {
     }))
   };
   
+  async function updateOrcamento(data) {
+    await apiLajes.put(`/budgets/${budgetHeader.budgetId}`, data)
+  }
 
   async function postOrcamento(data) {
     console.log(data)
@@ -230,7 +233,11 @@ function Calculo({}) {
             </div>
           </div>
         </div>
-        <NavRow showVoltar={true} onNext={() => postOrcamento(postOrcamentoData)}/>
+        <NavRow showVoltar={true} onNext={() => 
+        {
+          if (budgetHeader.clientId != null && budgetHeader.budgetId != 0) updateOrcamento(orcamentoData)
+          else postOrcamento(orcamentoData)
+        }}/>
       </div>
     </div>
   );
