@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Orcamento from '../pages/Orcamento/orcamento';
 import Clientes from '../pages/Clientes/clientes';
 import Calculo from '../pages/Calculo/calculo';
+import Proposta from '../pages/Proposta/proposta';
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,8 @@ const AppRoutes = () => {
         <Route path="/clientes" element={<Clientes />} />
 
         <Route path="/calculo" element={<Calculo />} />
+
+        <Route path='/proposta' element={<Proposta />}/>
         
         {/* Redireciona qualquer rota não existente para a Home */}
         <Route path="*" element={<Navigate to="/" />} />
