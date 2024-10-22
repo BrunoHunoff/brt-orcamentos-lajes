@@ -6,35 +6,59 @@ import NavRow from "../../components/NavRow/navRow";
 
 function Proposta() {
   const orcamentoHtml = `
-    <div style="font-family: Arial, sans-serif; color: #000; width: 1000px; padding: 10mm; font-size: 10px;">
+    <div style="margin-block: 100px;font-family: Arial, sans-serif; color: #000; width: 1000px; padding: 10mm; font-size: 10px;">
       <!-- Cabeçalho -->
-      <div style="text-align: center; font-weight: bold; font-size: 14px; margin-bottom: 10mm;">
+      <div style="text-align: center; font-weight: bold; font-size: 24px; margin-bottom: 10mm;">
           ORÇAMENTO
       </div>
-      <div style="text-align: center; font-size: 12px; margin-bottom: 8mm;">
+      <div style="text-align: center; font-size: 12px;font-weight: bold; margin-bottom: 8mm;">
           Nº 01-191-1024
       </div>
-      <div style="text-align: center; font-size: 10px; margin-bottom: 8mm;">
+      <div style="text-align: center; font-size: 12px;font-weight: bold; margin-bottom: 8mm;">
           Balsa Nova, PR - 17 de Outubro de 2024
       </div>
 
       <!-- Informações do cliente e obra -->
-      <div style="font-size: 10px; margin-bottom: 8mm;">
-          <p style="margin: 4mm 0;">À</p>
-          <p style="margin: 4mm 0;">Obra:</p>
-          <p style="margin: 4mm 0;">Pé direito: Metros</p>
-          <p style="margin: 4mm 0;">Área de Projeção: M²</p>
-          <p style="margin: 4mm 0;">Área Construída: M²</p>
+      <div style="font-size: 16px; margin-bottom: 8mm;">
+          <h3 style="margin: 4mm 0; font-size: 18px">À</h3>
+          <h3 style="margin: 4mm 0; font-size: 18px">Cliente</h3>
+          <div style-"display: flex; justify-content: space-between;">
+            <p style="margin: 4mm 0;">Cidade/Estado</p>
+            <p style="margin: 4mm 0;">CNPJ: 111.111.111/111</p>
+          </div>
       </div>
 
-      <!-- Seção de especificações -->
-      <div style="font-weight: bold; font-size: 12px; margin-bottom: 6mm;">
-          LAJE PROTENDIDA ALVEOLAR
+
+
+      <div style="display: flex; flex-direction: column; align-items: center;">
+      <div style="font-size: 16px; margin-bottom: 44px;">
+          <p style="margin-bottom: 24px">Prezados(as)</p>
+          <p style="">Conforme solicitação de V.Sa. apresentamos nossa proposta de orçamento para fornecimento de LAJE PROTENDIDA ALVEOLAR.</p>
       </div>
-      <div style="font-size: 10px; margin-bottom: 8mm;">
-          <p style="margin: 4mm 0;">Conforme solicitação de V.Sa. apresentamos nossa proposta de orçamento para fornecimento de LAJE PROTENDIDA ALVEOLAR.</p>
-          <p style="margin: 4mm 0;">Consiste no fornecimento de materiais em obediência às normas relativas ao projeto de montagem e controle de qualidade definidas pela ABNT.</p>
-      </div>
+
+      <h3 style="color:blue; font-size: 20px; width: 100%; text-align: baseline;">1 - Especificação</h3>
+
+      <p style="margin-block: 32px; font-size: 16px">Consiste no fornecimento de materiais em obediência às normas relativas ao projeto de montagem e controle de qualidade definidas pela ABNT. <br>
+      <br>Nesta proposta consideramos o fornecimento de peças para oxecução da obra com as seguintes dimensões:</p>
+
+      <table style="width: 50%%; border-collapse: collapse; margin-bottom: 10mm; font-size: 9px;">
+        <tbody style="font-size: 16px; font-weight: bold;">
+            <tr>
+                  <td style="padding: 3mm; border: 1px solid #000">Área Total .........</td>
+                  <td style="padding: 3mm; border: 1px solid #000;">400m²</td>
+          </tr>
+          <tr>
+                  <td style="padding: 3mm; border: 1px solid #000;">Peso Total ..........</td>
+                  <td style="padding: 3mm; border: 1px solid #000;">30t</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size: 16px; font-weight: bold; text-align: center">
+      Somos referencia desde 1989 em produtos PRÉ-FABRICADOS.<br><br>
+Queremos lhe atender com os melhores produtos do mercado e trazer soluções.<br><br>
+Estaremos disponíveis para ajuda-lo(a) ter a melhor opção para sua Obra.
+</p>
 
       <!-- Seção de produtos -->
       <div style="font-weight: bold; font-size: 12px; margin-bottom: 6mm;">
@@ -99,23 +123,23 @@ function Proposta() {
           <p style="font-weight: bold; font-size: 10px; margin: 4mm 0;">GESTÃO COMERCIAL</p>
       </div>
     </div>
+    </div>
   `;
-
 
   const orcamentoPdf = () => {
     const doc = new jsPDF({
       orientation: "portrait",
       unit: "mm",
-      format: "a4"
+      format: "a4",
     });
 
     return new Promise((resolve) => {
       doc.html(orcamentoHtml, {
         callback: () => {
-          resolve(doc.output('blob'));
+          resolve(doc.output("blob"));
         },
-        width: 210, 
-        windowWidth: 1080
+        width: 210,
+        windowWidth: 1080,
       });
     });
   };
@@ -138,13 +162,18 @@ function Proposta() {
       <Sidebar />
       <div className="content">
         <Header pageTitle="Proposta" userName="Bruno Hunoff" />
-        
+
         {pdfUrl ? (
-          <iframe src={pdfUrl} width="420px" height="574px" title="PDF Preview" />
+          <iframe
+            src={pdfUrl}
+            width="630px"
+            height="861px"
+            title="PDF Preview"
+          />
         ) : (
           <p>Gerando PDF...</p>
         )}
-        
+
         <NavRow showVoltar={false} />
       </div>
     </div>
