@@ -64,7 +64,7 @@ function Proposta() {
 	 </div>
 	
 	<!-- PAGINA 2 -->
-	 <div style="height: 1250px; margin-block: 120px;background: black; border: 1px solid black; flex: 0 0 auto;">
+	 <div style="height: 1150px; margin-block: 120px;background: ; border: 1px solid black; flex: 0 0 auto;">
 	 <div style="font-weight: bold; font-size: 12px; margin-bottom: 6mm;">
 		 RELAÇÃO DE PRODUTOS
 	 </div>
@@ -141,22 +141,30 @@ function Proposta() {
   
 		// Gera o PDF com o conteúdo HTML
 		doc.html(firstPage, {
-		  callback: () => {
-			  addFooters(doc, img);
-			  const pdfBlob = doc.output("blob");
-			  const pdfUrl = URL.createObjectURL(pdfBlob);
-			  setPdfUrl(pdfUrl); // Atualiza a URL do PDF
-  
-			// Revoga a URL após o componente ser desmontado
-			return () => {
-			  URL.revokeObjectURL(pdfUrl);
-			}
-		  },
-		  width: 210,
-		  windowWidth: 1080,
-		  margin: [30, 0, 0, 0]
-		});
-	  };
+			callback: () => {
+				doc.html(firstPage, {
+					callback: () => {
+						const pdfBlob = doc.output("blob");
+						const pdfUrl = URL.createObjectURL(pdfBlob);
+						setPdfUrl(pdfUrl); // Atualiza a URL do PDF
+						
+						// Revoga a URL após o componente ser desmontado
+						return () => {
+							URL.revokeObjectURL(pdfUrl);
+						}
+					},
+					width: 210,
+					windowWidth: 1080,
+					margin: [30, 0, 0, 0]
+				});
+				addFooters(doc, img);
+			},
+			width: 210,
+					windowWidth: 1080,
+					margin: [30, 0, 0, 0]
+		})
+		
+	};
   
 	  img.src = papelTimbrado; // Define a fonte da imagem
 	};
