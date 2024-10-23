@@ -11,7 +11,7 @@ function Proposta() {
 	const firstPage = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
 	 <!-- PAGINA 1 -->
-	 <div style="height: 1150px; margin-bottom: 120px; border: 1px solid black; flex: 0 0 auto;">
+	 <div style="height: 1150px; margin-bottom: 120px; flex: 0 0 auto;">
 		 <div style="text-align: center; font-weight: bold; font-size: 24px; margin-bottom: 10mm;">
 			 ORÇAMENTO
 		 </div>
@@ -64,7 +64,7 @@ function Proposta() {
 	 </div>
 	
 	<!-- PAGINA 2 -->
-	 <div style="height: 1150px; margin-block: 120px;background: ; border: 1px solid black; flex: 0 0 auto;">
+	 <div style="height: 1150px; margin-top: 120px; margin-bottom: 200px;background: ; flex: 0 0 auto;">
 	 <div style="font-weight: bold; font-size: 12px; margin-bottom: 6mm;">
 		 RELAÇÃO DE PRODUTOS
 	 </div>
@@ -135,20 +135,18 @@ function Proposta() {
   
 	  const img = imgRef.current;
   
-	  // Aguarde o carregamento da imagem
 	  img.onload = () => {
 		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
   
-		// Gera o PDF com o conteúdo HTML
 		doc.html(firstPage, {
 			callback: () => {
 				doc.html(firstPage, {
 					callback: () => {
 						const pdfBlob = doc.output("blob");
 						const pdfUrl = URL.createObjectURL(pdfBlob);
-						setPdfUrl(pdfUrl); // Atualiza a URL do PDF
+						setPdfUrl(pdfUrl);
+
 						
-						// Revoga a URL após o componente ser desmontado
 						return () => {
 							URL.revokeObjectURL(pdfUrl);
 						}
