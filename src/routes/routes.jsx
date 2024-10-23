@@ -24,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/calculo" element={<Calculo />} />
 
         <Route path='/proposta' element={<Proposta />}/>
+
         
         {/* Redireciona qualquer rota não existente para a Home */}
         <Route path="*" element={<Navigate to="/" />} />
