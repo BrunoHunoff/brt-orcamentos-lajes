@@ -8,7 +8,7 @@ import papelTimbrado from "../../assets/papelTImbrado.jpg";
 function Proposta() {
 
 	//PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
-	const orcamentoHtml = `
+	const firstPage = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
 	 <!-- PAGINA 1 -->
 	 <div style="height: 1150px; margin-bottom: 120px; border: 1px solid black; flex: 0 0 auto;">
@@ -63,8 +63,8 @@ function Proposta() {
 		 </div>
 	 </div>
 	
-	<!-- PAGINA 1 -->
-	 <div style="height: 1250px; margin-block: 120px; border: 1px solid black; flex: 0 0 auto;">
+	<!-- PAGINA 2 -->
+	 <div style="height: 1250px; margin-block: 120px;background: black; border: 1px solid black; flex: 0 0 auto;">
 	 <div style="font-weight: bold; font-size: 12px; margin-bottom: 6mm;">
 		 RELAÇÃO DE PRODUTOS
 	 </div>
@@ -123,76 +123,84 @@ function Proposta() {
 	</div>
 	`;
 
-  const imgRef = useRef(null);
-  const [pdfUrl, setPdfUrl] = useState(null);
-
-  const orcamentoPdf = () => {
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4",
-    });
-
-    const img = imgRef.current;
-
-    // Aguarde o carregamento da imagem
-    img.onload = () => {
-      // Adiciona a imagem de fundo
-      doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
-
-      // Gera o PDF
-      doc.html(orcamentoHtml, {
-        callback: () => {
-          const pdfBlob = doc.output("blob");
-          const pdfUrl = URL.createObjectURL(pdfBlob);
-          setPdfUrl(pdfUrl); // Atualiza a URL do PDF
-
-          // Revoga a URL após o componente ser desmontado
-          return () => {
-            URL.revokeObjectURL(pdfUrl);
-		  }
-        },
-        width: 210,
-        windowWidth: 1080,
-		margin: [30, 0, 0, 0]
-      });
-    };
-
-    img.src = papelTimbrado; // Defina a fonte da imagem
-  };
-
-  useEffect(() => {
-    orcamentoPdf(); // Chame a função para gerar o PDF
-  }, []);
-
-  return (
-    <div>
-      <Sidebar />
-      <div className="content">
-        <Header pageTitle="Proposta" userName="Bruno Hunoff" />
-
-        <img
-          ref={imgRef}
-          src={papelTimbrado}
-          alt="Papel Timbrado"
-          style={{ display: 'none' }}
-        />
-
-        {pdfUrl ? (
-          <iframe
-            src={pdfUrl}
-            width="630px"
-            height="861px"
-            title="PDF Preview"
-          />
-        ) : (
-          <p>Gerando PDF...</p>
-        )}
-
-        <NavRow showVoltar={false} />
-      </div>
-    </div>
-  );
-}
-
-export default Proposta;
+	const imgRef = useRef(null);
+	const [pdfUrl, setPdfUrl] = useState(null);
+  
+	const orcamentoPdf = () => {
+	  const doc = new jsPDF({
+		orientation: "portrait",
+		unit: "mm",
+		format: "a4",
+	  });
+  
+	  const img = imgRef.current;
+  
+	  // Aguarde o carregamento da imagem
+	  img.onload = () => {
+		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
+  
+		// Gera o PDF com o conteúdo HTML
+		doc.html(firstPage, {
+		  callback: () => {
+			  addFooters(doc, img);
+			  const pdfBlob = doc.output("blob");
+			  const pdfUrl = URL.createObjectURL(pdfBlob);
+			  setPdfUrl(pdfUrl); // Atualiza a URL do PDF
+  
+			// Revoga a URL após o componente ser desmontado
+			return () => {
+			  URL.revokeObjectURL(pdfUrl);
+			}
+		  },
+		  width: 210,
+		  windowWidth: 1080,
+		  margin: [30, 0, 0, 0]
+		});
+	  };
+  
+	  img.src = papelTimbrado; // Define a fonte da imagem
+	};
+  
+	function addFooters(doc, img) {
+	  const pageCount = doc.internal.getNumberOfPages();
+	  for (let i = 1; i <= pageCount; i++) {
+		doc.setPage(i); // Define a página atual
+		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height); // Adiciona a imagem de fundo
+	  }
+	}
+  
+	useEffect(() => {
+	  orcamentoPdf(); // Chama a função para gerar o PDF
+	}, []);
+  
+	return (
+	  <div>
+		<Sidebar />
+		<div className="content">
+		  <Header pageTitle="Proposta" userName="Bruno Hunoff" />
+  
+		  <img
+			ref={imgRef}
+			src={papelTimbrado}
+			alt="Papel Timbrado"
+			style={{ display: 'none' }}
+		  />
+  
+		  {pdfUrl ? (
+			<iframe
+			  src={pdfUrl}
+			  width="630px"
+			  height="861px"
+			  title="PDF Preview"
+			/>
+		  ) : (
+			<p>Gerando PDF...</p>
+		  )}
+  
+		  <NavRow showVoltar={false} />
+		</div>
+	  </div>
+	);
+  }
+  
+  export default Proposta;
