@@ -239,7 +239,10 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
   
 	  img.onload = () => {
 		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
-  
+
+		//o HTML é inserido duas vezes
+		//primeira vez: descobrir número do páginas e adiciona background
+		//segunda vez: adicionar conteúdo por cima do background
 		doc.html(firstPage, {
 			callback: () => {
 				doc.html(firstPage, {
@@ -266,19 +269,19 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 		
 	};
   
-	  img.src = papelTimbrado; // Define a fonte da imagem
+	  img.src = papelTimbrado;
 	};
   
 	function addFooters(doc, img) {
 	  const pageCount = doc.internal.getNumberOfPages();
 	  for (let i = 1; i <= pageCount; i++) {
-		doc.setPage(i); // Define a página atual
-		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height); // Adiciona a imagem de fundo
+		doc.setPage(i);
+		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
 	  }
 	}
   
 	useEffect(() => {
-	  orcamentoPdf(); // Chama a função para gerar o PDF
+	  orcamentoPdf();
 	}, []);
   
 	return (
