@@ -21,12 +21,18 @@ function Calculo({}) {
     totalPercentage,
     setTotalPercentage,
     sellPrice,
-    setSellPrice
+    setSellPrice,
+    totalFootage,
+    setTotalFootage,
+    totalCost,
+    setTotalCost,
+    totalWeight,
+    setTotalWeight,
+    pricePerMeter,
+    setPricePerMeter
   } = useContext(OrcamentoContext);
-  const [totalFootage, setTotalFootage] = useState(0);
-  const [totalCost, setTotalCost] = useState(0);
-  const [totalWeight, setTotalWeight] = useState(0);
-  const [pricePerMeter, setPricePerMeter] = useState(0);
+
+  
 
   function updateValues(rowPercentage) {
     const total = Object.values(rowPercentage).reduce(

@@ -1,13 +1,49 @@
 import jsPDF from "jspdf";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Header from "../../components/Header/header";
 import NavRow from "../../components/NavRow/navRow";
 import papelTimbrado from "../../assets/papelTImbrado.jpg";
+import apiLajes from "../../../services/api";
+import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 
 function Proposta() {
+	const {
+		budgetHeader,
+		setBudgetHeader,
+		dataRows,
+		rowPercentage,
+		setRowPercentage,
+		totalPercentage,
+		setTotalPercentage,
+		sellPrice,
+		setSellPrice,
+		totalFootage,
+		setTotalFootage,
+		totalCost,
+		setTotalCost,
+		totalWeight,
+		setTotalWeight,
+		pricePerMeter,
+		setPricePerMeter
+	  } = useContext(OrcamentoContext);
 
-	//PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
+	const [costumerData, setCostumerData] = useState({})
+
+	  const dataAtual = new Date();
+const dataFormatada = new Intl.DateTimeFormat("pt-BR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric"
+}).format(dataAtual);
+
+	
+
+	const imgRef = useRef(null);
+	const [pdfUrl, setPdfUrl] = useState(null);
+  
+	const orcamentoPdf = () => {
+		//PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
 	const firstPage = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
 	 <!-- PAGINA 1 -->
@@ -16,18 +52,18 @@ function Proposta() {
 			 ORÇAMENTO
 		 </div>
 		 <div style="text-align: center; font-size: 14px;font-weight: bold; margin-bottom: 8mm;">
-			 Nº 01-191-1024
+			${budgetHeader.budgetId}
 		 </div>
 		 <div style="text-align: center; font-size: 14px;font-weight: bold; margin-bottom: 8mm;">
-			 Balsa Nova, PR - 17 de Outubro de 2024
+			 Balsa Nova, PR - ${dataAtual}
 		 </div>
 		 <!-- Informações do cliente e obra -->
 		 <div style="font-size: 16px; margin-bottom: 48px;">
 			 <h3 style="margin: 4mm 0; font-size: 20px">Ao</h3>
-			 <h3 style="margin: 4mm 0; font-size: 20px">Cliente</h3>
+			 <h3 style="margin: 4mm 0; font-size: 20px">${costumerData.name}</h3>
 			 <div style="display: flex; justify-content: space-between;">
-				 <p style="margin: 4mm 0;">Cidade/Estado</p>
-				 <p style="margin: 4mm 0;">CNPJ: 111.111.111/111</p>
+				 <p style="margin: 4mm 0;">${costumerData.city}/${costumerData.state}</p>
+				 <p style="margin: 4mm 0;">CNPJ: ${costumerData.cnpjCpf}</p>
 			 </div>
 		 </div>
 		 <div style="display: flex; flex-direction: column; align-items: center;">
@@ -49,11 +85,11 @@ function Proposta() {
 					 </tr>
 					 <tr style="border: 1px solid #000; text-align: center;">
 						 <td style=" padding-block: 4px">Área Total ............</td>
-						 <td style=" text-align: center;">400m²</td>
+						 <td style=" text-align: center;">${totalFootage}m²</td>
 					 </tr>
 					 <tr style="border: 1px solid #000; text-align: center;">
 						 <td style="padding-block: 4px">Peso Total ............</td>
-						 <td>30t</td>
+						 <td>${totalWeight}t</td>
 					 </tr>
 				 </tbody>
 			 </table>
@@ -83,7 +119,9 @@ function Proposta() {
 		 <tbody>
 			 <tr>
 				 <td style="padding: 3mm; border: 1px solid #000;">1</td>
-				 <td style="padding: 3mm; border: 1px solid #000;">LAJE ALV. PROT. LP16 CL01 - sca 500,00kgf/m2 (Vão Max.5m) - 1,25x5m / 400m²</td>
+				 <td style="padding: 3mm; border: 1px solid #000;">
+				 	LAJE ALV. PROT. ${dataRows[0].data[2]} - sca ${dataRows[0].data[4]}kgf/m2 (Vão Max. ${dataRows[0].data[3]}m) - ${dataRows[0].data[5]}m x ${dataRows[0].data[5]}m / ${dataRows[0].data[6]}m²
+					</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">91</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">PÇ</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">R$ 64.224,89</td>
@@ -225,10 +263,6 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 	</div>
 	`;
 
-	const imgRef = useRef(null);
-	const [pdfUrl, setPdfUrl] = useState(null);
-  
-	const orcamentoPdf = () => {
 	  const doc = new jsPDF({
 		orientation: "portrait",
 		unit: "mm",
@@ -271,6 +305,12 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
   
 	  img.src = papelTimbrado;
 	};
+
+	async function getCostumerData() {
+		const respose = await apiLajes.get(`/costumers/14`);
+		console.log(respose)
+		setCostumerData(respose.data);
+	}
   
 	function addFooters(doc, img) {
 	  const pageCount = doc.internal.getNumberOfPages();
@@ -281,7 +321,9 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 	}
   
 	useEffect(() => {
-	  orcamentoPdf();
+		console.log(budgetHeader)
+		getCostumerData(budgetHeader.clientId);
+	  	orcamentoPdf();
 	}, []);
   
 	return (

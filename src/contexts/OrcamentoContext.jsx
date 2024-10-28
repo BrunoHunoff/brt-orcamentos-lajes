@@ -11,6 +11,11 @@ export const OrcamentoProvider = ({ children }) => {
     },
   ]);
 
+  const [totalFootage, setTotalFootage] = useState(0);
+  const [totalCost, setTotalCost] = useState(0);
+  const [totalWeight, setTotalWeight] = useState(0);
+  const [pricePerMeter, setPricePerMeter] = useState(0);
+
   const [budgetHeader, setBudgetHeader] = useState({
     budgetId: null,
     clientName: null,
@@ -61,7 +66,15 @@ export const OrcamentoProvider = ({ children }) => {
         totalPercentage,
         setTotalPercentage,
         sellPrice,
-        setSellPrice
+        setSellPrice,
+        totalFootage,
+        setTotalFootage,
+        totalCost,
+        setTotalCost,
+        totalWeight,
+        setTotalWeight,
+        pricePerMeter,
+        setPricePerMeter
       }}
     >
       {children}
