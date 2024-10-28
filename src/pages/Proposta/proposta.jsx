@@ -38,6 +38,22 @@ function Proposta() {
   const orcamentoPdf = () => {
 
 	const sellPriceFomated = sellPrice.toString().replace(".", ",");
+
+	const nameArticle = () => {
+		switch(costumerData.pj){
+
+			case "Masculino":
+				return ["Ao", "Sr."]
+				break
+
+			case "Feminino":
+				return ['À', "Sra."]
+				break
+
+			default:
+				return	['À', '']
+		}
+	}
     //PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
     let orcamentoHtml = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
@@ -54,8 +70,8 @@ function Proposta() {
 		 </div>
 		 <!-- Informações do cliente e obra -->
 		 <div style="font-size: 16px; margin-bottom: 48px;">
-			 <h3 style="margin: 4mm 0; font-size: 20px">Ao</h3>
-			 <h3 style="margin: 4mm 0; font-size: 20px">${costumerData.name}</h3>
+			 <h3 style="margin: 4mm 0; font-size: 20px">${nameArticle[0]}</h3>
+			 <h3 style="margin: 4mm 0; font-size: 20px">${nameArticle[1]} ${costumerData.name}</h3>
 			 <div style="display: flex; justify-content: space-between;">
 				 <p style="margin: 4mm 0;">${costumerData.city}/${costumerData.state}</p>
 				 <p style="margin: 4mm 0;">CNPJ: ${costumerData.cnpjCpf}</p>
