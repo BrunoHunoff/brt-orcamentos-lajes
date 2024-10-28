@@ -345,16 +345,18 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
   }
 
   useEffect(() => {
-    console.log(dataRows);
-    console.log(sellPrice);
-    getCostumerData(budgetHeader.clientId);
-    orcamentoPdf();
-  }, []);
+	const fetchData = async () => {
+	  await getCostumerData(budgetHeader.clientId);
+	  orcamentoPdf();
+	};
+  
+	fetchData();
+  }, [budgetHeader.clientId]);
 
   return (
     <div className="proposta">
       <Sidebar />
-      <div className="content">
+      <div className="proposta-content">
         <Header pageTitle="Proposta" userName="Bruno Hunoff" />
 
         <img
