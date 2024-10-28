@@ -35,6 +35,7 @@ function Proposta() {
   const [pdfUrl, setPdfUrl] = useState(null);
 
   const orcamentoPdf = () => {
+
     //PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
     let orcamentoHtml = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
@@ -133,9 +134,10 @@ function Proposta() {
 			
 orcamentoHtml +=`
 		 </tbody>
-	 </table>
+	 </table>`
 
-	 <div style="margin-bottom: 30px">
+	 const pdfElements = [
+		`<div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 3 - Assistência
@@ -144,8 +146,8 @@ orcamentoHtml +=`
 		A CONTRATADA oferece serviços de assessoria técnica como: Visitas In-loco, Sugestões de
 Projetos, Soluções de Aplicação das Lajes Alveolares Protendidas, entre outros.
 		</p>
-	 </div>
-
+	 </div>`,
+	 `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -157,7 +159,8 @@ elementos pré-fabricados de concreto, desde que exclusivamente em conseqüênci
 fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 		</p>
 	 </div>
-
+	 `,
+	 `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -168,7 +171,8 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 			
 		</div>
 	 </div>
-
+	 `,
+	 `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -176,24 +180,27 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 	 </h3>
 		<p style="font-weight: bold; font-size: 18px"> 10 Fretes - Curitiba/Pr (FOB) </p>
 	 </div>
-
-	 <div style="margin-bottom: 30px">
+	 `,
+	 `
+		<div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 6 - Condições de Pagamento
 	 </h3>
 		<p style="font-weight: bold; font-size: 18px"> A combinar </p>
 	 </div>
-
-	 <div style="margin-bottom: 30px">
+	 `,
+	 `
+	  <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 7 - Prazo de Entrega
 	 </h3>
 		<p style="font-weight: bold; font-size: 18px"> A combinar </p>
 	 </div>
-
-	 <div style="margin-bottom: 170px">
+	 `,
+	 `
+	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 8 - Responsabilidade Técnica
@@ -208,8 +215,9 @@ projetos e requerimentos de alvarás junto aos órgãos públicos competentes, c
 INSS, DNER, DNIT, entre os outros.
 </p>
 	 </div>
-
-	 <div style="margin-bottom: 30px">
+	 `,
+	 `
+	 <div style="margin-bottom: 270px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 9 - Serviços de responsabilidade do Contratante
@@ -227,7 +235,8 @@ INSS, DNER, DNIT, entre os outros.
 		9.4 - Aprovar Projeto Junto à Contratada.
 </p>
 	 </div>
-
+	 `,
+	 `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -237,7 +246,6 @@ INSS, DNER, DNIT, entre os outros.
       budgetHeader.city
     }/${budgetHeader.state} </p>
 	 </div>
-
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 11 - Aceite de Proposta
 	 </h3>
@@ -261,10 +269,14 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> FAVOR ENCAMINHAR ESTA PROPOSTA E COMPROVANTE DE DEPÓSITO NO EMAIL: lajes@sideralpremoldados.com.br </p>
 		
 	 </div>
+	`
+	]
+	orcamentoHtml +=`</div>`;
 
-	 
-	</div>
-	`;
+	pdfElements.forEach(element => {
+		orcamentoHtml += element
+		
+	});
 
     const doc = new jsPDF({
       orientation: "portrait",
