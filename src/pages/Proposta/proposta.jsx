@@ -7,6 +7,7 @@ import papelTimbrado from "../../assets/papelTImbrado.jpg";
 import apiLajes from "../../../services/api";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 import extenso from "extenso";
+import './proposta.css'
 
 function Proposta() {
   const {
@@ -351,7 +352,7 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
   }, []);
 
   return (
-    <div>
+    <div className="proposta">
       <Sidebar />
       <div className="content">
         <Header pageTitle="Proposta" userName="Bruno Hunoff" />
@@ -366,15 +367,17 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
         {pdfUrl ? (
           <iframe
             src={pdfUrl}
-            width="630px"
-            height="861px"
+            width="479px"
+            height="655"
             title="PDF Preview"
           />
         ) : (
           <p>Gerando PDF...</p>
         )}
 
-        <NavRow showVoltar={false} />
+        <div className="nav">
+			<NavRow showVoltar={true} />
+		</div>
       </div>
     </div>
   );
