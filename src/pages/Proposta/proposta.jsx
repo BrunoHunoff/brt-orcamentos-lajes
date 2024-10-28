@@ -36,19 +36,20 @@ function Proposta() {
 
   const orcamentoPdf = () => {
 
+	const sellPriceFomated = sellPrice.toString().replace(".", ",");
     //PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
     let orcamentoHtml = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
 	 <!-- PAGINA 1 -->
-	 <div style="height: 1150px; margin-bottom: 120px; flex: 0 0 auto;">
+	 <div style="height: 1150px; margin-bottom: 100px; flex: 0 0 auto;">
 		 <div style="text-align: center; font-weight: bold; font-size: 24px; margin-bottom: 10mm;">
 			 ORÇAMENTO
 		 </div>
-		 <div style="text-align: center; font-size: 14px;font-weight: bold; margin-bottom: 8mm;">
+		 <div style="text-align: center; font-size: 16px;font-weight: bold; margin-bottom: 8mm;">
 			${budgetHeader.budgetId}
 		 </div>
-		 <div style="text-align: center; font-size: 14px;font-weight: bold; margin-bottom: 8mm;">
-			 Balsa Nova, PR - ${dataAtual}
+		 <div style="text-align: center; font-size: 16px;font-weight: bold; margin-bottom: 8mm;">
+			 Balsa Nova, PR - ${dataFormatada}
 		 </div>
 		 <!-- Informações do cliente e obra -->
 		 <div style="font-size: 16px; margin-bottom: 48px;">
@@ -60,14 +61,14 @@ function Proposta() {
 			 </div>
 		 </div>
 		 <div style="display: flex; flex-direction: column; align-items: center;">
-			 <div style="font-size: 16px; margin-bottom: 52px;">
+			 <div style="font-size: 18px; margin-bottom: 52px;">
 				 <p style="margin-bottom: 30px">Prezados(as)</p>
 				 <p style="">Conforme solicitação de V.Sa. apresentamos nossa proposta para fornecimento de <strong>LAJE ALVEOLAR PROTENDIDA</strong>.</p>
 			 </div>
 			 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline;">
 			 1 - Especificação
 			 </h3>
-			 <p style="margin-block: 40px; font-size: 16px">Consiste no fornecimento de materiais em obediência às normas relativas ao projeto de montagem e controle de qualidade definidas pela ABNT. <br>
+			 <p style="margin-block: 40px; font-size: 18px">Consiste no fornecimento de materiais em obediência às normas relativas ao projeto de montagem e controle de qualidade definidas pela ABNT. <br>
 				 <br>Nesta proposta consideramos o fornecimento de peças para oxecução da obra com as seguintes dimensões:
 			 </p>
 			 <table style="width: 70%; border-collapse: collapse; margin-bottom: 10mm; font-size: 9px;">
@@ -86,7 +87,7 @@ function Proposta() {
 					 </tr>
 				 </tbody>
 			 </table>
-			 <p style="font-size: 16px; font-weight: bold; text-align: center; margin-block: 32px;">
+			 <p style="font-size: 18px; font-weight: bold; text-align: center; margin-block: 32px;">
 				 Somos referencia desde 1989 em produtos PRÉ-FABRICADOS.<br><br>
 				 Queremos lhe atender com os melhores produtos do mercado e trazer soluções.<br><br>
 				 Estaremos disponíveis para ajuda-lo(a) ter a melhor opção para sua Obra.
@@ -101,43 +102,36 @@ function Proposta() {
 	 </h3>
 	 <table style="width: 100%; border-collapse: collapse; margin-bottom: 10mm; font-size: 18px;">
 		 <thead>
-			 <tr>
-				 <th style="text-align: left; padding: 3mm; border: 1px solid #000;">Item</th>
-				 <th style="text-align: left; padding: 3mm; border: 1px solid #000;">Descrição</th>
-				 <th style="text-align: right; padding: 3mm; border: 1px solid #000;">Qtd.</th>
-				 <th style="text-align: right; padding: 3mm; border: 1px solid #000;">Uni.</th>
-				 <th style="text-align: right; padding: 3mm; border: 1px solid #000;">Valor</th>
+			 <tr style="background: rgba(217, 217, 217, 1)">
+				 <th style="text-align: center; padding: 3mm; border: 1px solid #000;">Item</th>
+				 <th style="text-align: center; padding: 3mm; border: 1px solid #000;">Descrição</th>
+				 <th style="text-align: center; padding: 3mm; border: 1px solid #000;">Qtd.</th>
+				 <th style="text-align: center; padding: 3mm; border: 1px solid #000;">Uni.</th>
+				 <th style="text-align: center; padding: 3mm; border: 1px solid #000;">Valor</th>
 			 </tr>
 		 </thead>
 		 <tbody>
-		 	`
-			dataRows.forEach(row => {
-				orcamentoHtml += 
-				`
-			 <tr>
-				 <td style="padding: 3mm; border: 1px solid #000;">${row.data[0]}</td>
-				 <td style="padding: 3mm; border: 1px solid #000;">
-				 	LAJE ALV. PROT. ${row.data[2]} - sca ${
-      row.data[4]
-    }kgf/m2 (Vão Max. ${row.data[3]}m) - ${row.data[5]}m x ${
-      row.data[5]
-    }m / ${row.data[6]}m²
+		 	`;
+    dataRows.forEach((row) => {
+      orcamentoHtml += `
+			 <tr style="text-align: center">
+				 <td style="padding-block: 3mm;border: 1px solid #000;">${row.data[0]}</td>
+				 <td style="padding-block: 3mm;border: 1px solid #000;">
+				 	LAJE ALV. PROT. ${row.data[2]} - sca ${row.data[4]}kgf/m2 (Vão Max. ${row.data[3]}m) - ${row.data[5]}m x ${row.data[5]}m / ${row.data[6]}m²
 					</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">${
-           row.data[1]
-         }</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">PÇ</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">R$ 64.224,89</td>
+				 <td style="padding-block: 3mm;border: 1px solid #000;">${row.data[1]}</td>
+				 <td style="padding-block: 3mm;border: 1px solid #000;">PÇ</td>
+				 <td style="padding-block: 3mm;border: 1px solid #000;">R$ 64.224,89</td>
 			 </tr>
-			 `
-			});
-			
-orcamentoHtml +=`
-		 </tbody>
-	 </table>`
+			 `;
+    });
 
-	 const pdfElements = [
-		`<div style="margin-bottom: 30px">
+    orcamentoHtml += `
+		 </tbody>
+	 </table>`;
+
+    const pdfElements = [
+      `<div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 3 - Assistência
@@ -147,7 +141,7 @@ orcamentoHtml +=`
 Projetos, Soluções de Aplicação das Lajes Alveolares Protendidas, entre outros.
 		</p>
 	 </div>`,
-	 `
+      `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -160,28 +154,35 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 		</p>
 	 </div>
 	 `,
-	 `
+      `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 5.1 - Valor Total Lajes
 	 </h3>
-		<div style="border: 1px solid black; padding: 12px; display: flex; gap: 24px; font-size: 22px; font-weight: bold;">
-			<span>R$${sellPrice}</span>
-			
+		<div style="background: rgba(242, 242, 242, 1);border: 1px solid black; padding: 12px; display: flex; gap: 24px; font-size: 22px; font-weight: bold;">
+			<span>R$${sellPriceFomated}</span>
+			<span>${extenso(sellPriceFomated, {
+				mode: "currency"
+			}
+      ).toUpperCase()}</span>
 		</div>
 	 </div>
 	 `,
-	 `
+      `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 5.2 - Valor Total Frete
 	 </h3>
-		<p style="font-weight: bold; font-size: 18px"> 10 Fretes - Curitiba/Pr (FOB) </p>
+		<p style="font-weight: bold; font-size: 18px"> ${
+      totalWeight / budgetHeader.freightWeight
+    } Fretes - ${budgetHeader.city}/${budgetHeader.state} (${
+        budgetHeader.freightType
+      }) </p>
 	 </div>
 	 `,
-	 `
+      `
 		<div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -190,7 +191,7 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 		<p style="font-weight: bold; font-size: 18px"> A combinar </p>
 	 </div>
 	 `,
-	 `
+      `
 	  <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -199,7 +200,7 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 		<p style="font-weight: bold; font-size: 18px"> A combinar </p>
 	 </div>
 	 `,
-	 `
+      `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -216,8 +217,8 @@ INSS, DNER, DNIT, entre os outros.
 </p>
 	 </div>
 	 `,
-	 `
-	 <div style="margin-bottom: 270px">
+      `
+	 <div style="margin-bottom: 300px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 9 - Serviços de responsabilidade do Contratante
@@ -236,15 +237,13 @@ INSS, DNER, DNIT, entre os outros.
 </p>
 	 </div>
 	 `,
-	 `
+      `
 	 <div style="margin-bottom: 30px">
 	 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 10 - Local da Obra
 	 </h3>
-		<p style="font-weight: bold; font-size: 18px"> Obra a ser realizada no município de ${
-      budgetHeader.city
-    }/${budgetHeader.state} </p>
+		<p style="font-weight: bold; font-size: 18px"> Obra a ser realizada no município de ${budgetHeader.city}/${budgetHeader.state} </p>
 	 </div>
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 11 - Aceite de Proposta
@@ -259,9 +258,7 @@ INSS, DNER, DNIT, entre os outros.
 		</div>
 		</div>
 
-		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> Transformo em Ordem de Compra este Documento nº: ${
-      budgetHeader.budgetId
-    } </p>
+		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> Transformo em Ordem de Compra este Documento nº: ${budgetHeader.budgetId} </p>
 
 		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> O inicio ao procedimento interno de implantação de pedido e elaboração do projeto se
 dá a partir do aceite desta proposta e liberação do crédito. </p>
@@ -269,14 +266,13 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> FAVOR ENCAMINHAR ESTA PROPOSTA E COMPROVANTE DE DEPÓSITO NO EMAIL: lajes@sideralpremoldados.com.br </p>
 		
 	 </div>
-	`
-	]
-	orcamentoHtml +=`</div>`;
+	`,
+    ];
+    orcamentoHtml += `</div>`;
 
-	pdfElements.forEach(element => {
-		orcamentoHtml += element
-		
-	});
+    pdfElements.forEach((element) => {
+      orcamentoHtml += element;
+    });
 
     const doc = new jsPDF({
       orientation: "portrait",
@@ -349,6 +345,7 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 
   useEffect(() => {
     console.log(dataRows);
+    console.log(sellPrice);
     getCostumerData(budgetHeader.clientId);
     orcamentoPdf();
   }, []);
