@@ -36,7 +36,7 @@ function Proposta() {
 
   const orcamentoPdf = () => {
     //PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
-    const firstPage = `
+    let orcamentoHtml = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
 	 <!-- PAGINA 1 -->
 	 <div style="height: 1150px; margin-bottom: 120px; flex: 0 0 auto;">
@@ -109,21 +109,29 @@ function Proposta() {
 			 </tr>
 		 </thead>
 		 <tbody>
+		 	`
+			dataRows.forEach(row => {
+				orcamentoHtml += 
+				`
 			 <tr>
-				 <td style="padding: 3mm; border: 1px solid #000;">1</td>
+				 <td style="padding: 3mm; border: 1px solid #000;">${row.data[0]}</td>
 				 <td style="padding: 3mm; border: 1px solid #000;">
-				 	LAJE ALV. PROT. ${dataRows[0].data[2]} - sca ${
-      dataRows[0].data[4]
-    }kgf/m2 (Vão Max. ${dataRows[0].data[3]}m) - ${dataRows[0].data[5]}m x ${
-      dataRows[0].data[5]
-    }m / ${dataRows[0].data[6]}m²
+				 	LAJE ALV. PROT. ${row.data[2]} - sca ${
+      row.data[4]
+    }kgf/m2 (Vão Max. ${row.data[3]}m) - ${row.data[5]}m x ${
+      row.data[5]
+    }m / ${row.data[6]}m²
 					</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">${
-           dataRows[0].data[1]
+           row.data[1]
          }</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">PÇ</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">R$ 64.224,89</td>
 			 </tr>
+			 `
+			});
+			
+orcamentoHtml +=`
 		 </tbody>
 	 </table>
 
@@ -157,10 +165,7 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 	 </h3>
 		<div style="border: 1px solid black; padding: 12px; display: flex; gap: 24px; font-size: 22px; font-weight: bold;">
 			<span>R$${sellPrice}</span>
-			<span>${extenso(parseFloat(sellPrice), {
-        mode: "currency",
-        currency: { type: "BRL" },
-      }).toUpperCase()}</span>
+			
 		</div>
 	 </div>
 
@@ -282,9 +287,9 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
       //o HTML é inserido duas vezes
       //primeira vez: descobrir número do páginas e adiciona background
       //segunda vez: adicionar conteúdo por cima do background
-      doc.html(firstPage, {
+      doc.html(orcamentoHtml, {
         callback: () => {
-          doc.html(firstPage, {
+          doc.html(orcamentoHtml, {
             callback: () => {
               const pdfBlob = doc.output("blob");
               const pdfUrl = URL.createObjectURL(pdfBlob);
