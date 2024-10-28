@@ -19,11 +19,11 @@ function Proposta() {
     totalFootage,
 
     totalWeight,
-
-    pricePerMeter,
   } = useContext(OrcamentoContext);
 
   const [costumerData, setCostumerData] = useState({});
+
+  const [nameArticle, setNameArticle] = useState([])
 
   const dataAtual = new Date();
   const dataFormatada = new Intl.DateTimeFormat("pt-BR", {
@@ -37,19 +37,8 @@ function Proposta() {
 
   const orcamentoPdf = () => {
     const sellPriceFomated = sellPrice.toString().replace(".", ",");
+    console.log(`costumer data: ${costumerData}`);
 
-    const nameArticle = () => {
-      switch (costumerData.pj) {
-        case "Masculino":
-          return ["Ao", "Sr."];
-
-        case "Feminino":
-          return ["À", "Sra."];
-
-        default:
-          return ["À", ""];
-      }
-    };
     //PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
     let orcamentoHtml = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
@@ -334,12 +323,6 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
     img.src = papelTimbrado;
   };
 
-  async function getCostumerData() {
-    const respose = await apiLajes.get(`/costumers/${budgetHeader.clientId}`);
-    console.log(respose);
-    setCostumerData(respose.data);
-  }
-
   function addFooters(doc, img) {
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
@@ -355,14 +338,47 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
     }
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getCostumerData(budgetHeader.clientId);
-      orcamentoPdf();
-    };
+  async function getCostumerData() {
+    respose = await apiLajes.get(`/costumers/${budgetHeader.clientId}`);
+    setCostumerData(respose.data);
+  }
 
-    fetchData();
+  async function getCostumerData() {
+    try {
+      const response = await apiLajes.get(
+        `/costumers/${budgetHeader.clientId}`
+      );
+      setCostumerData(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar dados do cliente:", error);
+    }
+  }
+
+  function findOutArticle () {
+		switch (costumerData.pj) {
+		  case "Masculino":
+			setNameArticle(["Ao", "Sr."]);
+  
+		  case "Feminino":
+			setNameArticle(["À", "Sra."]);
+  
+		  default:
+			setNameArticle(["À", ""]);
+		}
+  }
+
+  useEffect(() => {
+    // Chama getCostumerData quando o componente é montado
+    getCostumerData();
   }, [budgetHeader.clientId]);
+
+  useEffect(() => {
+    // Chama orcamentoPdf apenas após costumerData ser atualizado
+    if (costumerData) {
+      orcamentoPdf();
+	  findOutArticle();
+    }
+  }, [costumerData]);
 
   return (
     <div className="proposta">
