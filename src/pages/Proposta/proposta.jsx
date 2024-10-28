@@ -9,42 +9,34 @@ import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 import extenso from "extenso";
 
 function Proposta() {
-	const {
-		budgetHeader,
-		setBudgetHeader,
-		dataRows,
-		rowPercentage,
-		setRowPercentage,
-		totalPercentage,
-		setTotalPercentage,
-		sellPrice,
-		setSellPrice,
-		totalFootage,
-		setTotalFootage,
-		totalCost,
-		setTotalCost,
-		totalWeight,
-		setTotalWeight,
-		pricePerMeter,
-		setPricePerMeter
-	  } = useContext(OrcamentoContext);
+  const {
+    budgetHeader,
+    dataRows,
 
-	const [costumerData, setCostumerData] = useState({})
+    sellPrice,
 
-	  const dataAtual = new Date();
-const dataFormatada = new Intl.DateTimeFormat("pt-BR", {
-  day: "numeric",
-  month: "long",
-  year: "numeric"
-}).format(dataAtual);	
+    totalFootage,
 
-	const imgRef = useRef(null);
-	const [pdfUrl, setPdfUrl] = useState(null);
-  
-	const orcamentoPdf = () => {
+    totalWeight,
 
-		//PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
-	const firstPage = `
+    pricePerMeter,
+  } = useContext(OrcamentoContext);
+
+  const [costumerData, setCostumerData] = useState({});
+
+  const dataAtual = new Date();
+  const dataFormatada = new Intl.DateTimeFormat("pt-BR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(dataAtual);
+
+  const imgRef = useRef(null);
+  const [pdfUrl, setPdfUrl] = useState(null);
+
+  const orcamentoPdf = () => {
+    //PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
+    const firstPage = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
 	 <!-- PAGINA 1 -->
 	 <div style="height: 1150px; margin-bottom: 120px; flex: 0 0 auto;">
@@ -120,9 +112,15 @@ const dataFormatada = new Intl.DateTimeFormat("pt-BR", {
 			 <tr>
 				 <td style="padding: 3mm; border: 1px solid #000;">1</td>
 				 <td style="padding: 3mm; border: 1px solid #000;">
-				 	LAJE ALV. PROT. ${dataRows[0].data[2]} - sca ${dataRows[0].data[4]}kgf/m2 (Vão Max. ${dataRows[0].data[3]}m) - ${dataRows[0].data[5]}m x ${dataRows[0].data[5]}m / ${dataRows[0].data[6]}m²
+				 	LAJE ALV. PROT. ${dataRows[0].data[2]} - sca ${
+      dataRows[0].data[4]
+    }kgf/m2 (Vão Max. ${dataRows[0].data[3]}m) - ${dataRows[0].data[5]}m x ${
+      dataRows[0].data[5]
+    }m / ${dataRows[0].data[6]}m²
 					</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">${dataRows[0].data[1]}</td>
+				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">${
+           dataRows[0].data[1]
+         }</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">PÇ</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">R$ 64.224,89</td>
 			 </tr>
@@ -159,7 +157,10 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 	 </h3>
 		<div style="border: 1px solid black; padding: 12px; display: flex; gap: 24px; font-size: 22px; font-weight: bold;">
 			<span>R$${sellPrice}</span>
-			<span>${extenso(parseFloat(sellPrice), {mode: "currency", currency: {type: 'BRL'} } ).toUpperCase()}</span>
+			<span>${extenso(parseFloat(sellPrice), {
+        mode: "currency",
+        currency: { type: "BRL" },
+      }).toUpperCase()}</span>
 		</div>
 	 </div>
 
@@ -227,7 +228,9 @@ INSS, DNER, DNIT, entre os outros.
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
 	 10 - Local da Obra
 	 </h3>
-		<p style="font-weight: bold; font-size: 18px"> Obra a ser realizada no município de Curitiba/PR </p>
+		<p style="font-weight: bold; font-size: 18px"> Obra a ser realizada no município de ${
+      budgetHeader.city
+    }/${budgetHeader.state} </p>
 	 </div>
 
 	 <h3 style="color:blue; font-size: 24px; width: 100%; text-align: baseline; margin-bottom: 24px">
@@ -243,7 +246,9 @@ INSS, DNER, DNIT, entre os outros.
 		</div>
 		</div>
 
-		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> Transformo em Ordem de Compra este Documento nº: 01-182-1024 </p>
+		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> Transformo em Ordem de Compra este Documento nº: ${
+      budgetHeader.budgetId
+    } </p>
 
 		<p style="font-weight: bold; font-size: 18px; margin-bottom: 24px;"> O inicio ao procedimento interno de implantação de pedido e elaboração do projeto se
 dá a partir do aceite desta proposta e liberação do crédito. </p>
@@ -256,97 +261,109 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 	</div>
 	`;
 
-	  const doc = new jsPDF({
-		orientation: "portrait",
-		unit: "mm",
-		format: "a4",
-	  });
-  
-	  const img = imgRef.current;
-  
-	  img.onload = () => {
-		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+    });
 
-		//o HTML é inserido duas vezes
-		//primeira vez: descobrir número do páginas e adiciona background
-		//segunda vez: adicionar conteúdo por cima do background
-		doc.html(firstPage, {
-			callback: () => {
-				doc.html(firstPage, {
-					callback: () => {
-						const pdfBlob = doc.output("blob");
-						const pdfUrl = URL.createObjectURL(pdfBlob);
-						setPdfUrl(pdfUrl);
+    const img = imgRef.current;
 
-						
-						return () => {
-							URL.revokeObjectURL(pdfUrl);
-						}
-					},
-					width: 210,
-					windowWidth: 1080,
-					margin: [30, 0, 0, 0]
-				});
-				addFooters(doc, img);
-			},
-			width: 210,
-					windowWidth: 1080,
-					margin: [30, 0, 0, 0]
-		})
-		
-	};
-  
-	  img.src = papelTimbrado;
-	};
+    img.onload = () => {
+      doc.addImage(
+        img,
+        "JPEG",
+        0,
+        0,
+        doc.internal.pageSize.width,
+        doc.internal.pageSize.height
+      );
 
-	async function getCostumerData() {
-		const respose = await apiLajes.get(`/costumers/${budgetHeader.clientId}`);
-		console.log(respose)
-		setCostumerData(respose.data);
-	}
-  
-	function addFooters(doc, img) {
-	  const pageCount = doc.internal.getNumberOfPages();
-	  for (let i = 1; i <= pageCount; i++) {
-		doc.setPage(i);
-		doc.addImage(img, "JPEG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
-	  }
-	}
-  
-	useEffect(() => {
-		console.log(dataRows)
-		getCostumerData(budgetHeader.clientId);
-	  	orcamentoPdf();
-	}, []);
-  
-	return (
-	  <div>
-		<Sidebar />
-		<div className="content">
-		  <Header pageTitle="Proposta" userName="Bruno Hunoff" />
-  
-		  <img
-			ref={imgRef}
-			src={papelTimbrado}
-			alt="Papel Timbrado"
-			style={{ display: 'none' }}
-		  />
-  
-		  {pdfUrl ? (
-			<iframe
-			  src={pdfUrl}
-			  width="630px"
-			  height="861px"
-			  title="PDF Preview"
-			/>
-		  ) : (
-			<p>Gerando PDF...</p>
-		  )}
-  
-		  <NavRow showVoltar={false} />
-		</div>
-	  </div>
-	);
+      //o HTML é inserido duas vezes
+      //primeira vez: descobrir número do páginas e adiciona background
+      //segunda vez: adicionar conteúdo por cima do background
+      doc.html(firstPage, {
+        callback: () => {
+          doc.html(firstPage, {
+            callback: () => {
+              const pdfBlob = doc.output("blob");
+              const pdfUrl = URL.createObjectURL(pdfBlob);
+              setPdfUrl(pdfUrl);
+
+              return () => {
+                URL.revokeObjectURL(pdfUrl);
+              };
+            },
+            width: 210,
+            windowWidth: 1080,
+            margin: [30, 0, 0, 0],
+          });
+          addFooters(doc, img);
+        },
+        width: 210,
+        windowWidth: 1080,
+        margin: [30, 0, 0, 0],
+      });
+    };
+
+    img.src = papelTimbrado;
+  };
+
+  async function getCostumerData() {
+    const respose = await apiLajes.get(`/costumers/${budgetHeader.clientId}`);
+    console.log(respose);
+    setCostumerData(respose.data);
   }
-  
-  export default Proposta;
+
+  function addFooters(doc, img) {
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.addImage(
+        img,
+        "JPEG",
+        0,
+        0,
+        doc.internal.pageSize.width,
+        doc.internal.pageSize.height
+      );
+    }
+  }
+
+  useEffect(() => {
+    console.log(dataRows);
+    getCostumerData(budgetHeader.clientId);
+    orcamentoPdf();
+  }, []);
+
+  return (
+    <div>
+      <Sidebar />
+      <div className="content">
+        <Header pageTitle="Proposta" userName="Bruno Hunoff" />
+
+        <img
+          ref={imgRef}
+          src={papelTimbrado}
+          alt="Papel Timbrado"
+          style={{ display: "none" }}
+        />
+
+        {pdfUrl ? (
+          <iframe
+            src={pdfUrl}
+            width="630px"
+            height="861px"
+            title="PDF Preview"
+          />
+        ) : (
+          <p>Gerando PDF...</p>
+        )}
+
+        <NavRow showVoltar={false} />
+      </div>
+    </div>
+  );
+}
+
+export default Proposta;
