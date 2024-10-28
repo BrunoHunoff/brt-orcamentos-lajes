@@ -7,7 +7,7 @@ import papelTimbrado from "../../assets/papelTImbrado.jpg";
 import apiLajes from "../../../services/api";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 import extenso from "extenso";
-import './proposta.css'
+import "./proposta.css";
 
 function Proposta() {
   const {
@@ -36,24 +36,20 @@ function Proposta() {
   const [pdfUrl, setPdfUrl] = useState(null);
 
   const orcamentoPdf = () => {
+    const sellPriceFomated = sellPrice.toString().replace(".", ",");
 
-	const sellPriceFomated = sellPrice.toString().replace(".", ",");
+    const nameArticle = () => {
+      switch (costumerData.pj) {
+        case "Masculino":
+          return ["Ao", "Sr."];
 
-	const nameArticle = () => {
-		switch(costumerData.pj){
+        case "Feminino":
+          return ["À", "Sra."];
 
-			case "Masculino":
-				return ["Ao", "Sr."]
-				break
-
-			case "Feminino":
-				return ['À', "Sra."]
-				break
-
-			default:
-				return	['À', '']
-		}
-	}
+        default:
+          return ["À", ""];
+      }
+    };
     //PROPRIEDADE HEIGHT DA PRIMEIRA DIV RESOLVE PROBLEMA DE SOBREPOR O BACKGROUND
     let orcamentoHtml = `
 	<div style="font-family: Arial, sans-serif; color: #000; width: 1000px;height: 100px;background: none; padding: 10mm; font-size: 16px; display: flex; flex-direction: column;">
@@ -180,9 +176,8 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 		<div style="background: rgba(242, 242, 242, 1);border: 1px solid black; padding: 12px; display: flex; gap: 24px; font-size: 22px; font-weight: bold;">
 			<span>R$${sellPriceFomated}</span>
 			<span>${extenso(sellPriceFomated, {
-				mode: "currency"
-			}
-      ).toUpperCase()}</span>
+        mode: "currency",
+      }).toUpperCase()}</span>
 		</div>
 	 </div>
 	 `,
@@ -361,12 +356,12 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
   }
 
   useEffect(() => {
-	const fetchData = async () => {
-	  await getCostumerData(budgetHeader.clientId);
-	  orcamentoPdf();
-	};
-  
-	fetchData();
+    const fetchData = async () => {
+      await getCostumerData(budgetHeader.clientId);
+      orcamentoPdf();
+    };
+
+    fetchData();
   }, [budgetHeader.clientId]);
 
   return (
@@ -383,19 +378,14 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
         />
 
         {pdfUrl ? (
-          <iframe
-            src={pdfUrl}
-            width="479px"
-            height="655"
-            title="PDF Preview"
-          />
+          <iframe src={pdfUrl} width="479px" height="655" title="PDF Preview" />
         ) : (
           <p>Gerando PDF...</p>
         )}
 
         <div className="nav">
-			<NavRow showVoltar={true} />
-		</div>
+          <NavRow showVoltar={true} />
+        </div>
       </div>
     </div>
   );
