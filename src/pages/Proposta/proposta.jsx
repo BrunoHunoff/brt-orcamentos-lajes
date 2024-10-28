@@ -37,6 +37,69 @@ const dataFormatada = new Intl.DateTimeFormat("pt-BR", {
   year: "numeric"
 }).format(dataAtual);
 
+function numeroPorExtenso(valor) {
+    const unidades = ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"];
+    const especiais = ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"];
+    const dezenas = ["", "", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"];
+    const centenas = ["", "cem", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"];
+
+    function converteCentena(numero) {
+        let texto = "";
+
+        if (numero.length === 3) {
+            texto += numero[0] === "1" && numero[1] === "0" && numero[2] === "0" ? "cem" : centenas[parseInt(numero[0])];
+            numero = numero.slice(1);
+            if (numero[0] !== "0" || numero[1] !== "0") texto += " e ";
+        }
+
+        if (numero.length === 2) {
+            if (numero[0] === "1") {
+                return texto + especiais[parseInt(numero[1])];
+            } else {
+                texto += dezenas[parseInt(numero[0])];
+                numero = numero.slice(1);
+                if (numero[0] !== "0") texto += " e ";
+            }
+        }
+
+        if (numero.length === 1) {
+            texto += unidades[parseInt(numero[0])];
+        }
+
+        return texto;
+    }
+
+    function converteParteCompleta(numero) {
+        let texto = "";
+        const partes = [
+            { divisor: 1_000_000, singular: "milhão", plural: "milhões" },
+            { divisor: 1_000, singular: "mil", plural: "mil" },
+            { divisor: 1, singular: "real", plural: "reais" }
+        ];
+
+        partes.forEach((parte, index) => {
+            const valorParte = Math.floor(numero / parte.divisor);
+            if (valorParte > 0) {
+                texto += `${converteCentena(String(valorParte))} ${valorParte === 1 ? parte.singular : parte.plural}`;
+                numero %= parte.divisor;
+                if (numero > 0) texto += " e ";
+            }
+        });
+
+        return texto || "zero reais";
+    }
+
+    function converteReaisECentavos(valor) {
+        let [reais, centavos] = valor.toFixed(2).split(".");
+        let reaisTexto = converteParteCompleta(parseInt(reais));
+        let centavosTexto = centavos !== "00" ? `${converteCentena(centavos)} ${parseInt(centavos) === 1 ? "centavo" : "centavos"}` : "";
+
+        if (reaisTexto && centavosTexto) return `${reaisTexto} e ${centavosTexto}`;
+        return reaisTexto || centavosTexto || "zero reais";
+    }
+
+    return converteReaisECentavos(valor);
+}
 	
 
 	const imgRef = useRef(null);
@@ -122,16 +185,9 @@ const dataFormatada = new Intl.DateTimeFormat("pt-BR", {
 				 <td style="padding: 3mm; border: 1px solid #000;">
 				 	LAJE ALV. PROT. ${dataRows[0].data[2]} - sca ${dataRows[0].data[4]}kgf/m2 (Vão Max. ${dataRows[0].data[3]}m) - ${dataRows[0].data[5]}m x ${dataRows[0].data[5]}m / ${dataRows[0].data[6]}m²
 					</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">91</td>
+				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">${dataRows[0].data[1]}</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">PÇ</td>
 				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">R$ 64.224,89</td>
-			 </tr>
-			 <tr>
-				 <td style="padding: 3mm; border: 1px solid #000;">2</td>
-				 <td style="padding: 3mm; border: 1px solid #000;">LAJE ALV. PROT. LP16 CL01 - sca 500,00kgf/m2 (Vão Max.1,85m) - 1,25x1,85m / 9,25m²</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">4</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">PÇ</td>
-				 <td style="padding: 3mm; text-align: right; border: 1px solid #000;">R$ 90.707,36</td>
 			 </tr>
 		 </tbody>
 	 </table>
@@ -165,8 +221,8 @@ fabricação com base no projeto aprovado pelo CONTRATANTE e CONTRATADA.
 	 5.1 - Valor Total Lajes
 	 </h3>
 		<div style="border: 1px solid black; padding: 12px; display: flex; gap: 24px; font-size: 22px; font-weight: bold;">
-			<span>R$100.000,00</span>
-			<span>Cem mil Reais</span>
+			<span>${sellPrice}</span>
+			<span>${numeroPorExtenso(sellPrice)}</span>
 		</div>
 	 </div>
 
@@ -307,7 +363,7 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 	};
 
 	async function getCostumerData() {
-		const respose = await apiLajes.get(`/costumers/14`);
+		const respose = await apiLajes.get(`/costumers/${budgetHeader.clientId}`);
 		console.log(respose)
 		setCostumerData(respose.data);
 	}
@@ -321,7 +377,7 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
 	}
   
 	useEffect(() => {
-		console.log(budgetHeader)
+		console.log(dataRows)
 		getCostumerData(budgetHeader.clientId);
 	  	orcamentoPdf();
 	}, []);
