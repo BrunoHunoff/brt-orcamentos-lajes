@@ -1,7 +1,7 @@
 .nav-row-container {
     display: flex;
-    justify-content: flex-end; /* Alinha os itens à direita */
-    align-items: center; /* Alinha os itens verticalmente ao centro */
+    justify-content: flex-end;
+    align-items: center;
     margin-inline: 64px;
     gap: 16px;
 }

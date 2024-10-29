@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import LinkBtn from "../LinkBtn/LinkBtn";
 import "./NavRow.css";
 import { useState, useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
@@ -10,8 +9,6 @@ function NavRow({ showVoltar, onNext, showAvancar, showSalvar }) {
 
   const resetState = useContext(OrcamentoContext)
 
-  const [goHome, setGoHome] = useState(false);
-
   const handleVoltar = () => {
     navigate(-1);
   };
@@ -19,8 +16,6 @@ function NavRow({ showVoltar, onNext, showAvancar, showSalvar }) {
   const handleAvancar = () => {
     onNext();
   };
-
-  
 
   const handleCancelar = () => {
 

@@ -2,23 +2,21 @@ import jsPDF from "jspdf";
 import { useState, useEffect, useRef, useContext } from "react";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Header from "../../components/Header/header";
-import NavRow from "../../components/NavRow/navRow";
 import papelTimbrado from "../../assets/papelTImbrado.jpg";
 import apiLajes from "../../../services/api";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 import extenso from "extenso";
 import "./proposta.css";
+import { useNavigate } from "react-router-dom";
 
 function Proposta() {
   const {
     budgetHeader,
     dataRows,
-
     sellPrice,
-
     totalFootage,
-
     totalWeight,
+	resetState
   } = useContext(OrcamentoContext);
 
   const [costumerData, setCostumerData] = useState({});
@@ -318,6 +316,7 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
         windowWidth: 1080,
         margin: [30, 0, 0, 0],
       });
+
     };
 
     img.src = papelTimbrado;
@@ -380,11 +379,31 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
     }
   }, [costumerData]);
 
+  const navigate = useNavigate()
+
+  function handleVoltar() {
+	resetState()
+	navigate('/')
+  }
+
+  function handleEditar() {
+	navigate('orcamento')
+  }
+
+  function handleGerarPdf() {
+	if (pdfUrl) {
+		const link = document.createElement('a');
+		link.href = pdfUrl; 
+		link.download = `orcamento_${budgetHeader.budgetId}_${budgetHeader.className}.pdf` 
+		link.click(); 
+	}
+  }
+
   return (
     <div className="proposta">
       <Sidebar />
+    	<Header pageTitle="Proposta" userName="Bruno Hunoff" />
       <div className="proposta-content">
-        <Header pageTitle="Proposta" userName="Bruno Hunoff" />
 
         <img
           ref={imgRef}
@@ -394,14 +413,24 @@ dá a partir do aceite desta proposta e liberação do crédito. </p>
         />
 
         {pdfUrl ? (
-          <iframe src={pdfUrl} width="479px" height="655" title="PDF Preview" />
+          <iframe className="iframe-pdf" src={pdfUrl} width="500px" height="700" title="PDF Preview" />
         ) : (
           <p>Gerando PDF...</p>
         )}
 
-        <div className="nav">
-          <NavRow showVoltar={true} />
-        </div>
+		<div className="pdf-nav">
+			<button onClick={handleGerarPdf} className="pdf-btn gerar">
+				Gerar Pdf
+			</button>
+
+			<button onClick={handleEditar} className="pdf-btn editar">
+				Editar
+			</button>
+
+			<button onClick={handleVoltar} className="pdf-btn voltar">
+				Voltar
+			</button>
+		</div>
       </div>
     </div>
   );
