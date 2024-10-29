@@ -1,13 +1,29 @@
-
+import { useNavigate } from "react-router-dom";
 import DeleteIcon from "../Icons/DeleteIcon";
 import EditIcon from "../Icons/Edit";
 import FileIcon from "../Icons/FileIcon";
 import "./tableRow.css";
 
+
 function TableRow( { onDelete, data, onEdit }) {
+
+  const rowData = [
+    data.id,
+    data.costumerName,
+    data.footage,
+    `${data.city}/${data.state}`
+  ];
+
+  const navigate = useNavigate()
+
+  function onEdit() {
+
+    navigate(`/orcamento/${rowData[0]}`)
+  }
+
   return (
     <tr className="table-row">
-      {data.map ((item, index) => {
+      {rowData.map ((item, index) => {
         return <td key={index} className="table-data">{item}</td>
       })}
        

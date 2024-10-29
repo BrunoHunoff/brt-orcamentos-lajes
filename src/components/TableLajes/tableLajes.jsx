@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import TableBtn from "../TableBtn/tableBtn";
 import TableDateSelector from "../TableDateSelector/tableDateSelector";
 import TableFilter from "../TableFilter/tableFilter";
@@ -6,7 +5,7 @@ import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
 
-function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, onEditClick }) {
+function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete }) {
 
   return (
     <div className="table-container">
@@ -36,10 +35,9 @@ function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, on
             {data.map((budget, index) => {
               return (
                 <TableRow
-                  key={index}
+                  key={budget.id}
                   data={budget}
                   onDelete={() => onDelete(index)}
-                  onEdit={() => onEditClick(budget[0], budget)}
                 />
               );
             })}

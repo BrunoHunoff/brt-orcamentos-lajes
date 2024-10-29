@@ -15,7 +15,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         
         {/* Outra rota para a página About */}
-        <Route path="/orcamento" element={<Orcamento />} />
+        <Route path="/orcamento/:id?" element={<Orcamento />} />
 
         <Route path="/orcamentos" element={<Home />} />
 

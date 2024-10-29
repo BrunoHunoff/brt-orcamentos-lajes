@@ -5,7 +5,7 @@ import OrcamentoData from "../../components/OrcamentoData/orcamentoData";
 import NavRow from "../../components/NavRow/navRow";
 import apiLajes from "../../../services/api";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
@@ -14,7 +14,60 @@ import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 function Orcamento() {
   const [lajes, setLajes] = useState([]);
   
-  const {budgetHeader, setBudgetHeader, dataRows, setDataRows} = useContext(OrcamentoContext)
+  const {dataRows,
+    setDataRows,
+    budgetHeader,
+    setBudgetHeader,
+    setRowPercentage,
+    } = useContext(OrcamentoContext)
+
+  const {id} = useParams()
+
+  async function getData(id) {
+    const response = await apiLajes.get(`/budgets/${id}`);
+    const requestData = response.data;
+
+    console.log(requestData)
+
+    // Mapeando dados para `budgetHeader`
+    const newBudgetHeader = {
+      budgetId: requestData.id,
+      clientName: requestData.costumerName,
+      clientId: requestData.costumerId,
+      city: requestData.city,
+      state: requestData.state,
+      freightType: requestData.freightType,
+      freightPrice: requestData.freightPrice,
+      freightWeight: requestData.freightWeight,
+    };
+    setBudgetHeader(newBudgetHeader);
+
+    // Mapeando dados para `dataRows`
+    const newDataRows = requestData.slabs.map((slab) => ({
+      id: slab.id,
+      data: [
+        slab.id,
+        slab.slabsNumber,
+        slab.slabId,
+        slab.length,
+        slab.overload,
+        slab.width,
+        slab.length,
+      ],
+      selectedLaje: slab.slabId,
+    }));
+    setDataRows(newDataRows);
+
+    // Mapeando dados para `rowPercentage`
+    const newRowPercentage = {
+      contribuicao: { percentage: requestData.profit || 0, value: 0 },
+      comissao: { percentage: 0, value: 0 },
+      admin: { percentage: requestData.administration || 0, value: 0 },
+      tributario: { percentage: requestData.taxes || 0, value: 0 },
+      extra: { percentage: requestData.extra || 0, value: 0 },
+    };
+    setRowPercentage(newRowPercentage);
+  }
 
   async function getLajes() {
     const response = await apiLajes.get("/slabs");
@@ -23,8 +76,7 @@ function Orcamento() {
 
   useEffect(() => {
     getLajes();
-    console.log(dataRows)
-    console.log(budgetHeader)
+    if(id) getData(id)
   }, []);
 
   const updateDataRows = (id, newData) => {
