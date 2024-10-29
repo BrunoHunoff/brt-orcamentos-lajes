@@ -73,7 +73,7 @@ function Orcamento() {
             dataRows={dataRows}
             setDataRows={setDataRows}
           />
-          <NavRow showVoltar={false} onNext={handleAvancar}/>
+          <NavRow showVoltar={false} showAvancar={true} onNext={handleAvancar}/>
         </div>
       </div>
   );
