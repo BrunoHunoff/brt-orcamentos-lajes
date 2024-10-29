@@ -5,14 +5,23 @@ import FileIcon from "../Icons/FileIcon";
 import "./tableRow.css";
 
 
-function TableRow( { onDelete, data, onEdit }) {
+function TableRow( { onDelete, data, onEdit, isCostumer }) {
 
-  const rowData = [
-    data.id,
-    data.costumerName,
-    data.footage,
-    `${data.city}/${data.state}`
-  ];
+  const rowData = isCostumer
+    ? [
+        data.id,
+        data.name,
+        `${data.city}/${data.state}`,
+        data.cnpjCpf,
+      ]
+    : [
+        data.id,
+        data.costumerName,
+        data.footage,
+        `${data.city}/${data.state}`,
+      ];
+
+  console.log(data)
 
   const navigate = useNavigate()
 

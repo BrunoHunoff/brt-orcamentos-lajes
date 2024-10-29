@@ -5,7 +5,7 @@ import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
 
-function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete }) {
+function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, isCostumer }) {
 
   return (
     <div className="table-container">
@@ -38,6 +38,7 @@ function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete }) 
                   key={budget.id}
                   data={budget}
                   onDelete={() => onDelete(index)}
+                  isCostumer={isCostumer}
                 />
               );
             })}

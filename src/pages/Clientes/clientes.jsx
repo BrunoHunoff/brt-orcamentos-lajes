@@ -63,12 +63,9 @@ function Clientes() {
 
   async function getCostumers() {
     const request = await apiLajes.get('/costumers');
-    const formattedData = request.data.map(costumer => [
-      costumer.id,
-      costumer.name,
-      `${costumer.city}/${costumer.state}`,
-      costumer.cnpjCpf
-  ]);
+    const formattedData = request.data
+    /*
+  ]);*/
 
   setCostumers(formattedData);
   }
@@ -126,7 +123,8 @@ function Clientes() {
                     filterName='Cliente'
                     headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']}
                     data={costumers}
-                    onDelete={deleteItem}/>
+                    onDelete={deleteItem}
+                    isCostumer={true}/>
       </div>
     </div>
   );
