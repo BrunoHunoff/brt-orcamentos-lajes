@@ -272,7 +272,7 @@ function Calculo({}) {
             </div>
           </div>
         </div>
-        <NavRow showVoltar={true} onNext={() => salvarOrcamento(orcamentoData)}/>
+        <NavRow showVoltar={true} showSalvar={true} onNext={() => salvarOrcamento(orcamentoData)}/>
       </div>
     </div>
   );
