@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 import apiLajes from "../../../services/api";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function Calculo({}) {
   const {
@@ -20,12 +21,18 @@ function Calculo({}) {
     totalPercentage,
     setTotalPercentage,
     sellPrice,
-    setSellPrice
+    setSellPrice,
+    totalFootage,
+    setTotalFootage,
+    totalCost,
+    setTotalCost,
+    totalWeight,
+    setTotalWeight,
+    pricePerMeter,
+    setPricePerMeter
   } = useContext(OrcamentoContext);
-  const [totalFootage, setTotalFootage] = useState(0);
-  const [totalCost, setTotalCost] = useState(0);
-  const [totalWeight, setTotalWeight] = useState(0);
-  const [pricePerMeter, setPricePerMeter] = useState(0);
+
+  
 
   function updateValues(rowPercentage) {
     const total = Object.values(rowPercentage).reduce(
@@ -121,6 +128,8 @@ function Calculo({}) {
     }))
   };
 
+  const navigate = useNavigate();
+
   async function salvarOrcamento(data) {
     try {
       let response;
@@ -141,6 +150,9 @@ function Calculo({}) {
           icon: "success",
           customClass: "error-modal"
         });
+
+        navigate("/proposta")
+        
       } else {
         throw new Error("Erro ao salvar orçamento. Status: " + response.status);
       }

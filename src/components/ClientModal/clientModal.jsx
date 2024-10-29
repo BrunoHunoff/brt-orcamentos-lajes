@@ -21,6 +21,7 @@ const ClientModal = ({ isOpen, onClose, onAdd, data, onEdit }) => {
   useEffect(() => {
     if (data) {
       inputName.current.value = data[1];
+      inputType.current.value = data[2];
       inputCnpj.current.value = data[3];
       inputCep.current.value = data[4];
       inputCity.current.value = data[5];
@@ -35,7 +36,7 @@ const ClientModal = ({ isOpen, onClose, onAdd, data, onEdit }) => {
   function createCostumer() {
     const costumer = [
       inputName.current.value, 
-      true, 
+      inputType.current.value, 
       inputType.current.value, 
       inputCep.current.value, 
       inputCity.current.value, 
