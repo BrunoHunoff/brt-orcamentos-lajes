@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 function NavRow({ showVoltar, onNext, showAvancar, showSalvar }) {
   const navigate = useNavigate();
 
-  const resetState = useContext(OrcamentoContext)
+  const {resetState} = useContext(OrcamentoContext)
 
   const handleVoltar = () => {
     navigate(-1);
@@ -28,13 +28,10 @@ function NavRow({ showVoltar, onNext, showAvancar, showSalvar }) {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         navigate('/')
+        resetState()
       }
     });
 
-
-    resetState();
-
-    navigate('/')
   }
 
   return (
