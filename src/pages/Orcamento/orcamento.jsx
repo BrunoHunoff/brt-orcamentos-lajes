@@ -14,7 +14,8 @@ import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 function Orcamento() {
   const [lajes, setLajes] = useState([]);
   
-  const {dataRows,
+  const {
+    dataRows,
     setDataRows,
     budgetHeader,
     setBudgetHeader,
@@ -27,9 +28,6 @@ function Orcamento() {
     const response = await apiLajes.get(`/budgets/${id}`);
     const requestData = response.data;
 
-    console.log(requestData)
-
-    // Mapeando dados para `budgetHeader`
     const newBudgetHeader = {
       budgetId: requestData.id,
       clientName: requestData.costumerName,
@@ -42,23 +40,22 @@ function Orcamento() {
     };
     setBudgetHeader(newBudgetHeader);
 
-    // Mapeando dados para `dataRows`
     const newDataRows = requestData.slabs.map((slab) => ({
       id: slab.id,
       data: [
         slab.id,
         slab.slabsNumber,
-        0,
+        (lajes.find(l => l.id === slab.slabId)).name,
         slab.length,
         slab.overload,
         slab.width,
         slab.length,
       ],
-      selectedLaje: slab.slabId,
+      selectedLaje: lajes.find(l => l.id === slab.slabId),
     }));
+
     setDataRows(newDataRows);
 
-    // Mapeando dados para `rowPercentage`
     const newRowPercentage = {
       contribuicao: { percentage: requestData.profit || 0, value: 0 },
       comissao: { percentage: 0, value: 0 },
@@ -67,7 +64,8 @@ function Orcamento() {
       extra: { percentage: requestData.extra || 0, value: 0 },
     };
     setRowPercentage(newRowPercentage);
-  }
+
+  }  
 
   async function getLajes() {
     const response = await apiLajes.get("/slabs");
@@ -76,8 +74,11 @@ function Orcamento() {
 
   useEffect(() => {
     getLajes();
-    if(id) getData(id)
   }, []);
+
+  useEffect(() => {
+    if(id) getData(id)
+  }, [lajes])
 
   const updateDataRows = (id, newData) => {
     

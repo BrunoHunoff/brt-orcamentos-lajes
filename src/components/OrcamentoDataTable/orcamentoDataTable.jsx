@@ -33,6 +33,8 @@ function OrcamentoDataTable({ onDelete, tableName, lajes, setLajes, dataRows, se
     setDataRows((prevDataRows) => prevDataRows.filter((item) => item.id !== id));
   };
 
+  console.log(dataRows)
+
 
   return (
     <div className="orcamentoDataTable">
