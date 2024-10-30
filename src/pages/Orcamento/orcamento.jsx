@@ -48,7 +48,7 @@ function Orcamento() {
       data: [
         slab.id,
         slab.slabsNumber,
-        slab.slabId,
+        0,
         slab.length,
         slab.overload,
         slab.width,

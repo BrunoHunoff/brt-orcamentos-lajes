@@ -22,7 +22,7 @@ function Home() {
   }
 
   const deleteIten = (index) => {
-    const budgetId = budgets[index][0];
+    const budgetId = budgets[index].id;
     deleteBudget(budgetId);
     setBudgets(prevBudgets => prevBudgets.filter((_, i) => i !== index));
   };

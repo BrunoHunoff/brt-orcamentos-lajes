@@ -6,6 +6,22 @@ function OrcamentoDataRow({ items, classname, onDelete, lajes, updateDataRows, n
   const [data, setData] = useState(items.map(item => item === "-" ? "" : item));
   const [selectedLaje, setSelectedLaje] = useState(newSelectedLaje[0] || null);
 
+  function findSelectedLaje() {
+    if (newSelectedLaje && newSelectedLaje[0]) {
+      const laje = lajes.find(l => l.id === newSelectedLaje[0]);
+      setSelectedLaje(laje);
+      if (laje) {
+        setData(prevData => {
+          const newData = [...prevData];
+          newData[2] = laje.name;
+          return newData;
+        });
+      }
+    }
+  }
+
+  console.log(data)
+
   const handleChange = (index, value) => {
     const newData = [...data];
     newData[index] = value;
@@ -19,6 +35,10 @@ function OrcamentoDataRow({ items, classname, onDelete, lajes, updateDataRows, n
       updateDataRows({ id: items[0], data: newData, selectedLaje }); //mantém selected laje atual
     }
   };
+
+  useEffect(() => {
+    findSelectedLaje();
+  }, [newSelectedLaje]);
 
   return (
     <div className={`row ${classname}`}>

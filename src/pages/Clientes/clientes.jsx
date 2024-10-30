@@ -98,7 +98,7 @@ function Clientes() {
   }
 
   const deleteItem = (index) => {
-    const costumerId = costumers[index][0];
+    const costumerId = costumers[index].id;
     deleteCostumer(costumerId);
     setCostumers(prevCostumers => prevCostumers.filter((_, i) => i !== index));
   };

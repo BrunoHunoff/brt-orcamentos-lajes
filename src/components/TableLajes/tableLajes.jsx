@@ -33,6 +33,7 @@ function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, is
           </thead>
           <tbody className="table-body">
             {data.map((budget, index) => {
+              console.log(index)
               return (
                 <TableRow
                   key={budget.id}
