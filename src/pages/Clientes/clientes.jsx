@@ -47,28 +47,20 @@ function Clientes() {
 
     const editCostumer = response.data;
 
-      setCostumers((prevCostumers) => 
+      setCostumers((prevCostumers) =>
         prevCostumers.map((costumer) =>
-          costumer[0] == id
-          ? [
-            editCostumer.id,
-            editCostumer.name,
-            `${editCostumer.city}/${editCostumer.state}`,
-            editCostumer.cnpjCpf
-          ]
+          costumer.id == id
+          ? editCostumer
           : costumer
         )
       );
+
   }
 
   async function getCostumers() {
     const request = await apiLajes.get('/costumers');
-    const formattedData = request.data.map(costumer => [
-      costumer.id,
-      costumer.name,
-      `${costumer.city}/${costumer.state}`,
-      costumer.cnpjCpf
-  ]);
+    console.log(request)
+    const formattedData = request.data
 
   setCostumers(formattedData);
   }
@@ -78,7 +70,7 @@ function Clientes() {
   }
 
   async function addCostumer(data) {
-    console.log(data)
+
     const response = await apiLajes.post('/costumers', {
       name: data[0],
       pj:data[1],
@@ -92,16 +84,17 @@ function Clientes() {
       phoneNumber:data[9]
     }
     )
+
     const newCostumer = response.data;
 
       setCostumers(prevCostumers => [
         ...prevCostumers,
-        [newCostumer.id, newCostumer.name, `${newCostumer.city}/${newCostumer.state}`, newCostumer.cnpjCpf]
+        newCostumer
       ]);
   }
 
   const deleteItem = (index) => {
-    const costumerId = costumers[index][0];
+    const costumerId = costumers[index].id;
     deleteCostumer(costumerId);
     setCostumers(prevCostumers => prevCostumers.filter((_, i) => i !== index));
   };
@@ -113,7 +106,11 @@ function Clientes() {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => 
+    {
+    setModalOpen(false);
+    setModalData([null,null,null,null,null,null,null,null,null,null,null])
+  };
 
   return (
     <div className='home'>
@@ -126,7 +123,8 @@ function Clientes() {
                     filterName='Cliente'
                     headerItens={['ID', 'Nome', 'Cidade/UF', 'CPF/CNPJ']}
                     data={costumers}
-                    onDelete={deleteItem}/>
+                    onDelete={deleteItem}
+                    isCostumer={true}/>
       </div>
     </div>
   );

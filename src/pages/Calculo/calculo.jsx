@@ -122,8 +122,8 @@ function Calculo({}) {
         slabId: parseInt(row.selectedLaje.id), 
         budgetId: parseInt(0),
         slabsNumber: parseInt(row.data[0]), 
-        overload: parseFloat(row.data[3]),
-        length: parseFloat(row.data[4]),
+        overload: parseFloat(row.data[4]),
+        length: parseFloat(row.data[3]),
         width: parseFloat(row.data[5]), 
     }))
   };

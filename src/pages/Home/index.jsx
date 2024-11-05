@@ -10,12 +10,10 @@ function Home() {
 
   async function getBudgets() {
     const request = await apiLajes.get('/budgets');
-    const formattedData = request.data.map(budget => [
-      budget.id,
-      budget.costumerName,
-      budget.footage,
-      `${budget.city}/${budget.state}`
-    ]);
+
+    
+    const formattedData = request.data;
+
     setBudgets(formattedData);
   }
 
@@ -24,7 +22,7 @@ function Home() {
   }
 
   const deleteIten = (index) => {
-    const budgetId = budgets[index][0];
+    const budgetId = budgets[index].id;
     deleteBudget(budgetId);
     setBudgets(prevBudgets => prevBudgets.filter((_, i) => i !== index));
   };
