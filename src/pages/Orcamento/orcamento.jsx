@@ -84,7 +84,7 @@ function Orcamento() {
     
       setDataRows((prevDataRows) =>
         prevDataRows.map((item) =>
-          item.id === id ? { ...item, data: newData.data, selectedLaje: newData.selectedLaje } : item
+          item.id === id ? { ...item, data: newData.data, selectedLaje: newData.selectedLaje } : item``
         )
       );
   };

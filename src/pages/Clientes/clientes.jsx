@@ -63,9 +63,8 @@ function Clientes() {
 
   async function getCostumers() {
     const request = await apiLajes.get('/costumers');
+    console.log(request)
     const formattedData = request.data
-    /*
-  ]);*/
 
   setCostumers(formattedData);
   }
@@ -75,7 +74,9 @@ function Clientes() {
   }
 
   async function addCostumer(data) {
+
     console.log(data)
+
     const response = await apiLajes.post('/costumers', {
       name: data[0],
       pj:data[1],
@@ -89,11 +90,16 @@ function Clientes() {
       phoneNumber:data[9]
     }
     )
+
+    console.log(costumers)
+
     const newCostumer = response.data;
+
+    console.log(newCostumer)
 
       setCostumers(prevCostumers => [
         ...prevCostumers,
-        [newCostumer.id, newCostumer.name, `${newCostumer.city}/${newCostumer.state}`, newCostumer.cnpjCpf]
+        newCostumer
       ]);
   }
 

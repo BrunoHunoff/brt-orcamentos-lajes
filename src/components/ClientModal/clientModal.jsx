@@ -37,9 +37,9 @@ const ClientModal = ({ isOpen, onClose, onAdd, data, onEdit }) => {
     const costumer = [
       inputName.current.value, 
       inputType.current.value, 
-      inputType.current.value, 
+      inputCnpj.current.value, 
       inputCep.current.value, 
-      inputCity.current.value, 
+      inputCity.current.value,
       inputState.current.value, 
       inputAddress.current.value, 
       parseInt(inputAddressNumber.current.value),
