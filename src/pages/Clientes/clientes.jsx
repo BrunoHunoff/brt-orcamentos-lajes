@@ -47,18 +47,14 @@ function Clientes() {
 
     const editCostumer = response.data;
 
-      setCostumers((prevCostumers) => 
+      setCostumers((prevCostumers) =>
         prevCostumers.map((costumer) =>
-          costumer[0] == id
-          ? [
-            editCostumer.id,
-            editCostumer.name,
-            `${editCostumer.city}/${editCostumer.state}`,
-            editCostumer.cnpjCpf
-          ]
+          costumer.id == id
+          ? editCostumer
           : costumer
         )
       );
+
   }
 
   async function getCostumers() {
@@ -75,8 +71,6 @@ function Clientes() {
 
   async function addCostumer(data) {
 
-    console.log(data)
-
     const response = await apiLajes.post('/costumers', {
       name: data[0],
       pj:data[1],
@@ -91,11 +85,7 @@ function Clientes() {
     }
     )
 
-    console.log(costumers)
-
     const newCostumer = response.data;
-
-    console.log(newCostumer)
 
       setCostumers(prevCostumers => [
         ...prevCostumers,
@@ -116,7 +106,11 @@ function Clientes() {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => 
+    {
+    setModalOpen(false);
+    setModalData([null,null,null,null,null,null,null,null,null,null,null])
+  };
 
   return (
     <div className='home'>

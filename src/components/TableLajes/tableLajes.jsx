@@ -5,7 +5,7 @@ import TableRow from "../TableRow/tableRow";
 import "./tableLajes.css";
 
 
-function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, isCostumer }) {
+function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, isCostumer, onEditClick }) {
 
   return (
     <div className="table-container">
@@ -32,14 +32,15 @@ function TableLajes({ headerItens, filterName, onButtonClick, data, onDelete, is
             </tr>
           </thead>
           <tbody className="table-body">
-            {data.map((budget, index) => {
-              console.log(index)
+            {data.map((item, index) => {
+              console.log(item)
               return (
                 <TableRow
-                  key={budget.id}
-                  data={budget}
+                  key={item.id}
+                  data={item}
                   onDelete={() => onDelete(index)}
                   isCostumer={isCostumer}
+                  onEditClient={onEditClick}
                 />
               );
             })}

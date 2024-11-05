@@ -4,7 +4,7 @@ import EditIcon from "../Icons/Edit";
 import FileIcon from "../Icons/FileIcon";
 import "./tableRow.css";
 
-function TableRow({ onDelete, data, onEdit, isCostumer }) {
+function TableRow({ onDelete, data, onEditClient, isCostumer }) {
   const rowData = isCostumer
     ? [data.id, data.name, `${data.city}/${data.state}`, data.cnpjCpf]
     : [data.id, data.costumerName, data.footage, `${data.city}/${data.state}`];
@@ -12,7 +12,9 @@ function TableRow({ onDelete, data, onEdit, isCostumer }) {
   const navigate = useNavigate();
 
   function onEdit() {
-    navigate(`/orcamento/${rowData[0]}`);
+    isCostumer
+    ? onEditClient(rowData[0])
+    : navigate(`/orcamento/${rowData[0]}`);
   }
 
   return (
