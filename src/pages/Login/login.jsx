@@ -7,8 +7,8 @@ import apiLajes from "../../../services/api";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('');
   const [declined, setDeclined] = useState(false)
 
     const navigate = useNavigate();
@@ -28,13 +28,10 @@ function Login() {
 
   async function login() {
     try {
-      const response = await apiLajes.post("/login", {
+      await apiLajes.post("/login", {
         email: email,
         password: password,
       });
-
-      const token = response.data.token
-      console.log(token)
 
       navigate('/home')
 
@@ -69,7 +66,7 @@ function Login() {
             <img src={lockImg} alt="" className="lock-img" />
             <input
               type="password"
-              id="pawword"
+              id="password"
               placeholder="SENHA"
               value={password}
               onChange={handlePassword}
@@ -77,8 +74,8 @@ function Login() {
           </div>
 
             {declined && <div className="login-error">
-                <span>Registro não encontrado em nossa base <br /></span>
-                <span>Verifique e-mail e senha</span>
+                <span>Credenciais inválidas<br /></span>
+                <span>Por favor, verifique e-mail e senha</span>
             </div>
 }
 
