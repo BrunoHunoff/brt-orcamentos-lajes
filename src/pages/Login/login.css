@@ -10,7 +10,7 @@
     flex-direction: column;
     gap: 32px;
     align-items: center;
-    margin-top: 25vh;
+    margin-top: 20vh;
 }
 
 .logo-img{
@@ -79,4 +79,15 @@
     background: none;
     font-size: 18px;
     margin-left: 8px;
+}
+
+.login-error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--error-color);
+    background: var(--light-red);
+    padding: 12px 4px;
+    border-radius: 20px;
+    border: 1px solid var(--error-color);
 }

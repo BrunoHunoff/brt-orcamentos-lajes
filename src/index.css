@@ -12,7 +12,8 @@
   --secondary-color: #717A84;
   --row-color: #A4A7AB;
   --input-color: #FFFAFA;
-  --cancel-color: #CB4646;
+  --error-color: #CB4646;
+  --light-red: #f9bbbb;
   --custom-gradient: linear-gradient(180deg, #717A84 -40%, #40505F 30%, #2C3E50 75%);
 }
 
