@@ -3,7 +3,7 @@ import Sidebar from "../../components/Sidebar/sidebar";
 import Header from "../../components/Header/header";
 import OrcamentoData from "../../components/OrcamentoData/orcamentoData";
 import NavRow from "../../components/NavRow/navRow";
-import apiLajes from "../../../services/api";
+import { useApiLajes } from '../../../services/api';
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from "sweetalert2";
@@ -13,6 +13,7 @@ import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 
 function Orcamento() {
   const [lajes, setLajes] = useState([]);
+  const apiLajes = useApiLajes();
   
   const {
     dataRows,

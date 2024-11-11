@@ -3,10 +3,11 @@ import './index.css'
 import Sidebar from '../../components/Sidebar/sidebar'
 import Header from '../../components/Header/header'
 import TableLajes from '../../components/TableLajes/tableLajes'
-import apiLajes from "../../../services/api";
+import { useApiLajes } from '../../../services/api';
 
 function Home() {
   const [budgets, setBudgets] = useState([]);
+  const apiLajes = useApiLajes();
 
   async function getBudgets() {
     const request = await apiLajes.get('/budgets');
