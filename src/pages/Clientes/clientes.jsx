@@ -3,13 +3,15 @@ import Sidebar from '../../components/Sidebar/sidebar'
 import Header from '../../components/Header/header'
 import TableLajes from '../../components/TableLajes/tableLajes'
 import ClientModal from '../../components/ClientModal/clientModal'
-import apiLajes from '../../../services/api'
+import { useApiLajes } from '../../../services/api';
 import { useState, useEffect } from 'react';
 
 function Clientes() {
 
   const [modalData, setModalData] = useState(null);
   const [costumers, setCostumers] = useState([]);
+
+  const apiLajes = useApiLajes();
 
   async function modalEditCostumer(id) {
     const request = await apiLajes.get(`costumers/${id}`);

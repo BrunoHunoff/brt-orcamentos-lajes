@@ -6,6 +6,17 @@
 
 }
 
+:root {
+  --light-color: #E7E2E2;
+  --dark-color: #2D3F51;
+  --secondary-color: #717A84;
+  --row-color: #A4A7AB;
+  --input-color: #FFFAFA;
+  --error-color: #CB4646;
+  --light-red: #f9bbbb;
+  --custom-gradient: linear-gradient(180deg, #717A84 -40%, #40505F 30%, #2C3E50 75%);
+}
+
 button {
   border: none;
   background: none;
@@ -16,3 +27,5 @@ button {
 table, th, td{
   border: none;
 }
+
+

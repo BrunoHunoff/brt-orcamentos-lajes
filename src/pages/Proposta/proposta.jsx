@@ -3,13 +3,14 @@ import { useState, useEffect, useRef, useContext } from "react";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Header from "../../components/Header/header";
 import papelTimbrado from "../../assets/papelTImbrado.jpg";
-import apiLajes from "../../../services/api";
+import { useApiLajes } from '../../../services/api';
 import { OrcamentoContext } from "../../contexts/OrcamentoContext";
 import extenso from "extenso";
 import "./proposta.css";
 import { useNavigate } from "react-router-dom";
 
 function Proposta() {
+	const apiLajes = useApiLajes();
   const {
     budgetHeader,
     dataRows,

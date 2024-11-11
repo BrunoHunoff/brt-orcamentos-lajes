@@ -6,15 +6,17 @@ import Orcamento from '../pages/Orcamento/orcamento';
 import Clientes from '../pages/Clientes/clientes';
 import Calculo from '../pages/Calculo/calculo';
 import Proposta from '../pages/Proposta/proposta';
+import Login from '../pages/Login/login';
+import Error from '../pages/Erro/error';
 
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-        {/* Rota inicial para a página Home */}
         <Route path="/" element={<Home />} />
+
+        <Route path='/login' element={<Login/>} />
         
-        {/* Outra rota para a página About */}
         <Route path="/orcamento/:id?" element={<Orcamento />} />
 
         <Route path="/orcamentos" element={<Home />} />
@@ -25,6 +27,7 @@ const AppRoutes = () => {
 
         <Route path='/proposta' element={<Proposta />}/>
 
+        <Route path='/error' element={<Error />}/>
         
         {/* Redireciona qualquer rota não existente para a Home */}
         <Route path="*" element={<Navigate to="/" />} />
