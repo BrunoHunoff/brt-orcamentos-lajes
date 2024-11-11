@@ -7,6 +7,7 @@ import Clientes from '../pages/Clientes/clientes';
 import Calculo from '../pages/Calculo/calculo';
 import Proposta from '../pages/Proposta/proposta';
 import Login from '../pages/Login/login';
+import Error from '../pages/Erro/error';
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,8 @@ const AppRoutes = () => {
         <Route path="/calculo" element={<Calculo />} />
 
         <Route path='/proposta' element={<Proposta />}/>
+
+        <Route path='/error' element={<Error />}/>
         
         {/* Redireciona qualquer rota não existente para a Home */}
         <Route path="*" element={<Navigate to="/" />} />
